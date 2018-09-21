@@ -154,7 +154,7 @@ define(['jquery', './EpubLibrary', './EpubReader', 'readium_shared_js/helpers', 
         var func = _initialLoad ? replaceState : pushState;
         func(
             {epubs: libraryURL},
-            "Readium Library",
+            "RECA",
             urlState
         );
         
