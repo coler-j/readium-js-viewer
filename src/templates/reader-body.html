@@ -2,16 +2,33 @@
     <div class="nav">
         <a href="/" id="home" tabindex="1" type="button" class="btn icon-home" title="" aria-label="Home" data-original-title="Home"></a>
         <button id="tocButt" tabindex="1" type="button" class="btn icon-toc" title="{{strings.toc}} [{{keyboard.TocShowHideToggle}}]" aria-label="{{strings.toc}} [{{keyboard.TocShowHideToggle}}]" accesskey="{{keyboard.accesskeys.TocShowHideToggle}}"></button>
-        <button id="btnBookmarkSite" type="button" class="btn btn-default icon icon-bookmark"></button>
+        <button id="btnBookmark" tabindex="1" type="button" class="btn icon-bookmark" title="{{strings.bookmark}}" aria-label="{{strings.bookmark}}"></button>
         <button id="btnDownload" tabindex="1" type="button" class="btn icon-download" title="{{strings.download}}" aria-label="{{strings.download}}"></button>
         <button id="settbutt1" tabindex="1" type="button" class="btn icon-settings" data-toggle="modal" data-target="#settings-dialog" title="{{strings.settings}} [{{keyboard.ShowSettingsModal}}]" aria-label="{{strings.settings}} [{{keyboard.ShowSettingsModal}}]" accesskey="{{keyboard.accesskeys.ShowSettingsModal}}"></button>
+        <button type="button" class="close" id="btnCloseSidebar">
+          <span aria-hidden="true">&times;</span>
+        </button>
     </div>
     <div>
         <!-- TOC -->
-        <div id="readium-toc-body" aria-label="{{strings.toc}}" role="navigation"></div>
+        <div  class="sidebar__menu-item" id="readium-toc-body" aria-label="{{strings.toc}}" role="navigation"></div>
+
+        <!-- DOWNLOAD -->
+        <div class="sidebar__menu-item" id="readium-download">
+          <button type="button" class="close" id="closeDownloadCross">
+            <span aria-hidden="true">&times;</span>
+          </button>
+
+          <h3>ePub</h3>
+          <p>Download this book and read it on any device with a browser anywhere in the world.</p>
+
+          <h3>PDF</h3>
+          <p>Download this book as a PDF - best suited for laptops or desktops.</p>
+        </div>
+        <!-- END DOWNLOAD -->
 
         <!-- SETTINGS -->
-        <div tabindex="-1" class="modal fade" id="settings-dialog" role="dialog" aria-label="{{strings.settings}}">
+        <div tabindex="-1" class="modal fade sidebar__menu-item" id="settings-dialog" role="dialog" aria-label="{{strings.settings}}">
             <div class="modal-body">
                 <button type="button" class="close" id="closeSettingsCross" data-dismiss="modal" title="{{strings.i18n_close}} {{strings.settings}}" aria-label="{{strings.i18n_close}} {{strings.settings}}"><span aria-hidden="true">&times;</span></button>
 
@@ -68,6 +85,7 @@
             </div>
             <!-- /.modal-content -->
         </div>
+        <!-- END SETTINGS -->
     </div>
 </aside>
 

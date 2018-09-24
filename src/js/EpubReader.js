@@ -138,7 +138,6 @@ BookmarkData){
     };
 
     function setBookTitle(title) {
-    
         var $titleEl = $('.book-title-header');
         if ($titleEl.length) {
             $titleEl.text(title);
@@ -661,6 +660,26 @@ BookmarkData){
         });
     }
 
+    // Toggle Menu
+    var showSidebar = function() {
+        $('#menu--sidebar').addClass('menu--show');
+    }
+
+    var closeSidebar = function() {
+        $('#menu--sidebar').removeClass('menu--show');
+        $('.modal-backdrop').fadeOut();
+    }
+
+    // Hide Sidebar Menu Items
+    var hideSidebarMenuItem = function() {
+        $('.sidebar__menu-item').fadeOut();
+    }
+
+    // Show TOC
+    var showToc = function() {
+        $('#menu--sidebar #readium-toc-body').fadeIn();
+    }
+
     // Bookmark Site
     var bookmarkSite = function(){
         var bookmarkURL = window.location.href;
@@ -691,9 +710,18 @@ BookmarkData){
         return false;
     };
 
-    // Toggle Menu
-    var toggleMenu = function() {
-        $('#menu--sidebar').toggleClass('menu--show')
+    // Download Files
+    var showDownload = function() {
+        $('#menu--sidebar #readium-download').fadeIn();
+    }
+
+    var closeDownload = function() {
+        $('#menu--sidebar #readium-download').fadeOut();
+    }
+
+    // Show Settings
+    var showSettings = function() {
+        $('#menu--sidebar #settings-dialog').fadeIn();
     }
 
     var unhideUI = function(){
@@ -987,12 +1015,18 @@ BookmarkData){
             if (!isWithinForbiddenNavKeysArea()) nextPage();
         });
 
-        $('#btnToggleHome').on('click', toggleMenu);
+        $('#btnShowSidebar').on('click', showSidebar);
+        $('#btnCloseSidebar').on('click', closeSidebar);
+        $('#menu--sidebar .nav .btn').on('click', hideSidebarMenuItem);
+        $('#tocButt').on('click', showToc);
+        $('#btnBookmark').on('click', bookmarkSite);
+        $('#btnDownload').on('click', showDownload);
+        $('#closeDownloadCross').on('click', closeDownload);
+        $('#settbutt1').on('click', showSettings);
 
         if (screenfull.enabled) {
             Keyboard.on(Keyboard.FullScreenToggle, 'reader', toggleFullScreen);
             $('#buttFullScreenToggle').on('click', toggleFullScreen);
-            $('#btnBookmarkSite').on('click', bookmarkSite);
         } else {
             $('#buttFullScreenToggle').css('display', 'none');
             // $('#buttFullScreenToggle')[0].style.display = 'none';

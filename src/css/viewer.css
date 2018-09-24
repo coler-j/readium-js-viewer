@@ -50,6 +50,7 @@ html#simpleViewer .icon-library{
   display: none;
   overflow: auto;
   font-size: 14px;
+  padding: 25px 45px;
 }
 
 #readium-toc-body button.close {
@@ -62,20 +63,19 @@ html#simpleViewer .icon-library{
 #readium-toc-body ol{
   list-style-type: none;
   margin-top: 10px;
-  padding-left: 20px;
+  padding-left: 0;
+}
+
+#readium-toc-body a {
+  color: inherit;
 }
 
 .toc-visible #readium-toc-body {
   display: block;
-  padding: 25px 45px;
 }
 
 .toc-visible #readium-toc-body h2 {
   font-size: 16px;
-}
-
-.toc-visible #readium-toc-body a {
-  color: inherit;
 }
 
 .toc-visible #reading-area{
@@ -101,8 +101,8 @@ html#simpleViewer .icon-library{
 
 .navbar .btn,
 .nav .btn {
-  width: 46px;
-  height: 46px;
+  width: 36px;
+  height: 36px;
   margin: 0 3px;
   background: no-repeat center center;
   border-radius: 100%;
@@ -147,6 +147,7 @@ html#simpleViewer .icon-library{
   border-radius: 0px;
   min-height: 36px;
   margin-bottom: 0px;
+  padding: 15px 20px;
 }
 
 .navbar-right {
@@ -156,17 +157,34 @@ html#simpleViewer .icon-library{
     min-height: 36px;
 }
 
+@media only screen and (max-width: 767px) {
+  #app-navbar {
+    opacity: 1;
+  }
+
+  .navbar-right {
+    float: right;
+  }
+}
+
 .menu--sidebar {
   z-index: 9999;
   position: fixed;
   top: 0;
   left: 0;
-  width: 400px;
+  width: 100%;
+  max-width: 400px;
   min-height: 100vh;
   background: #3a3637;
   color: #bcbec0;
   transform: translate(-100%, 0);
   transition: all .5s;
+}
+
+@media only screen and (max-width: 767px) {
+  .menu--sidebar {
+    max-width: 100%;
+  }
 }
 
 .menu--sidebar .nav {
@@ -178,18 +196,33 @@ html#simpleViewer .icon-library{
   transform: translate(0, 0);
 }
 
-.menu--sidebar #settings-dialog {
-  top: 80px;
-  color: #bcbec0;
+.menu--sidebar button.close {
+  color: inherit;
 }
 
-.menu--sidebar #settings-dialog h3 {
+.menu--sidebar #settings-dialog h3,
+.menu--sidebar #readium-download h3 {
   font-size: 16px;
+}
+
+.menu--sidebar #settings-dialog h5,
+.menu--sidebar #readium-download p {
+  font-size: 14px;
+}
+
+.menu--sidebar #readium-download {
+  display: none;
+  margin: 35px 45px 0;
+}
+
+.menu--sidebar #settings-dialog {
+  top: 66px;
+  margin: 0 30px;
+  color: #bcbec0;
 }
 
 .menu--sidebar #settings-dialog h5 {
   text-transform: none;
-  font-size: 14px;
   margin: 35px 0 20px;
 }
 
@@ -223,9 +256,15 @@ html#simpleViewer .icon-library{
   color: #333;
 }
 
+.menu--sidebar button.close {
+  color: inherit;
+  opacity: 1;
+}
+
 .book-title-header{
   position: absolute;
   top: 0px;
+  left: 0;
   width: 100%;
   text-align: center;
   color: #a4a8ac;
@@ -239,6 +278,12 @@ html#simpleViewer .icon-library{
 
 .book-title-header span {
   color: #4570b4;
+}
+
+@media only screen and (max-width: 767px) {
+  .book-title-header {
+    margin: 25px 0 0;
+  }
 }
 
 html[data-theme=night-theme] .book-title-header,
@@ -292,22 +337,17 @@ html[data-theme=night-theme] .modal
 
   top: 20%;
   bottom: 20%;
-
   opacity: 0.3;
-  
   z-index: 99 !important;
-  
+  width: 60px;
   border: none !important;
-  
   padding: 0;
   margin: 0;
   padding-top: 0.2em;
   padding-bottom: 0.44em;
-
   font-size: 40px;
-
   background-color: rgba(255,255,255,0.5);
-    color: black;
+  color: black;
 }
 
 html[data-theme=night-theme] .page-switch-overlay-icon {
@@ -324,10 +364,7 @@ vertical-align: middle;
 }
 
 #left-page-btn {
-
   left: 0;
-  border-top-right-radius: 0.3em;
-  border-bottom-right-radius: 0.3em;
 }
 
 /* #left-page-btn:focus, */
@@ -346,10 +383,7 @@ html[data-theme=night-theme] #left-page-btn:hover
 }
 
 #right-page-btn {
-
   right: 0;
-  border-top-left-radius: 0.3em;
-  border-bottom-left-radius: 0.3em;
 }
 
 /* #right-page-btn:focus, */
