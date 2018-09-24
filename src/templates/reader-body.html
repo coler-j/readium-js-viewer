@@ -1,8 +1,15 @@
-<div id="readium-toc-body"
-aria-label="{{strings.toc}}"
-role="navigation"
->
-</div>
+<aside id="menu--sidebar" class="menu--sidebar">
+    <div class="navbar">
+      <button id="btnHome" tabindex="1" type="button" class="btn icon-home" title="{{strings.home}}" aria-label="{{strings.home}}"></button>
+        <button id="tocButt" tabindex="1" type="button" class="btn icon-toc" title="{{strings.toc}} [{{keyboard.TocShowHideToggle}}]" aria-label="{{strings.toc}} [{{keyboard.TocShowHideToggle}}]" accesskey="{{keyboard.accesskeys.TocShowHideToggle}}"></button>
+        <button id="btnDownload" tabindex="1" type="button" class="btn icon-download" title="{{strings.download}}" aria-label="{{strings.download}}"></button>
+        <button id="settbutt1" tabindex="1" type="button" class="btn icon-settings" data-toggle="modal" data-target="#settings-dialog" title="{{strings.settings}} [{{keyboard.ShowSettingsModal}}]" aria-label="{{strings.settings}} [{{keyboard.ShowSettingsModal}}]" accesskey="{{keyboard.accesskeys.ShowSettingsModal}}"></button>
+    </div>
+    <div>
+        <div id="readium-toc-body" aria-label="{{strings.toc}}" role="navigation">
+        </div>
+    </div>
+</aside>
 
 <div id="reading-area" role="main">  
   <div id="epub-reader-container">

@@ -1,39 +1,21 @@
 <div class="btn-group navbar-left">
+    <button id="btnToggleHome" tabindex="1" type="button" class="btn icon-menu"></button>
     <a href="/" id="home" tabindex="1" type="button" class="btn icon-logo" title="{{strings.home}}" aria-label="{{strings.home}}"></a>
-    
-    <button id="buttShowToolBar" style="opacity:0;visibility:hidden;border:0;outline:0;padding:0;margin:0;width:1px;height=1px;" tabindex="-1" aria-hidden="true" type="button" title="access key {{keyboard.ToolbarShow}}" aria-label="access key {{keyboard.ToolbarShow}}" accesskey="{{keyboard.accesskeys.ToolbarShow}}"> </button>
-    
-    <button id="buttHideToolBar" style="opacity:0;visibility:hidden;border:0;outline:0;padding:0;margin:0;width:0;height=0;" tabindex="-1" aria-hidden="true" type="button" title="access key {{keyboard.ToolbarHide}}" aria-label="access key {{keyboard.ToolbarHide}}" accesskey="{{keyboard.accesskeys.ToolbarHide}}"> </button>
-    
-    <button id="buttNightTheme" style="opacity:0;visibility:hidden;border:0;outline:0;padding:0;margin:0;width:0;height=0;" tabindex="-1" aria-hidden="true" type="button" title="access key {{keyboard.NightTheme}}" aria-label="access key {{keyboard.NightTheme}}" accesskey="{{keyboard.accesskeys.NightTheme}}"> </button>
-
-    <button id="buttRatePlus" style="opacity:0;visibility:hidden;border:0;outline:0;padding:0;margin:0;width:0;height=0;" tabindex="-1" aria-hidden="true" type="button" title="access key {{keyboard.MediaOverlaysRateIncrease}}" aria-label="access key {{keyboard.MediaOverlaysRateIncrease}}" accesskey="{{keyboard.accesskeys.MediaOverlaysRateIncrease}}"> </button>
-
-    <button id="buttRateMinus" style="opacity:0;visibility:hidden;border:0;outline:0;padding:0;margin:0;width:0;height=0;" tabindex="-1" aria-hidden="true" type="button" title="access key {{keyboard.MediaOverlaysRateDecrease}}" aria-label="access key {{keyboard.MediaOverlaysRateDecrease}}" accesskey="{{keyboard.accesskeys.MediaOverlaysRateDecrease}}"> </button>
-
-    <button id="buttVolumePlus" style="opacity:0;visibility:hidden;border:0;outline:0;padding:0;margin:0;width:0;height=0;" tabindex="-1" aria-hidden="true" type="button" title="access key {{keyboard.MediaOverlaysVolumeIncrease}}" aria-label="access key {{keyboard.MediaOverlaysVolumeIncrease}}" accesskey="{{keyboard.accesskeys.MediaOverlaysVolumeIncrease}}"> </button>
-
-    <button id="buttVolumeMinus" style="opacity:0;visibility:hidden;border:0;outline:0;padding:0;margin:0;width:0;height=0;" tabindex="-1" aria-hidden="true" type="button" title="access key {{keyboard.MediaOverlaysVolumeDecrease}}" aria-label="access key {{keyboard.MediaOverlaysVolumeDecrease}}" accesskey="{{keyboard.accesskeys.MediaOverlaysVolumeDecrease}}"> </button>
-    
 </div>
+
 <div class="btn-group navbar-right">
-    
-
     <div id="backgroundAudioTrack-div">
-
         <button tabindex="1" id="backgroundAudioTrack-button-play" type="button" class="btn icon-play-audio-background"  title="{{strings.i18n_audio_play_background}} [{{keyboard.BackgroundAudioPlayPause}}]"  aria-label="{{strings.i18n_audio_play_background}} [{{keyboard.BackgroundAudioPlayPause}}]" accesskey="{{keyboard.accesskeys.BackgroundAudioPlayPause}}">
             <span class="glyphicon glyphicon-music" aria-hidden="true"></span>
         </button>
         <button tabindex="1" id="backgroundAudioTrack-button-pause" type="button" class="btn icon-pause-audio-background"  title="{{strings.i18n_audio_pause_background}} [{{keyboard.BackgroundAudioPlayPause}}]"  aria-label="{{strings.i18n_audio_pause_background}} [{{keyboard.BackgroundAudioPlayPause}}]">
             <span class="glyphicon glyphicon-volume-up" aria-hidden="true"></span>
         </button>
-        
     </div>
     
     
     <!--Audioplayer Controls START-->
     <div id="audioplayer">
-        
         <button tabindex="1" id="btn-collapse-audio" type="button" class="btn icon-collapse-audio" title="{{strings.i18n_audio_collapse}} [{{keyboard.MediaOverlaysAdvancedPanelShowHide}}]" aria-label="{{strings.i18n_audio_collapse}} [{{keyboard.MediaOverlaysAdvancedPanelShowHide}}]">
             <span class="glyphicon glyphicon-open" aria-hidden="true"></span>
         </button>
@@ -191,25 +173,8 @@
             <li id="zoom-fit-screen" class="active-zoom"><a href="#" tabindex="1">Fit Screen <span class="glyphicon glyphicon-ok"></span></a></li>
         </ul>
     </div>
-    <button tabindex="1" type="button" class="btn icon-library" title="{{strings.view_library}} [{{keyboard.SwitchToLibrary}}]" aria-label="{{strings.view_library}} [{{keyboard.SwitchToLibrary}}]" accesskey="{{keyboard.accesskeys.SwitchToLibrary}}">
-        <span class="glyphicon glyphicon-folder-open" aria-hidden="true"></span>
-    </button>
-    <button tabindex="1" type="button" class="btn icon-annotations" title="{{strings.highlight_selection}}" aria-label="{{strings.highlight_selection}}">
-        <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
-    </button>
-    <button tabindex="1" type="button" class="btn icon-shareUrl" title="{{strings.share_url}}" aria-label="{{strings.share_url}}">
-        <span class="glyphicon glyphicon-link" aria-hidden="true"></span>
-    </button>
-    <button id="tocButt" tabindex="1" type="button" class="btn icon-toc" title="{{strings.toc}} [{{keyboard.TocShowHideToggle}}]" aria-label="{{strings.toc}} [{{keyboard.TocShowHideToggle}}]" accesskey="{{keyboard.accesskeys.TocShowHideToggle}}">
-        <span class="glyphicon glyphicon-list" aria-hidden="true"></span>
-    </button>
-    <button id="settbutt1" tabindex="1" type="button" class="btn icon-settings" data-toggle="modal" data-target="#settings-dialog" title="{{strings.settings}} [{{keyboard.ShowSettingsModal}}]" aria-label="{{strings.settings}} [{{keyboard.ShowSettingsModal}}]" accesskey="{{keyboard.accesskeys.ShowSettingsModal}}">
-        <span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
-    </button>
-    
-    <button tabindex="1" id="buttFullScreenToggle" type="button" class="btn icon-full-screen" title="{{strings.enter_fullscreen}} [{{keyboard.FullScreenToggle}}]" aria-label="{{strings.enter_fullscreen}} [{{keyboard.FullScreenToggle}}]" accesskey="{{keyboard.accesskeys.FullScreenToggle}}">
-        <span class="glyphicon glyphicon-resize-full" aria-hidden="true"></span>
-    </button>
+
     <button id="btnBookmarkSite" type="button" class="btn btn-default icon icon-bookmark"></button>
+    <button tabindex="1" id="buttFullScreenToggle" type="button" class="btn icon-full-screen" title="{{strings.enter_fullscreen}} [{{keyboard.FullScreenToggle}}]" aria-label="{{strings.enter_fullscreen}} [{{keyboard.FullScreenToggle}}]" accesskey="{{keyboard.accesskeys.FullScreenToggle}}"></button>
 </div>
 

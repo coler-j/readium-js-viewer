@@ -691,6 +691,11 @@ BookmarkData){
         return false;
     };
 
+    // Toggle Menu
+    var toggleMenu = function() {
+        $('#menu--sidebar').toggleClass('menu--show')
+    }
+
     var unhideUI = function(){
         hideLoop();
     }
@@ -981,6 +986,8 @@ BookmarkData){
         Keyboard.on(Keyboard.PageNext, 'reader', function(){
             if (!isWithinForbiddenNavKeysArea()) nextPage();
         });
+
+        $('#btnToggleHome').on('click', toggleMenu);
 
         if (screenfull.enabled) {
             Keyboard.on(Keyboard.FullScreenToggle, 'reader', toggleFullScreen);
