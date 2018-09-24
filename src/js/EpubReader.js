@@ -143,7 +143,7 @@ BookmarkData){
         if ($titleEl.length) {
             $titleEl.text(title);
         } else {
-            $('<h2 class="book-title-header"></h2>').insertAfter('.navbar').text(title);
+            $('<h2 class="book-title-header"></h2>').insertAfter('#app-navbar .navbar-left').html('<span>RECA |</span> ' + title);
         }
     };
 

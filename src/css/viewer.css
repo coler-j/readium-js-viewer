@@ -1,3 +1,7 @@
+body {
+  font-family: 'Fira Sans', Arial;;
+}
+
 #epub-reader-frame{
   display: inline-block;
   height: 100%;
@@ -224,14 +228,17 @@ html#simpleViewer .icon-library{
   top: 0px;
   width: 100%;
   text-align: center;
-  color: #999;
+  color: #a4a8ac;
   font-weight: normal;
-  font-size: 1.0em;
-  letter-spacing: 0.5em;
+  font-size: 16px;
   text-transform: uppercase;
-  margin: 15px 0px 0px 0px;
+  margin: 30px 0 0;
   z-index: -1;
-  font-family: serif;
+  font-family: 'Fira Sans', Arial;
+}
+
+.book-title-header span {
+  color: #4570b4;
 }
 
 html[data-theme=night-theme] .book-title-header,
