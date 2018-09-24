@@ -4,7 +4,7 @@
   },
 
   "chrome_extension_name": {
-    "message": "Readium"
+    "message": "RECA Booksite"
   },
   "download" : {
     "message" : "Download"
@@ -121,7 +121,7 @@
     "message" : "Loading Library"
   },
   "i18n_readium_options" : {
-    "message" : "Readium Options:"
+    "message" : "RECA Booksite Options:"
   },
   "i18n_save_changes" : {
     "message" : "Save changes"
