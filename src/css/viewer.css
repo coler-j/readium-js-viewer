@@ -46,7 +46,6 @@ html#simpleViewer .icon-library{
   display: none;
   overflow: auto;
   font-size: 14px;
-  color: #bcbec0;
 }
 
 #readium-toc-body button.close {
@@ -96,7 +95,8 @@ html#simpleViewer .icon-library{
   box-shadow: none;
 }
 
-.navbar .btn {
+.navbar .btn,
+.nav .btn {
   width: 46px;
   height: 46px;
   margin: 0 3px;
@@ -106,35 +106,35 @@ html#simpleViewer .icon-library{
   transition: all .5s;
 }
 
-.navbar .btn:hover {
+.btn:hover {
   filter: grayscale(0);
 }
 
-.navbar .btn.icon-bookmark {
+.btn.icon-bookmark {
   background-image: url(../images/icon--bookmark.svg);
 }
 
-.navbar .btn.icon-download {
+.btn.icon-download {
   background-image: url(../images/icon--download.svg);
 }
 
-.navbar .btn.icon-full-screen {
+.btn.icon-full-screen {
   background-image: url(../images/icon--fullscreen.svg);
 }
 
-.navbar .btn.icon-home {
+.btn.icon-home {
   background-image: url(../images/icon--home.svg);
 }
 
-.navbar .btn.icon-menu {
+.btn.icon-menu {
   background-image: url(../images/icon--menu.svg);
 }
 
-.navbar .btn.icon-settings {
+.btn.icon-settings {
   background-image: url(../images/icon--settings.svg);
 }
 
-.navbar .btn.icon-toc {
+.btn.icon-toc {
   background-image: url(../images/icon--contents.svg);
 }
 
@@ -160,17 +160,63 @@ html#simpleViewer .icon-library{
   width: 400px;
   min-height: 100vh;
   background: #3a3637;
+  color: #bcbec0;
   transform: translate(-100%, 0);
   transition: all .5s;
 }
 
-.menu--sidebar .navbar {
+.menu--sidebar .nav {
   padding: 15px 20px;
   background: #231f20;
 }
 
 .menu--show {
   transform: translate(0, 0);
+}
+
+.menu--sidebar #settings-dialog {
+  top: 80px;
+  color: #bcbec0;
+}
+
+.menu--sidebar #settings-dialog h3 {
+  font-size: 16px;
+}
+
+.menu--sidebar #settings-dialog h5 {
+  text-transform: none;
+  font-size: 14px;
+  margin: 35px 0 20px;
+}
+
+.menu--sidebar #settings-dialog button.close {
+  color: #bcbec0;
+}
+
+.menu--sidebar #settings-dialog #theme-radio-group {
+  margin: 0 15px;
+}
+
+.menu--sidebar #settings-dialog #theme-radio-group .theme-option {
+  width: 100%;
+  margin: 0 0 25px;
+  padding: 15px;
+  border: 0;
+  border-radius: 0;
+}
+
+.menu--sidebar #settings-dialog .modal-footer {
+  border: 0;
+}
+
+.menu--sidebar #settings-dialog .modal-footer .btn {
+  border: 0;
+  border-radius: 0;
+}
+
+.menu--sidebar #settings-dialog .modal-footer .btn-primary {
+  background: #ff9300;
+  color: #333;
 }
 
 .book-title-header{
@@ -500,6 +546,7 @@ html[data-theme=night-theme] #right-page-btn:hover
   background-size: 16px 11px;
   left: 9px;
   top: 5px;
+  outline: 0;
 }
 
 /*.embedded .navbar-left{

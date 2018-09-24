@@ -6,6 +6,9 @@
   "chrome_extension_name": {
     "message": "Readium"
   },
+  "download" : {
+    "message" : "Download"
+  },
   "home" : {
     "message" : "Home"
   },
@@ -13,7 +16,7 @@
     "message" : "About"
   },
   "preview" : {
-    "message" : "PREVIEW"
+    "message" : "Preview"
   },
   "list_view" : {
     "message" : "List View"
@@ -247,7 +250,7 @@
     "message" : "Save Settings"
   },
   "i18n_font_size" : {
-    "message" : "FONT SIZE"
+    "message" : "Font size"
   },
   "i18n_font_selection" : {
     "message" : "FONT FACE"
@@ -266,7 +269,7 @@
     "message" : "Disabled (no maximum)"
   },
   "i18n_text_and_background_color" : {
-    "message" : "TEXT AND BACKGROUND COLOR"
+    "message" : "Text and background color"
   },
   "i18n_author_theme" : {
     "message" : "Default (author styles)"

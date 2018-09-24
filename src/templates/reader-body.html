@@ -1,12 +1,72 @@
 <aside id="menu--sidebar" class="menu--sidebar">
-    <div class="navbar">
-      <button id="btnHome" tabindex="1" type="button" class="btn icon-home" title="{{strings.home}}" aria-label="{{strings.home}}"></button>
+    <div class="nav">
+        <a href="/" id="home" tabindex="1" type="button" class="btn icon-home" title="" aria-label="Home" data-original-title="Home"></a>
         <button id="tocButt" tabindex="1" type="button" class="btn icon-toc" title="{{strings.toc}} [{{keyboard.TocShowHideToggle}}]" aria-label="{{strings.toc}} [{{keyboard.TocShowHideToggle}}]" accesskey="{{keyboard.accesskeys.TocShowHideToggle}}"></button>
+        <button id="btnBookmarkSite" type="button" class="btn btn-default icon icon-bookmark"></button>
         <button id="btnDownload" tabindex="1" type="button" class="btn icon-download" title="{{strings.download}}" aria-label="{{strings.download}}"></button>
         <button id="settbutt1" tabindex="1" type="button" class="btn icon-settings" data-toggle="modal" data-target="#settings-dialog" title="{{strings.settings}} [{{keyboard.ShowSettingsModal}}]" aria-label="{{strings.settings}} [{{keyboard.ShowSettingsModal}}]" accesskey="{{keyboard.accesskeys.ShowSettingsModal}}"></button>
     </div>
     <div>
-        <div id="readium-toc-body" aria-label="{{strings.toc}}" role="navigation">
+        <!-- TOC -->
+        <div id="readium-toc-body" aria-label="{{strings.toc}}" role="navigation"></div>
+
+        <!-- SETTINGS -->
+        <div tabindex="-1" class="modal fade" id="settings-dialog" role="dialog" aria-label="{{strings.settings}}">
+            <div class="modal-body">
+                <button type="button" class="close" id="closeSettingsCross" data-dismiss="modal" title="{{strings.i18n_close}} {{strings.settings}}" aria-label="{{strings.i18n_close}} {{strings.settings}}"><span aria-hidden="true">&times;</span></button>
+
+                <div class="tab-content">
+                    <h3>Settings</h3>
+                    <div id="tab-style" class="tab-pane active" role="tabpanel" aria-expanded="true">
+                        <h5 aria-hidden="true">{{strings.preview}}</h5>
+                        <div  aria-hidden="true" class="row">
+                            <div data-theme="author-theme" class="col-xs-10 col-xs-offset-1 preview-text author-theme">
+                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus neque dui, congue a suscipit non, feugiat eu urna. Cras in felis sed orci aliquam sagittis.
+                            </div>
+                        </div>
+
+                        <h5 id="setting-header-font-size" class="setting-header">{{strings.i18n_font_size}}</h5>
+                        <div class="row">
+                            <div class="col-xs-2 icon-scale-down">
+                                <img src="{{{imagePathPrefix}}}images/glyphicons_115_text_smaller.png" alt="" aria-hidden="true">
+                            </div>
+                            <div class="col-xs-8">
+                                <input  type="range" aria-labelledby="setting-header-font-size" id="font-size-input" min="60" aria-value-min="60" aria-valuemin="60" step="10" max="170" aria-value-max="170" aria-valuemax="170" value="100" aria-valuenow="100" aria-value-now="100" aria-valuetext="1em" aria-value-text="1em" title="{{strings.i18n_font_size}}" aria-label="{{strings.i18n_font_size}}" />
+                            </div>
+                            <div class="col-xs-2">
+                                <img src="{{{imagePathPrefix}}}images/glyphicons_116_text_bigger.png" alt="" aria-hidden="true">
+                            </div>
+                        </div>
+
+                        <h5 id="setting-header-color-legend" class="setting-header">{{strings.i18n_text_and_background_color}}</h5>
+                        <div role="group" aria-labelledby="setting-header-color-legend" id="theme-radio-group" class="row">
+                            <button role="button" data-theme="author-theme"  title="{{strings.i18n_author_theme}}" aria-label="{{strings.i18n_author_theme}}" class="col-xs-8 col-xs-offset-2 theme-option author-theme clickable">{{strings.i18n_author_theme}}</button>
+
+                            <button role="button" data-theme="default-theme"  title="{{strings.i18n_black_and_white}}" aria-label="{{strings.i18n_black_and_white}}" class="col-xs-8 col-xs-offset-2 theme-option default-theme clickable">{{strings.i18n_black_and_white}}</button>
+
+                            <button role="button" data-theme="night-theme"  title="{{strings.i18n_arabian_nights}} [{{keyboard.NightTheme}}]" aria-label="{{strings.i18n_arabian_nights}} [{{keyboard.NightTheme}}]" class="col-xs-8 col-xs-offset-2 theme-option night-theme clickable" >{{strings.i18n_arabian_nights}}</button> <!-- accesskey="{{keyboard.accesskeys.NightTheme}}" -->
+
+                            <button role="button" data-theme="parchment-theme"  title="{{strings.i18n_sands_of_dune}}" aria-label="{{strings.i18n_sands_of_dune}}" class="col-xs-8 col-xs-offset-2 theme-option parchment-theme clickable">{{strings.i18n_sands_of_dune}}</button>
+
+                            <button role="button" data-theme="ballard-theme"  title="{{strings.i18n_ballard_blues}}" aria-label="{{strings.i18n_ballard_blues}}" class="col-xs-8 col-xs-offset-2 theme-option ballard-theme clickable">{{strings.i18n_ballard_blues}}</button>
+
+                            <button role="button" data-theme="vancouver-theme"  title="{{strings.i18n_vancouver_mist}}" aria-label="{{strings.i18n_vancouver_mist}}" class="col-xs-8 col-xs-offset-2 theme-option vancouver-theme clickable">{{strings.i18n_vancouver_mist}}</button>
+                        </div>
+                    </div>
+
+                    <div id="tab-keyboard" class="tab-pane" role="tabpanel">
+                        <div class="row" style="position:relative;">
+                            <div id="invalid_keyboard_shortcut_ALERT"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+                    <button id="buttClose"  type="button" class="btn btn-default" data-dismiss="modal" title="{{strings.i18n_close}} [{{keyboard.SettingsModalClose}}]" aria-label="{{strings.i18n_close}} [{{keyboard.SettingsModalClose}}]">{{strings.i18n_close}}</button>
+                    <button id="buttSave"  type="button" class="btn btn-primary" data-dismiss="modal" title="{{strings.i18n_save_changes}} [{{keyboard.SettingsModalSave}}]" aria-label="{{strings.i18n_save_changes}} [{{keyboard.SettingsModalSave}}]">{{strings.i18n_save_changes}}</button>
+                </div>
+            </div>
+            <!-- /.modal-content -->
         </div>
     </div>
 </aside>
