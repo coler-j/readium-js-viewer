@@ -23,7 +23,7 @@
             "src/css/viewer_audio.css"
             "src/css/settings.css"
     '
-    
+
 #=====================
     'predist': '
 
@@ -39,10 +39,6 @@
         npm run dist:copy
         &&
         npm run dist:cloudReaderLite
-        &&
-        npm run dist:cloudReader
-        &&
-        npm run dist:chromeApp
     '
 
 
@@ -51,11 +47,7 @@
 
         npm run dist
         &&
-        npm run deploy:cloudReader:copy:sourcemap
-        &&
         npm run deploy:cloudReaderLite:copy:sourcemap
-        &&
-        npm run deploy:chromeApp:copy:sourcemap
     '
 
 

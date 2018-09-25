@@ -80,7 +80,7 @@
                     open_webbrowser.js\"
             readium-js/readium-shared-js/plugins/
     '
-    
+
 #=====================
 #### BLOCKING! (CTRL-C) [watch or nodemon]
     'dowatch': '
@@ -102,13 +102,13 @@
 
         node
             readium-js/readium-shared-js/readium-build-tools/http-server.js
-            
+
             -LOGFILE
             http_app.log
-            
+
             -OPEN
-            /dev/index_RequireJS_no-optimize.html
-            
+            /dev/index_RequireJS_no-optimize_LITE.html
+
             -p 9090
 
             -c-1
@@ -120,10 +120,10 @@
 
         node
             readium-js/readium-shared-js/readium-build-tools/http-server.js
-            
+
             -LOGFILE
             http_ebooks.log
-            
+
             -a 127.0.0.1
             -p 8080
 
@@ -133,55 +133,55 @@
     '
 
 #=====================
-#### BLOCKING! (CTRL-C) [http]    
+#### BLOCKING! (CTRL-C) [http]
     'http:app_ebooks': '
 
         node
             readium-js/readium-shared-js/readium-build-tools/http-server.js
-            
+
             -LOGFILE
             http_app-ebooks.log
-            
+
             -OPEN
-            /dev/index_RequireJS_no-optimize.html
-            
+            /dev/index_RequireJS_no-optimize_LITE.html
+
             -a 127.0.0.1
             -p 8080
-    
+
             -c-1
             .
     '
 
 #=====================
-#### BLOCKING! (CTRL-C) [http]    
+#### BLOCKING! (CTRL-C) [http]
     'http:cloudReaderDist': '
 
         node
             readium-js/readium-shared-js/readium-build-tools/http-server.js
-            
+
             -LOGFILE
             http_app-ebooks.log
-            
+
             -OPEN
             /dist/cloud-reader/?epubs=http://127.0.0.1:8080/epub_content/epub_library.opds
-            
+
             -a 127.0.0.1
             -p 8080
-    
+
             -c-1
             .
     '
 
 #=====================
-#### BLOCKING! (CTRL-C) [http]    
+#### BLOCKING! (CTRL-C) [http]
     'http:travis': '
 
         node
-            node_modules/http-server/bin/http-server 
-            
+            node_modules/http-server/bin/http-server
+
             -a 127.0.0.1
             -p 8080
-    
+
             -c-1
             ./dist/cloud-reader/
     '
