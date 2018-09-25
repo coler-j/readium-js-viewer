@@ -107,7 +107,7 @@
             http_app.log
 
             -OPEN
-            /dev/index_RequireJS_no-optimize_LITE.html
+            /dev/index_RequireJS_no-optimize_LITE.html?epub=../epub_content/accessible_epub_3
 
             -p 9090
 
@@ -143,7 +143,7 @@
             http_app-ebooks.log
 
             -OPEN
-            /dev/index_RequireJS_no-optimize_LITE.html
+            /dev/index_RequireJS_no-optimize_LITE.html?epub=../epub_content/accessible_epub_3
 
             -a 127.0.0.1
             -p 8080

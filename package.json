@@ -126,9 +126,9 @@
     "http2:nowatch": "run-p \"http:ebooks\" \"http:app\"",
     "dowatch:plugins": "node ./readium-js/readium-shared-js/node_modules/watch/cli.js \"npm run genPluginsConfig && node readium-js/readium-shared-js/readium-build-tools/webbrowser.js && node ./readium-js/readium-shared-js/node_modules/rimraf/bin.js open_webbrowser.js\" readium-js/readium-shared-js/plugins/",
     "dowatch": "node ./readium-js/readium-shared-js/node_modules/watch/cli.js \"npm run build && node readium-js/readium-shared-js/readium-build-tools/webbrowser.js && node ./readium-js/readium-shared-js/node_modules/rimraf/bin.js open_webbrowser.js\" dev/ src/ readium-js/js/ readium-js/readium-shared-js/js/ readium-js/readium-shared-js/plugins/",
-    "http:app": "node readium-js/readium-shared-js/readium-build-tools/http-server.js -LOGFILE http_app.log -OPEN /dev/index_RequireJS_no-optimize_LITE.html -p 9090 -c-1 ./",
+    "http:app": "node readium-js/readium-shared-js/readium-build-tools/http-server.js -LOGFILE http_app.log -OPEN /dev/index_RequireJS_no-optimize_LITE.html?epub=../epub_content/accessible_epub_3 -p 9090 -c-1 ./",
     "http:ebooks": "node readium-js/readium-shared-js/readium-build-tools/http-server.js -LOGFILE http_ebooks.log -a 127.0.0.1 -p 8080 -c-1 --cors ./epub_content",
-    "http:app_ebooks": "node readium-js/readium-shared-js/readium-build-tools/http-server.js -LOGFILE http_app-ebooks.log -OPEN /dev/index_RequireJS_no-optimize_LITE.html -a 127.0.0.1 -p 8080 -c-1 .",
+    "http:app_ebooks": "node readium-js/readium-shared-js/readium-build-tools/http-server.js -LOGFILE http_app-ebooks.log -OPEN /dev/index_RequireJS_no-optimize_LITE.html?epub=../epub_content/accessible_epub_3 -a 127.0.0.1 -p 8080 -c-1 .",
     "http:cloudReaderDist": "node readium-js/readium-shared-js/readium-build-tools/http-server.js -LOGFILE http_app-ebooks.log -OPEN /dist/cloud-reader/?epubs=http://127.0.0.1:8080/epub_content/epub_library.opds -a 127.0.0.1 -p 8080 -c-1 .",
     "http:travis": "node node_modules/http-server/bin/http-server -a 127.0.0.1 -p 8080 -c-1 ./dist/cloud-reader/"
   }
