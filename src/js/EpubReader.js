@@ -138,12 +138,11 @@ BookmarkData){
     };
 
     function setBookTitle(title) {
-    
         var $titleEl = $('.book-title-header');
         if ($titleEl.length) {
             $titleEl.text(title);
         } else {
-            $('<h2 class="book-title-header"></h2>').insertAfter('.navbar').text(title);
+            $('<h2 class="book-title-header"></h2>').insertAfter('#app-navbar .navbar-left').html('<span>RECA |</span> ' + title);
         }
     };
 
@@ -660,7 +659,71 @@ BookmarkData){
             }
         });
     }
-    
+
+    // Toggle Menu
+    var showSidebar = function() {
+        $('#menu--sidebar').addClass('menu--show');
+    }
+
+    var closeSidebar = function() {
+        $('#menu--sidebar').removeClass('menu--show');
+        $('.modal-backdrop').fadeOut();
+    }
+
+    // Hide Sidebar Menu Items
+    var hideSidebarMenuItem = function() {
+        $('.sidebar__menu-item').fadeOut();
+    }
+
+    // Show TOC
+    var showToc = function() {
+        $('#menu--sidebar #readium-toc-body').fadeIn();
+    }
+
+    // Bookmark Site
+    var bookmarkSite = function(){
+        var bookmarkURL = window.location.href;
+        var bookmarkTitle = document.title;
+
+        if ('addToHomescreen' in window && addToHomescreen.isCompatible) {
+            // Mobile browsers
+            addToHomescreen({ autostart: false, startDelay: 0 }).show(true);
+        } else if (window.sidebar && window.sidebar.addPanel) {
+            // Firefox <=22
+            window.sidebar.addPanel(bookmarkTitle, bookmarkURL, '');
+        } else if ((window.sidebar && /Firefox/i.test(navigator.userAgent)) || (window.opera && window.print)) {
+            // Firefox 23+ and Opera <=14
+            $(this).attr({
+                href: bookmarkURL,
+                title: bookmarkTitle,
+                rel: 'sidebar'
+            }).off(e);
+            return true;
+        } else if (window.external && ('AddFavorite' in window.external)) {
+            // IE Favorites
+            window.external.AddFavorite(bookmarkURL, bookmarkTitle);
+        } else {
+            // Other browsers (mainly WebKit & Blink - Safari, Chrome, Opera 15+)
+            alert('Press ' + (/Mac/i.test(navigator.platform) ? 'Cmd' : 'Ctrl') + '+D to bookmark this page.');
+        }
+
+        return false;
+    };
+
+    // Download Files
+    var showDownload = function() {
+        $('#menu--sidebar #readium-download').fadeIn();
+    }
+
+    var closeDownload = function() {
+        $('#menu--sidebar #readium-download').fadeOut();
+    }
+
+    // Show Settings
+    var showSettings = function() {
+        $('#menu--sidebar #settings-dialog').fadeIn();
+    }
+
     var unhideUI = function(){
         hideLoop();
     }
@@ -952,6 +1015,15 @@ BookmarkData){
             if (!isWithinForbiddenNavKeysArea()) nextPage();
         });
 
+        $('#btnShowSidebar').on('click', showSidebar);
+        $('#btnCloseSidebar').on('click', closeSidebar);
+        $('#menu--sidebar .nav .btn').on('click', hideSidebarMenuItem);
+        $('#tocButt').on('click', showToc);
+        $('#btnBookmark').on('click', bookmarkSite);
+        $('#btnDownload').on('click', showDownload);
+        $('#closeDownloadCross').on('click', closeDownload);
+        $('#settbutt1').on('click', showSettings);
+
         if (screenfull.enabled) {
             Keyboard.on(Keyboard.FullScreenToggle, 'reader', toggleFullScreen);
             $('#buttFullScreenToggle').on('click', toggleFullScreen);
@@ -1068,7 +1140,7 @@ BookmarkData){
         $('nav').attr("aria-label", Strings.i18n_toolbar);
         $('nav').append(ReaderNavbar({strings: Strings, dialogs: Dialogs, keyboard: Keyboard}));
         installReaderEventHandlers();
-        document.title = "Readium";
+        document.title = "RECA Booksite";
         $('#zoom-fit-width a').on('click', setFitWidth);
         $('#zoom-fit-screen a').on('click', setFitScreen);
         $('#zoom-custom a').on('click', enableCustom);
