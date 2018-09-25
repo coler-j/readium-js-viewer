@@ -9,13 +9,6 @@ This Readium software component implements the "cloud reader" for online e-books
 Please see https://github.com/readium/readium-shared-js for more information about the underlying rendering engine.
 
 
-## License
-
-**BSD-3-Clause** ( http://opensource.org/licenses/BSD-3-Clause )
-
-See [license.txt](./license.txt).
-
-
 ## Prerequisites
 
 * A decent terminal. On Windows, GitBash works great ( https://msysgit.github.io or https://git-for-windows.github.io or https://git-scm.com/download/win ), and optionally Cygwin adds useful commands ( https://www.cygwin.com ).
@@ -25,16 +18,18 @@ See [license.txt](./license.txt).
 
 ## Development
 
-### Git initialisation
+Perform the following steps to run the project and build the distribution that is required to be moved into the /vendor lib directory on the Reader platform.
 
-* `git clone --recursive -b BRANCH_NAME https://github.com/readium/readium-js-viewer.git readium-js-viewer` (replace "BRANCH_NAME" with e.g. "develop")
+
+### 1. Git initialisation
+
+* `git clone --recursive -b BRANCH_NAME https://github.com/coler-j/readium-js-viewer.git readium-js-viewer` (replace "BRANCH_NAME" with e.g. "development" or "master")
 * `cd readium-js-viewer`
 * `git submodule update --init --recursive` to ensure that the readium-js-viewer chain of dependencies is initialised (readium-js, readium-shared-js)
 * `git checkout BRANCH_NAME && git submodule foreach --recursive "git checkout BRANCH_NAME"` (or simply `cd` inside each repository / submodule, and manually enter the desired branch name: `git checkout BRANCH_NAME`) Git should automatically track the corresponding branch in the 'origin' remote.
 
 
-
-### Source tree preparation
+### 2. Source tree preparation
 
 * `npm run prepare:all` (to perform required preliminary tasks, like patching code before building)
  * OR: `yarn run prepare:yarn:all` (to use Yarn instead of NPM for node_module management)
@@ -48,19 +43,22 @@ Note that the above command executes the following:
 * + some additional HTTP requests to the GitHub API in order to check for upstream library updates (wherever Readium uses a forked codebase)
 
 
-### Typical workflow
+### 3. Typical workflow
 
 No RequireJS optimization:
 
-* `npm run http` (to launch an http server. This automatically opens a web browser instance to the HTML files in the `dev` folder, choose `index_RequireJS_no-optimize.html`, or the `*LITE.html` variant which do include only the reader view, not the ebook library view)
+* `npm run http` (to launch an http server. This automatically opens a web browser instance to the HTML files in the `dev` folder)
 * Hack away! (e.g. source code in the `src/js` folder)
 * Press F5 (refresh / reload) in the web browser
 
 Or to use optimized Javascript bundles (single or multiple):
 
 * `npm run build` (to update the RequireJS bundles in the build output folder)
-* `npm run http:watch` (to launch an http server. This automatically opens a web browser instance to the HTML files in the `dev` folder, choose `index_RequireJS_single-bundle.html` or `index_RequireJS_multiple-bundles.html`, or the `*LITE.html` variants which do include only the reader view, not the ebook library view)
+* `npm run http:watch` (to launch an http server. This automatically opens a web browser instance to the HTML files in the `dev` folder)
 * `npm run http` (same as above, but without watching for file changes (no automatic rebuild))
+
+
+### 4. Building for vendoring
 
 And finally to update the distribution packages (automatically calls the `build` task above, so `npm run build` is redundant):
 
@@ -69,23 +67,14 @@ And finally to update the distribution packages (automatically calls the `build`
 The above task takes a lot of time (as it builds distributable packages for *all* ReadiumJS flavours), and is in fact not strictly necessary to test the cloud reader (see `npm run http` above, using the "no optimise" RequireJS option). Thankfully, the packaged code for the Chrome App / Extension can be quickly generated using this build command instead:
 
 
-Also note that the built-in local HTTP server functionality (`npm run http`) is primarily designed to serve the Readium application at development time in its "exploded" form (`dev`, `src`, `node_modules`, etc. folders). It is also possible to use any arbitrary HTTP server as long as the root folder is `readium-js-viewer` (so that the application assets ; CSS, images, fonts ; can be loaded relative to this base URL). Example with the built-in NodeJS server: `node node_modules/http-server/bin/http-server -a 127.0.0.1 -p 8080 -c-1 .`. Also note that the `127.0.0.1` IP address which is used by default when invoking the `npm run http` command can be set to `0.0.0.0` in order to automatically bind the HTTP server to the local LAN IP, making it possible to open the Readium app in a web browser from another machine on the network. Simply set the `RJS_HTTP_IP` environment variable to `0.0.0.0` (e.g. using `export RJS_HTTP_IP="0.0.0.0"` from the command line), or for a less permanent setting: `RJS_HTTP_IP="0.0.0.0" npm run http` (the environment variable only "lasts" for the lifespan of the NPM command).
+### 5. Copy to Vendor directory
 
-Remark: a log of HTTP requests is preserved in `http_app-ebooks.log`. This file contains ANSI color escape codes, so although it can be read using a regular text editor, it can be rendered in its original format using the shell command: `cat http_app.log` (on OSX / Linux), or `sed "s,x,x,g" http_app-ebooks.log` (on Windows).
-
-
-### HTTP CORS (separate domains / origins, app vs. ebooks)
-
-By default, a single HTTP server is launched when using the `npm run http` task, or its "watch" and "nowatch" variants (usage described in the above "Typical workflow" section).
-To launch separate local HTTP servers on two different domains (in order to test HTTP CORS cross-origin app vs. ebooks deployment architecture), simply invoke the equivalent tasks named with `http2` instead of `http`. For example: `npm run http2`. More information about real-world HTTP CORS is given in the "Cloud reader deployment" section below.
-
-Remark: logs of HTTP requests are preserved in two separate files `http_app.log` and `http_ebooks.log`. They contains ANSI color escape codes, so although they can be read using a regular text editor, they can be rendered in their original format using the shell command: `cat http_app.log` (on OSX / Linux), or `sed "s,x,x,g" http_app.log` (on Windows).
+Copy the contents of the dist folder into the vendor directory as required. See https://devcenter.heroku.com/articles/git-submodules#vendoring
 
 
+## Plugins integration
 
-### Plugins integration
-
-When invoking the `npm run build` command, the generated `build-output` folder contains RequireJS module bundles that include the default plugins specified in `readium-js/readium-js-shared/plugins/plugins.cson` (see the plugins documentation https://github.com/readium/readium-shared-js/blob/develop/PLUGINS.md ). Developers can override the default plugins configuration by using an additional file called `plugins-override.cson`. This file is git-ignored (not persistent in the Git repository), which means that Readium's default plugins configuration is never at risk of being mistakenly overridden by developers, whilst giving developers the possibility of creating custom builds on their local machines.
+When invoking the `npm run build` command, the generated `build-output` folder contains RequireJS module bundles that include the default plugins specified in `readium-js/readium-js-shared/plugins/plugins.cson` (see the plugins documentation https://github.com/coler-j/readium-shared-js/blob/develop/PLUGINS.md ). Developers can override the default plugins configuration by using an additional file called `plugins-override.cson`. This file is git-ignored (not persistent in the Git repository), which means that Readium's default plugins configuration is never at risk of being mistakenly overridden by developers, whilst giving developers the possibility of creating custom builds on their local machines.
 
 For example, the `annotations` plugin can be activated by adding it to the `include` section in `readium-js/readium-js-shared/plugins/plugins-override.cson`.
 Then, in order to create / remove highlighted selections, simply comment `display:none` for `.icon-annotations` in the `src/css/viewer.css` file (this will enable an additional toolbar button).
@@ -112,7 +101,6 @@ The `cloud-reader-lite` distribution does not feature an ebook library, so EPUBs
 or for example `http://domain.com/index.html?epub=EPUBs/ebook.epub` (assuming a folder named `EPUBs/` exists as a sibling of `index.html`,
 and this folder contains the `ebook.epub` file
 (note that the folder name is arbitrary, and it may in fact follow the default naming convention: `epub_content/`)).
-
 
 
 ## How to use (RequireJS bundles / AMD modules)
