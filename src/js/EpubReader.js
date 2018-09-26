@@ -285,6 +285,12 @@ BookmarkData){
             //     readium.reader.openSpineItemElementCfi(bookmark.idref, bookmark.contentCFI, readium.reader);
             // }, 90);
         }
+
+        var hideToc = function() {
+            $('.sidebar__menu-item').fadeOut();
+        }
+
+        $('#readium-toc-body button.close').on('click', hideToc);
     };
 
     var showScaleDisplay = function(){
@@ -662,11 +668,11 @@ BookmarkData){
 
     // Toggle Menu
     var showSidebar = function() {
-        $('#menu--sidebar').addClass('menu--show');
+        $('#app-container').addClass('menu--show');
     }
 
     var closeSidebar = function() {
-        $('#menu--sidebar').removeClass('menu--show');
+        $('#app-container').removeClass('menu--show');
         $('.modal-backdrop').fadeOut();
     }
 
@@ -713,10 +719,6 @@ BookmarkData){
     // Download Files
     var showDownload = function() {
         $('#menu--sidebar #readium-download').fadeIn();
-    }
-
-    var closeDownload = function() {
-        $('#menu--sidebar #readium-download').fadeOut();
     }
 
     // Show Settings
@@ -1017,11 +1019,13 @@ BookmarkData){
 
         $('#btnShowSidebar').on('click', showSidebar);
         $('#btnCloseSidebar').on('click', closeSidebar);
+
         $('#menu--sidebar .nav .btn').on('click', hideSidebarMenuItem);
+        $('#menu--sidebar .close').on('click', hideSidebarMenuItem);
+
         $('#tocButt').on('click', showToc);
         $('#btnBookmark').on('click', bookmarkSite);
         $('#btnDownload').on('click', showDownload);
-        $('#closeDownloadCross').on('click', closeDownload);
         $('#settbutt1').on('click', showSettings);
 
         if (screenfull.enabled) {

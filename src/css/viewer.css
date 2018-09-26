@@ -70,16 +70,8 @@ html#simpleViewer .icon-library{
   color: inherit;
 }
 
-.toc-visible #readium-toc-body {
-  display: block;
-}
-
 .toc-visible #readium-toc-body h2 {
   font-size: 16px;
-}
-
-.toc-visible #reading-area{
-  left: 30%;
 }
 
 .navbar
@@ -192,7 +184,7 @@ html#simpleViewer .icon-library{
   background: #231f20;
 }
 
-.menu--show {
+#app-container.menu--show .menu--sidebar {
   transform: translate(0, 0);
 }
 
@@ -339,7 +331,7 @@ html[data-theme=night-theme] .modal
   bottom: 20%;
   opacity: 0.3;
   z-index: 99 !important;
-  width: 60px;
+  width: 55px;
   border: none !important;
   padding: 0;
   margin: 0;
@@ -407,12 +399,23 @@ html[data-theme=night-theme] #right-page-btn:hover
 #reading-area {
     text-align: center;
     position: absolute;
-    left: 0px;
     right: 0px;
     bottom: 0px;
-    top: 38px;
-
+    top: 70px;
+    width: 100%;
     overflow: hidden;
+    transition: all .5s;
+}
+
+@media only screen and (min-width: 768px) {
+  #app-container.menu--show #reading-area {
+    width: calc(100% - 400px);
+  }
+
+  #app-container.menu--show #reading-area #reflowable-book-frame {
+    left: 20px !important;
+    right: 20px !important;
+  }
 }
 
 /* show outline on reading-area when iframe gets focus */

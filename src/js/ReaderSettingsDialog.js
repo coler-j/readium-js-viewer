@@ -46,6 +46,7 @@ define(['./ModuleConfig', 'hgn!readium_js_viewer_html_templates/settings-dialog.
 
             var bookStyles = getBookStyles(readerSettings.theme);
             reader.setBookStyles(bookStyles);
+            $('#app-navbar').css(bookStyles[0].declarations);
             $('#reading-area').css(bookStyles[0].declarations);
         }
     }
