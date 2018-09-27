@@ -11,7 +11,6 @@ define([
 'i18nStrings',
 './Dialogs',
 './ReaderSettingsDialog',
-'hgn!readium_js_viewer_html_templates/about-dialog.html',
 'hgn!readium_js_viewer_html_templates/reader-navbar.html',
 'hgn!readium_js_viewer_html_templates/reader-body.html',
 'hgn!readium_js_viewer_html_templates/reader-body-page-btns.html',
@@ -39,7 +38,6 @@ Settings,
 Strings,
 Dialogs,
 SettingsDialog,
-AboutDialog,
 ReaderNavbar,
 ReaderBody,
 ReaderBodyPageButtons,
@@ -114,24 +112,24 @@ BookmarkData){
         ) : undefined;
 
         if (appUrl) {
-            console.log("EPUB URL absolute: " + ebookURL);
-            console.log("App URL: " + appUrl);
+            console.debug("EPUB URL absolute: " + ebookURL);
+            console.debug("App URL: " + appUrl);
 
             ebookURL = ebookURL.replace(CORS_PROXY_HTTP_TOKEN, CORS_PROXY_HTTP_TOKEN_ESCAPED);
             ebookURL = ebookURL.replace(CORS_PROXY_HTTPS_TOKEN, CORS_PROXY_HTTPS_TOKEN_ESCAPED);
 
-            // console.log("EPUB URL absolute 1: " + ebookURL);
+            // console.debug("EPUB URL absolute 1: " + ebookURL);
 
             ebookURL = new URI(ebookURL).relativeTo(appUrl).toString();
             if (ebookURL.indexOf("//") == 0) { // URI.relativeTo() sometimes returns "//domain.com/path" without the protocol
                 ebookURL = (isHTTPS ? "https:" : "http:") + ebookURL;
             }
 
-            // console.log("EPUB URL absolute 2: " + ebookURL);
+            // console.debug("EPUB URL absolute 2: " + ebookURL);
 
             ebookURL = ebookURL.replace(regex_CORS_PROXY_HTTPs_TOKEN_ESCAPED, "/$1://");
 
-            console.log("EPUB URL relative to app: " + ebookURL);
+            console.debug("EPUB URL relative to app: " + ebookURL);
         }
 
         return ebookURL;
@@ -359,11 +357,11 @@ BookmarkData){
                 $items.each(function(){
                   $(this).attr("tabindex", "-1");
                    $(this).on("focus", function(event){
-                    //console.log("toc item focus: " + event.target);
+                    //console.debug("toc item focus: " + event.target);
                     // remove tabindex from previously focused
                     var $prevFocus = $('#readium-toc-body a[tabindex="60"]');
                     if ($prevFocus.length>0 && $prevFocus[0] !== event.target){
-                      //console.log("previous focus: " + $prevFocus[0]);
+                      //console.debug("previous focus: " + $prevFocus[0]);
                       $prevFocus.attr("tabindex","-1");
                     }
                     // add to newly focused
@@ -1039,8 +1037,8 @@ BookmarkData){
 
     var initReadium = function(){
 
-        console.log("MODULE CONFIG:");
-        console.log(moduleConfig);
+        console.debug("MODULE CONFIG:");
+        console.debug(moduleConfig);
 
         Settings.getMultiple(['reader', ebookURL_filepath], function(settings){
 
@@ -1090,7 +1088,7 @@ BookmarkData){
                 // JSON.parse() a *second time* because the stored value is readium.reader.bookmarkCurrentPage(), which is JSON.toString'ed
                 bookmark = JSON.parse(bookmark);
                 if (bookmark && bookmark.idref) {
-                    //console.log("Bookmark restore: " + JSON.stringify(bookmark));
+                    //console.debug("Bookmark restore: " + JSON.stringify(bookmark));
                     openPageRequest = {idref: bookmark.idref, elementCfi: bookmark.contentCFI};
                     console.debug("Open request (bookmark): " + JSON.stringify(openPageRequest));
                 }
@@ -1099,7 +1097,7 @@ BookmarkData){
             var urlParams = Helpers.getURLQueryParams();
             var goto = urlParams['goto'];
             if (goto) {
-                console.log("Goto override? " + goto);
+                console.debug("Goto override? " + goto);
 
                 try {
                     var gotoObj;
@@ -1156,7 +1154,7 @@ BookmarkData){
             ReadiumSDK.on(ReadiumSDK.Events.PLUGINS_LOADED, function () {
                 Globals.logEvent("PLUGINS_LOADED", "ON", "EpubReader.js");
 
-                console.log('PLUGINS INITIALIZED!');
+                console.debug('PLUGINS INITIALIZED!');
 
                 if (!readium.reader.plugins.highlights) {
                     $('.icon-annotations').css("display", "none");
@@ -1243,16 +1241,6 @@ BookmarkData){
             });
 
 
-            $('#about-dialog').on('hidden.bs.modal', function () {
-                Keyboard.scope('reader');
-
-                unhideUI();
-                setTimeout(function(){ $("#aboutButt1").focus(); }, 50);
-            });
-            $('#about-dialog').on('shown.bs.modal', function(){
-                Keyboard.scope('about');
-            });
-
             var readerSettings;
             if (settings.reader){
                 readerSettings = settings.reader;
@@ -1307,7 +1295,7 @@ BookmarkData){
 
             Versioning.getVersioningInfo(function(version){
 
-                $('#app-container').append(AboutDialog({imagePathPrefix: moduleConfig.imagePathPrefix, strings: Strings, dateTimeString: version.dateTimeString, viewerJs: version.readiumJsViewer, readiumJs: version.readiumJs, sharedJs: version.readiumSharedJs, cfiJs: version.readiumCfiJs}));
+                console.debug(JSON.stringify({imagePathPrefix: moduleConfig.imagePathPrefix, strings: Strings, dateTimeString: version.dateTimeString, viewerJs: version.readiumJsViewer, readiumJs: version.readiumJs, sharedJs: version.readiumSharedJs, cfiJs: version.readiumCfiJs}));
 
 
                 window.navigator.epubReadingSystem.name = "readium-js-viewer";
@@ -1379,7 +1367,6 @@ BookmarkData){
         Dialogs.closeModal();
         Dialogs.reset();
         $('#settings-dialog').modal('hide');
-        $('#about-dialog').modal('hide');
         $('.modal-backdrop').remove();
         $('#app-navbar').off('mousemove');
 
@@ -1390,8 +1377,6 @@ BookmarkData){
         $('#settings-dialog').off('hidden.bs.modal');
         $('#settings-dialog').off('shown.bs.modal');
 
-        $('#about-dialog').off('hidden.bs.modal');
-        $('#about-dialog').off('shown.bs.modal');
 
         // visibility check fails because iframe is unloaded
         //if (readium.reader.isMediaOverlayAvailable())
