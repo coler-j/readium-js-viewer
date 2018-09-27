@@ -627,9 +627,6 @@ BookmarkData){
         screenfull.toggle();
     }
 
-    var isChromeExtensionPackagedApp = (typeof chrome !== "undefined") && chrome.app
-              && chrome.app.window && chrome.app.window.current; // a bit redundant?
-
     if (screenfull.enabled) {
         if (isChromeExtensionPackagedApp) {
             screenfull.onchange = function(e) {
