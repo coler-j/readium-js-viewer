@@ -878,24 +878,6 @@ BookmarkData){
             ;
         };
 
-        var hideTB = function(){
-            if (!embedded && $('#app-container').hasClass('toc-visible')){
-                return;
-            }
-            hideUI();
-            if (document.activeElement) document.activeElement.blur();
-        };
-        $("#buttHideToolBar").on("click", hideTB);
-        Keyboard.on(Keyboard.ToolbarHide, 'reader', hideTB);
-
-        var showTB = function(){
-            $("#aboutButt1")[0].focus();
-            unhideUI();
-            setTimeout(function(){ $("#aboutButt1")[0].focus(); }, 50);
-        };
-        $("#buttShowToolBar").on("click", showTB);
-        Keyboard.on(Keyboard.ToolbarShow, 'reader', showTB);
-
         Keyboard.on(Keyboard.PagePrevious, 'reader', function(){
             if (!isWithinForbiddenNavKeysArea()) prevPage();
         });
