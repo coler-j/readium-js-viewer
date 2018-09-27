@@ -864,107 +864,7 @@ BookmarkData){
 
     var installReaderEventHandlers = function(){
 
-        if (isChromeExtensionPackagedApp) {
-            $('.icon-shareUrl').css("display", "none");
-        } else {
-            $(".icon-shareUrl").on("click", function () {
-
-                var urlParams = Helpers.getURLQueryParams();
-                var ebookURL = urlParams['epub'];
-                if (!ebookURL) return;
-
-                var bookmark = JSON.parse(readium.reader.bookmarkCurrentPage()) || {};
-
-                // TODO: remove dependency on highlighter plugin (selection DOM range convert to BookmarkData)
-                if (readium.reader.plugins.highlights) {
-                    var tempId = Math.floor((Math.random()*1000000));
-                    //BookmarkData
-                    var bookmarkDataSelection = readium.reader.plugins.highlights.addSelectionHighlight(tempId, "temp-highlight");
-                    if (bookmarkDataSelection) {
-                        setTimeout(function(){
-                            readium.reader.plugins.highlights.removeHighlight(tempId);
-                        }, 500);
-
-                        console.log("Selection shared bookmark:");
-                        debugBookmarkData(bookmarkDataSelection);
-                        bookmark.contentCFI = bookmarkDataSelection.contentCFI;
-                    }
-                }
-
-                ebookURL = ensureUrlIsRelativeToApp(ebookURL);
-
-                var url = Helpers.buildUrlQueryParameters(undefined, {
-                    epub: ebookURL,
-                    epubs: " ",
-                    embedded: " ",
-                    goto: {value: generateQueryParamCFI(bookmark), verbatim: true}
-                });
-
-                var injectCoverImageURI = function(uri) {
-                    var style = 'margin-top: 1em; margin-bottom: 0.5em; height:400px; width:100%; background-repeat: no-repeat; background-size: contain; background-position: center; background-attachment: scroll; background-clip: content-box; background-origin: content-box; box-sizing: border-box; background-image: url('+uri+');';
-
-                    var $div = $("#readium_book_cover_image");
-                    if ($div && $div[0]) {
-                        $div.attr("style", style);
-                    }
-
-                    return style;
-                };
-
-                var ebookCoverImageURL = undefined;
-                try {
-                    var fetcher = readium.getCurrentPublicationFetcher();
-
-                    var coverHref = currentPackageDocument.getMetadata().cover_href;
-                    if (coverHref) {
-                        var coverPath = fetcher.convertPathRelativeToPackageToRelativeToBase(coverHref);
-                        var relPath = "/" + coverPath; //  "/META-INF/container.xml"
-
-                        if (fetcher.shouldConstructDomProgrammatically()) {
-
-                            fetcher.relativeToPackageFetchFileContents(relPath, 'blob', function (res) {
-                                if(res) {
-                                    try {
-                                        var blobURI = window.URL.createObjectURL(res);
-                                        injectCoverImageURI(blobURI);
-                                    } catch (err) {
-                                        // ignore
-                                        console.error(err);
-                                    }
-                                }
-                            }, function (err) {
-                                // ignore
-                                console.error(err);
-                            });
-                        } else {
-                            ebookCoverImageURL = fetcher.getEbookURL_FilePath() + relPath;
-                        }
-                    }
-                } catch(err) {
-                    // ignore
-                    console.error(err);
-                }
-
-                var styleAttr = "";
-                if (ebookCoverImageURL) {
-                    styleAttr = ' style="' + injectCoverImageURI(ebookCoverImageURL) + '" ';
-                }
-
-                //showModalMessage
-                //showErrorWithDetails
-                Dialogs.showModalMessageEx(Strings.share_url, $('<p id="share-url-dialog-input-label">'+Strings.share_url_label+'</p><input id="share-url-dialog-input-id" aria-labelledby="share-url-dialog-input-label" type="text" value="'+url+'" readonly="readonly" style="width:100%" /><div id="readium_book_cover_image" '+styleAttr+'> </div>'));
-
-                setTimeout(function(){
-                    $('#share-url-dialog-input-id').focus().select();
-                }, 500);
-            });
-        }
-
         // Set handlers for click events
-        $(".icon-annotations").on("click", function () {
-            readium.reader.plugins.highlights.addSelectionHighlight(Math.floor((Math.random()*1000000)), "test-highlight");
-        });
-
         var isWithinForbiddenNavKeysArea = function()
         {
             return document.activeElement &&
@@ -974,10 +874,6 @@ BookmarkData){
                 || document.activeElement === document.getElementById('rate-range-slider')
                 || jQuery.contains(document.getElementById("mo-sync-form"), document.activeElement)
                 || jQuery.contains(document.getElementById("mo-highlighters"), document.activeElement)
-
-                // jQuery.contains(document.getElementById("app-navbar"), document.activeElement)
-                // || jQuery.contains(document.getElementById("settings-dialog"), document.activeElement)
-                // || jQuery.contains(document.getElementById("about-dialog"), document.activeElement)
             )
             ;
         };
@@ -1012,6 +908,7 @@ BookmarkData){
             if (!isWithinForbiddenNavKeysArea()) nextPage();
         });
 
+        /* Added for new styles */
         $('#btnShowSidebar').on('click', showSidebar);
         $('#btnCloseSidebar').on('click', closeSidebar);
 
@@ -1022,6 +919,7 @@ BookmarkData){
         $('#btnBookmark').on('click', bookmarkSite);
         $('#btnDownload').on('click', showDownload);
         $('#settbutt1').on('click', showSettings);
+        /* End of added for new styles */
 
         if (screenfull.enabled) {
             Keyboard.on(Keyboard.FullScreenToggle, 'reader', toggleFullScreen);
