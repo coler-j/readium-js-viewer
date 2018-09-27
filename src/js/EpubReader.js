@@ -817,8 +817,7 @@ BookmarkData){
         // ... and bookmarkCurrentPage() is already JSON.toString'ed, so that's twice!
         Settings.put(ebookURL_filepath, bookmarkString, $.noop);
 
-        if (!isChromeExtensionPackagedApp // History API is disabled in packaged apps
-              && window.history && window.history.replaceState) {
+        if (window.history && window.history.replaceState) {
 
             var urlParams = Helpers.getURLQueryParams();
             var ebookURL = urlParams['epub'];
