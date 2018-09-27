@@ -911,25 +911,6 @@ BookmarkData){
             // $('#buttFullScreenToggle')[0].style.display = 'none';
         }
 
-        var loadlibrary = function()
-        {
-            $("html").attr("data-theme", "library");
-
-            var urlParams = Helpers.getURLQueryParams();
-            //var ebookURL = urlParams['epub'];
-            var libraryURL = urlParams['epubs'];
-
-            $(window).triggerHandler('loadlibrary', libraryURL);
-            //$(window).trigger('loadlibrary');
-        };
-
-        Keyboard.on(Keyboard.SwitchToLibrary, 'reader', loadlibrary /* function(){setTimeout(, 30);} */ );
-
-        $('.icon-library').on('click', function(){
-            loadlibrary();
-            return false;
-        });
-
         $('.zoom-wrapper input').on('click', function(){
             if (!this.disabled){
                 this.focus();
