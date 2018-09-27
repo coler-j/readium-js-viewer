@@ -212,48 +212,6 @@ define(['hgn!readium_js_viewer_html_templates/settings-keyboard-item.html', 'i18
             _previousInputVal = val;
         });
 
-        // KEYSTROKE CAPTURE DOES NOT WORK, BECAUSE HTML ACCESSKEYS GET IN THE WAY (e.g. CTRL ALT M => play audio)
-        // var oldScope = undefined;
-        // $(".captureKeyboardShortcut").on("focus",
-        // function(e)
-        // {
-        //     oldScope = key.getScope();
-        //     key.setScope("captureKeyboardShortcut");
-        // });
-        // $(".captureKeyboardShortcut").on("blur",
-        // function(e)
-        // {
-        //     if (oldScope) key.setScope(oldScope);
-        // });
-        // $(".captureKeyboardShortcut").on("keydown",
-        // //document.addEventListener('keydown',
-        // function()
-        // {
-        //     // var clazz = (e.sourceElement || e.target).getAttribute("class");
-        //     // if (!clazz || clazz.indexOf("captureKeyboardShortcut") < 0) return;
-        //
-        //     //str.charCodeAt(0);
-        //     console.log(key.shift);
-        //     console.log(key.control);
-        //     console.log(key.alt);
-        //     console.log(key.command);
-        //     console.log(key.getPressedKeyCodes());
-        //
-        //     var keys = key.getPressedKeyCodes();
-        //     if (keys && keys.length) keys = keys[0];
-        //
-        //     var keystroke = (key.shift ? "shift+" : "") + (key.control ? "ctrl+" : "") + (key.alt ? "alt+" : "") + (key.command ? "command+" : "") + keys;
-        //
-        //     $that = $(this);
-        //     var id = $that.attr("data-key");
-        //     $input = $("input#"+id);
-        //     $input.val(keystroke);
-        //
-        //     // e.preventDefault();
-        //     // e.stopPropagation();
-        //     // return false;
-        // });
-
         $(".resetKey").on("click", function()
         {
             $that = $(this);
@@ -327,7 +285,7 @@ define(['hgn!readium_js_viewer_html_templates/settings-keyboard-item.html', 'i18
             //alert(Strings.i18n_keyboard_reload);
             var body = "";
             if (atLeastOneChanged)
-            { 
+            {
               body = "<p>" + Strings.i18n_keyboard_reload + "</p>";
             }
             if (atLeastOneInvalidOrDuplicate) {

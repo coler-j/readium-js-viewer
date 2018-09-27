@@ -240,6 +240,8 @@ BookmarkData){
 
     var tocShowHideToggle = function(){
 
+        console.debug("PERFORMING tocShowHideToggle ACTION");
+
         unhideUI();
 
         var $appContainer = $('#app-container'),
@@ -262,6 +264,7 @@ BookmarkData){
         }
         else{
             $appContainer.addClass('toc-visible');
+            $('#menu--sidebar #readium-toc-body').fadeIn();
 
             setTimeout(function(){ $('#readium-toc-body button.close')[0].focus(); }, 100);
         }
@@ -272,10 +275,6 @@ BookmarkData){
 
             readium.reader.handleViewportResize(bookmark);
 
-            // setTimeout(function()
-            // {
-            //     readium.reader.openSpineItemElementCfi(bookmark.idref, bookmark.contentCFI, readium.reader);
-            // }, 90);
         }
 
         var hideToc = function() {
@@ -288,6 +287,7 @@ BookmarkData){
     var showScaleDisplay = function(){
         $('.zoom-wrapper').show();
     }
+
     var setScaleDisplay = function(){
         var scale = readium.reader.getViewScale();
         $('.zoom-wrapper input').val(Math.round(scale) + "%");
@@ -555,13 +555,9 @@ BookmarkData){
             */
             return false;
         })
-//        var KEY_ENTER = 0x0D;
-//        var KEY_SPACE = 0x20;
         var KEY_END = 0x23;
         var KEY_HOME = 0x24;
-//        var KEY_LEFT = 0x25;
         var KEY_UP = 0x26;
-//        var KEY_RIGHT = 0x27;
         var KEY_DOWN = 0x28;
 
         $('#readium-toc-body').keydown( function(event){
@@ -721,6 +717,7 @@ BookmarkData){
     }
 
     var hideUI = function(){
+
         hideTimeoutId = null;
         // don't hide it toolbar while toc open in non-embedded mode
         if (!embedded && $('#app-container').hasClass('toc-visible')){
@@ -759,9 +756,6 @@ BookmarkData){
 
     var hideLoop = function(e, immediate){
 
-        // if (!embedded){
-        //     return;
-        // }
         if (hideTimeoutId){
             window.clearTimeout(hideTimeoutId);
             hideTimeoutId = null;
@@ -887,14 +881,15 @@ BookmarkData){
         /* Added for new styles */
         $('#btnShowSidebar').on('click', showSidebar);
         $('#btnCloseSidebar').on('click', closeSidebar);
-
-        $('#menu--sidebar .nav .btn').on('click', hideSidebarMenuItem);
-        $('#menu--sidebar .close').on('click', hideSidebarMenuItem);
-
-        $('#tocButt').on('click', showToc);
-        $('#btnBookmark').on('click', bookmarkSite);
-        $('#btnDownload').on('click', showDownload);
-        $('#settbutt1').on('click', showSettings);
+        //
+        // $('#menu--sidebar .nav .btn').on('click', hideSidebarMenuItem);
+        // $('#menu--sidebar .close').on('click', hideSidebarMenuItem);
+        //
+        // $('#tocButt').on('click', showToc);
+        $('.icon-toc').on('click', tocShowHideToggle);
+        // $('#btnBookmark').on('click', bookmarkSite);
+        // $('#btnDownload').on('click', showDownload);
+        // $('#settbutt1').on('click', showSettings);
         /* End of added for new styles */
 
         if (screenfull.enabled) {
@@ -924,8 +919,6 @@ BookmarkData){
                 setTimeout(function(){ $('#readium-toc-body button.close')[0].focus(); }, 100);
             }
         });
-
-        $('.icon-toc').on('click', tocShowHideToggle);
 
         var setTocSize = function(){
             var appHeight = $(document.body).height() - $('#app-container')[0].offsetTop;
