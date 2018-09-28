@@ -72,29 +72,6 @@ define(['./ModuleConfig', 'hgn!readium_js_viewer_html_templates/settings-dialog.
             setPreviewTheme($previewText, newTheme);
         });
 
-        var $marginSlider = $("#margin-size-input");
-        $marginSlider.on("change",
-        function() {
-            var val = $marginSlider.val();
-
-            updateSliderLabels($marginSlider, val, val + "px", Strings.i18n_margins);
-        }
-        );
-
-        var $columnMaxWidthSlider = $("#column-max-width-input");
-        $columnMaxWidthSlider.on("change",
-        function() {
-            var val = $columnMaxWidthSlider.val();
-
-            var maxVal = Number($columnMaxWidthSlider.attr("max"));
-
-            var columnMaxWidth_text = (val >= maxVal) ? Strings.i18n_pageMaxWidth_Disabled : (val + "px");
-
-            updateSliderLabels($columnMaxWidthSlider, val, columnMaxWidth_text, Strings.i18n_pageMaxWidth);
-        }
-        );
-
-
         var $fontSizeSlider = $("#font-size-input");
         $fontSizeSlider.on('change', function(){
             var fontSize = $fontSizeSlider.val();
@@ -102,27 +79,6 @@ define(['./ModuleConfig', 'hgn!readium_js_viewer_html_templates/settings-dialog.
             $previewText.css({fontSize: (fontSize/100) + 'em'});
 
             updateSliderLabels($fontSizeSlider, fontSize, fontSize + '%', Strings.i18n_font_size);
-        });
-
-        var $fontSelectionList = $("#font-selection-input");
-        $fontSelectionList.change(function(){
-            var fontSelection = Number($fontSelectionList.find("option:selected").val());
-            if(fontSelection === 0){
-                $previewText.css({fontFamily: ""});
-			} else {
-                var font = moduleConfig.fonts[fontSelection-1].fontFamily;
-                $previewText.css({fontFamily: font});
-			}
-		});
-
-
-        $('#tab-butt-main').on('click', function(){
-            $("#tab-keyboard").attr('aria-expanded', "false");
-            $("#tab-main").attr('aria-expanded', "true");
-        });
-        $('#tab-butt-keys').on('click', function(){
-            $("#tab-main").attr('aria-expanded', "false");
-            $("#tab-keyboard").attr('aria-expanded', "true");
         });
 
         $('#settings-dialog').on('hide.bs.modal', function(){ // IMPORTANT: not "hidden.bs.modal"!! (because .off() in
@@ -151,87 +107,9 @@ define(['./ModuleConfig', 'hgn!readium_js_viewer_html_templates/settings-dialog.
                 $fontSizeSlider.val(readerSettings.fontSize);
                 updateSliderLabels($fontSizeSlider, readerSettings.fontSize, readerSettings.fontSize + '%', Strings.i18n_font_size);
 
-                var loadedUrls = []; //contains the URL's for fonts. If it exists already, we won't load it again.
-                if($fontSelectionList[0].childElementCount == 1){
-                    //If this settings dialog has been created before, (If the user loaded the settings dialog for example) the combo box isn't destroyed on save. Therefore, we must only populate it on the first instance.
-                    $.each(moduleConfig.fonts, function(index, fontObj){
-                        index++;
-                        var curName = fontObj.displayName;
-                        if(fontObj.url){ //No url, no problem so long as there's a font that works.
-                            var fontPayload  = '<link id="fontStyle_'+index+'" rel="stylesheet" type="text/css" href="'+fontObj.url+'"/>';
-                            if(loadedUrls.indexOf(fontObj.url) < 0){
-                                var item = $("head").append(fontPayload);
-                                loadedUrls.push(fontObj.url)
-                            }
-                        }
-
-                        var isSelected = (readerSettings.fontSelection === index ? "selected" : "");
-                        var curOption = '<option   '+isSelected+' value="'+index+'" aria-label="'+curName+'" title="'+curName+'">'+curName+'</option>';
-                        $fontSelectionList.append(curOption);
-                        if(isSelected) {
-                            //Works because if it's not selected, it's the empty string.
-                            $previewText.css({
-                                fontFamily : fontObj.fontFamily
-                            });
-                        }
-                    });
-                }
-
                 // reset column gap top default, as page width control is now used (see readerSettings.columnMaxWidth)
                 readerSettings.columnGap = defaultSettings.columnGap;
                 //
-                $marginSlider.val(readerSettings.columnGap);
-                updateSliderLabels($marginSlider, readerSettings.columnGap, readerSettings.columnGap + "px", Strings.i18n_margins);
-
-                var maxVal = Number($columnMaxWidthSlider.attr("max"));
-
-                var columnMaxWidth = readerSettings.columnMaxWidth;
-                if (columnMaxWidth >= maxVal) columnMaxWidth = maxVal;
-
-                var columnMaxWidth_text = (columnMaxWidth >= maxVal) ? Strings.i18n_pageMaxWidth_Disabled : (columnMaxWidth + "px");
-                $columnMaxWidthSlider.val(columnMaxWidth);
-                updateSliderLabels($columnMaxWidthSlider, columnMaxWidth, columnMaxWidth_text, Strings.i18n_pageMaxWidth);
-
-                if (readerSettings.syntheticSpread == "double"){
-                    $('#two-up-option input').prop('checked', true);
-                }
-                else if (readerSettings.syntheticSpread == "single"){
-                    $('#one-up-option input').prop('checked', true);
-                }
-                else {
-                    $('#spread-default-option input').prop('checked', true);
-                }
-
-                if(readerSettings.scroll == "scroll-doc") {
-                    $('#scroll-doc-option input').prop('checked', true);
-                }
-                else if(readerSettings.scroll == "scroll-continuous") {
-                    $('#scroll-continuous-option input').prop('checked', true);
-                }
-                else {
-                    $('#scroll-default-option input').prop('checked', true);
-                }
-
-                if (readerSettings.pageTransition === 0)
-                {
-                    $('#pageTransition-1-option input').prop('checked', true);
-                }
-                else if (readerSettings.pageTransition === 1)
-                {
-                    $('#pageTransition-2-option input').prop('checked', true);
-                }
-                else if (readerSettings.pageTransition === 2)
-                {
-                    $('#pageTransition-3-option input').prop('checked', true);
-                }
-                else if (readerSettings.pageTransition === 3)
-                {
-                    $('#pageTransition-4-option input').prop('checked', true);
-                }
-                else
-                {
-                    $('#pageTransition-none-option input').prop('checked', true);
-                }
 
                 if (readerSettings.theme){
                     setPreviewTheme($previewText, readerSettings.theme);
@@ -243,44 +121,14 @@ define(['./ModuleConfig', 'hgn!readium_js_viewer_html_templates/settings-dialog.
 
         var save = function(){
 
-            var maxVal = Number($columnMaxWidthSlider.attr("max"));
-            var columnMaxWidth = Number($columnMaxWidthSlider.val());
-            if (columnMaxWidth >= maxVal) columnMaxWidth = 99999; // really big pixel distance
-
             var readerSettings = {
                 fontSize: Number($fontSizeSlider.val()),
-                fontSelection: Number($fontSelectionList.val()),
+                fontSelection: defaultSettings.fontSelection,
                 syntheticSpread: "auto",
-                columnGap: Number($marginSlider.val()),
-                columnMaxWidth: columnMaxWidth,
+                columnGap: defaultSettings.columnGap,
+                columnMaxWidth: defaultSettings.columnMaxWidth,
                 scroll: "auto"
             };
-
-            if($('#scroll-doc-option input').prop('checked')) {
-                readerSettings.scroll = "scroll-doc";
-            }
-            else if($('#scroll-continuous-option input').prop('checked')) {
-                readerSettings.scroll = "scroll-continuous";
-            }
-
-            if($('#two-up-option input').prop('checked')) {
-                readerSettings.syntheticSpread = "double";
-            }
-            else if($('#one-up-option input').prop('checked')) {
-                readerSettings.syntheticSpread = "single";
-            }
-
-            if($('#pageTransition-1-option input').prop('checked')) {
-                readerSettings.pageTransition = 0;
-            } else if($('#pageTransition-2-option input').prop('checked')) {
-                readerSettings.pageTransition = 1;
-            } else if($('#pageTransition-3-option input').prop('checked')) {
-                readerSettings.pageTransition = 2;
-            } else if($('#pageTransition-4-option input').prop('checked')) {
-                readerSettings.pageTransition = 3;
-            } else {
-                readerSettings.pageTransition = -1;
-            }
 
             readerSettings.theme = $previewText.attr('data-theme');
             if (reader){
@@ -306,16 +154,6 @@ define(['./ModuleConfig', 'hgn!readium_js_viewer_html_templates/settings-dialog.
                 }
 
                 json.keyboard = keys;
-                // if (keys)
-                // {
-                //     for (prop in keys)
-                //     {
-                //         if (keys.hasOwnProperty(prop))
-                //         {
-                //             json.keyboard[prop] = keys[prop];
-                //         }
-                //     }
-                // }
 
                 // Note: automatically JSON.stringify's the passed value!
                 Settings.put('reader', json);
