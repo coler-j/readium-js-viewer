@@ -5,20 +5,20 @@ var versionPath = path.join(process.cwd(), 'build-output/version.json');
 var versionStr = fs.readFileSync(versionPath, {encoding: 'utf-8'});
 var versionJson = JSON.parse(versionStr);
 if (versionJson.readiumJsViewer.branch !== "develop") {
-    console.log("Branch [" + versionJson.readiumJsViewer.branch + "] => skipping upload CRX, etc. to GitHub release.");
+    console.debug("Branch [" + versionJson.readiumJsViewer.branch + "] => skipping upload CRX, etc. to GitHub release.");
     return;
 }
 
 if (!process.env.GITHUB_TOKEN)//process.env.MODE == 'chromeApp')
 {
-    console.log("process.env.GITHUB_TOKEN not defined => skipping upload CRX, etc. to GitHub release.");
+    console.debug("process.env.GITHUB_TOKEN not defined => skipping upload CRX, etc. to GitHub release.");
     return;
 }
 
 var owner = 'readium';
 var repo = 'readium-js-viewer';
 
-console.log('deploying crx to github');
+console.debug('deploying crx to github');
 
 // https://mikedeboer.github.io/node-github
 // https://developer.github.com/v3/git/
@@ -49,18 +49,18 @@ var deleteOldRelease = function(error, response){
     }
     
     github.repos.getReleases({owner: owner, repo: repo}, function(error, releases){
-        // console.log("----");
-        // console.log(releases);
-        // console.log("----");
+        // console.debug("----");
+        // console.debug(releases);
+        // console.debug("----");
         for (var i = 0; i < releases.data.length; i++){
-            // console.log(releases.data[i].tag_name);
-            // console.log(version);
+            // console.debug(releases.data[i].tag_name);
+            // console.debug(version);
             if (releases.data[i].tag_name == version){
                 break;
             }
         }
         if (i < releases.data.length){
-            console.log('found existing release, deleting');
+            console.debug('found existing release, deleting');
             github.repos.deleteRelease({owner: owner, repo: repo, id: releases.data[i].id}, function(error, response){
                 if (error){
                     console.error(JSON.stringify(error));
@@ -79,7 +79,7 @@ var createRelease = function(){
 
     var upload = function(releaseId, fileName, filePath, contentType, error, success) {
         
-        console.log("UPLOAD TO RELEASE: [" + fileName + "] from [" + filePath + "] (" + contentType + ")");
+        console.debug("UPLOAD TO RELEASE: [" + fileName + "] from [" + filePath + "] (" + contentType + ")");
         
         //var url = 'https://uploads.github.com/repos/readium/readium-js-viewer/releases/' + releaseId + '/assets?name=Readium.crx'
 
@@ -97,15 +97,15 @@ var createRelease = function(){
                 'Authorization' : 'token ' + oauthToken
             }
         };
-        //console.log(httpOptions);
+        //console.debug(httpOptions);
 
         var req = https.request(httpOptions, function(res){
             if (res.statusCode < 400){
-                console.log('binary uploaded successfully');
+                console.debug('binary uploaded successfully');
                 if (success) success();
             }
             else{
-                console.log('error uploading binary: ' + res.statusCode);
+                console.debug('error uploading binary: ' + res.statusCode);
                 if (error) error(res.statusCode);
             }
         });
@@ -125,36 +125,36 @@ var createRelease = function(){
     //             'Authorization' : 'token ' + oauthToken
     //         }
     //     };
-    //     //console.log(httpOptions);
+    //     //console.debug(httpOptions);
 
     //     var req = https.request(httpOptions, function(res){
     //         if (res.statusCode < 400){
-    //             console.log('release GET successful: ' + res.upload_url);
+    //             console.debug('release GET successful: ' + res.upload_url);
     //         }
     //         else{
-    //             console.log('release GET fail: ' + res.statusCode);
+    //             console.debug('release GET fail: ' + res.statusCode);
     //         }
     //         // res.on('data', (d) => {
     //         //     process.stdout.write(d);
     //         // });
     //     });
     //     req.on('error', (e) => {
-    //         console.log(e);
+    //         console.debug(e);
     //     });
     //     req.end();
     // };
     
     var releaseDate = new Date().toUTCString();
-    console.log("BUILD DATE/TIME: "+releaseDate);
+    console.debug("BUILD DATE/TIME: "+releaseDate);
     
-    console.log("BUILD tag: "+version);
+    console.debug("BUILD tag: "+version);
     
-    console.log("TRAVIS_BRANCH: "+process.env.TRAVIS_BRANCH);
-    console.log("TRAVIS_COMMIT: "+process.env.TRAVIS_COMMIT);
+    console.debug("TRAVIS_BRANCH: "+process.env.TRAVIS_BRANCH);
+    console.debug("TRAVIS_COMMIT: "+process.env.TRAVIS_COMMIT);
     
-    console.log("TRAVIS_JOB_NUMBER: "+process.env.TRAVIS_JOB_NUMBER);
-    console.log("TRAVIS_BUILD_ID: "+process.env.TRAVIS_BUILD_ID);
-    console.log("TRAVIS_BUILD_NUMBER: "+process.env.TRAVIS_BUILD_NUMBER);
+    console.debug("TRAVIS_JOB_NUMBER: "+process.env.TRAVIS_JOB_NUMBER);
+    console.debug("TRAVIS_BUILD_ID: "+process.env.TRAVIS_BUILD_ID);
+    console.debug("TRAVIS_BUILD_NUMBER: "+process.env.TRAVIS_BUILD_NUMBER);
     
     var releaseTitle = "Pre-release v" + version + " ('develop' branch)";
     var releaseDescription = "Automated build on " + releaseDate + "\n" +
@@ -177,8 +177,8 @@ var createRelease = function(){
             console.error(JSON.stringify(error));
             return;
         }
-        console.log('release created');
-        // console.log(result);
+        console.debug('release created');
+        // console.debug(result);
 
         var releaseId = result.data.id;
         
@@ -218,16 +218,16 @@ github.gitdata.getReference(tagRef, function(error, result) {
 
         tagRef.ref = 'refs/' + tagRef.ref;
 
-        console.log(version + ' tag does not exist, creating.');
+        console.debug(version + ' tag does not exist, creating.');
         github.gitdata.createReference(tagRef, deleteOldRelease);
     }
     else {
-        //console.log(JSON.stringify(result));
+        //console.debug(JSON.stringify(result));
 
-        //console.log('updating previous "' + version + '" release tag');
+        //console.debug('updating previous "' + version + '" release tag');
         //github.gitdata.updateReference(tagRef, deleteOldRelease);
 
-        console.log('deleting previous "' + version + '" release tag');
+        console.debug('deleting previous "' + version + '" release tag');
         github.gitdata.deleteReference(tagRef, function(error, response) {
             if (error){
                 console.error(JSON.stringify(error));
@@ -236,7 +236,7 @@ github.gitdata.getReference(tagRef, function(error, result) {
 
             tagRef.ref = 'refs/' + tagRef.ref;
 
-            console.log(version + ' tag re-creating.');
+            console.debug(version + ' tag re-creating.');
             github.gitdata.createReference(tagRef, deleteOldRelease);
         });
     }

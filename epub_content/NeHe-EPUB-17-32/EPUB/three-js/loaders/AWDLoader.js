@@ -436,7 +436,7 @@
 
 				data_len = this.readU32();
 				var url = this.readUTFBytes( data_len );
-				console.log( url );
+				console.debug( url );
 
 				asset = this.loadTexture( url );
 
@@ -882,7 +882,7 @@
 
 			if ( mesh === null ) {
 
-				console.log( "parseMeshPoseAnimation target mesh not found at:", geoAdress );
+				console.debug( "parseMeshPoseAnimation target mesh not found at:", geoAdress );
 				return;
 
 			}

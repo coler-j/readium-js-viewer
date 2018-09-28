@@ -35,8 +35,8 @@
 document.addEventListener("DOMContentLoaded", function()
 {
     window.addEventListener("message", function(ev) {
-        console.log("@@@@@@@@@@@@@@@@ index.xhtml received message:");
-        console.log(ev.data);
+        console.debug("@@@@@@@@@@@@@@@@ index.xhtml received message:");
+        console.debug(ev.data);
     }, false);
 
     epubReadingSystem();
@@ -61,7 +61,7 @@ function epubReadingSystem()
 
     var logError = function(msg)
     {
-        if (console && console.log) console.log(msg);
+        if (console && console.debug) console.debug(msg);
         if (alert) alert(msg);
         //TODO: append HTML to placeholder div
     };
@@ -124,13 +124,13 @@ function epubReadingSystem()
     }
 
     //appendNameValuePair("BUILD DATE/TIME", window.navigator.epubReadingSystem.readium.buildInfo.dateTime);
-		console.log("window.navigator.epubReadingSystem.readium.buildInfo.dateTime: " + window.navigator.epubReadingSystem.readium.buildInfo.dateTime);
+		console.debug("window.navigator.epubReadingSystem.readium.buildInfo.dateTime: " + window.navigator.epubReadingSystem.readium.buildInfo.dateTime);
 
     //appendNameValuePair("readium.buildInfo.version", window.navigator.epubReadingSystem.readium.buildInfo.version);
-		console.log("window.navigator.epubReadingSystem.readium.buildInfo.version: " + window.navigator.epubReadingSystem.readium.buildInfo.version);
+		console.debug("window.navigator.epubReadingSystem.readium.buildInfo.version: " + window.navigator.epubReadingSystem.readium.buildInfo.version);
 
     //appendNameValuePair("readium.buildInfo.chromeVersion", window.navigator.epubReadingSystem.readium.buildInfo.chromeVersion);
-		console.log("window.navigator.epubReadingSystem.readium.buildInfo.chromeVersion: " + window.navigator.epubReadingSystem.readium.buildInfo.chromeVersion);
+		console.debug("window.navigator.epubReadingSystem.readium.buildInfo.chromeVersion: " + window.navigator.epubReadingSystem.readium.buildInfo.chromeVersion);
 
     if (!window.navigator.epubReadingSystem.readium.buildInfo.gitRepositories || !window.navigator.epubReadingSystem.readium.buildInfo.gitRepositories.length)
     {

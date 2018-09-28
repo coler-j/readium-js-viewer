@@ -70,10 +70,10 @@ define(['jquery', './EpubReader', 'readium_shared_js/helpers'], function($, Epub
             var files = ev.target.files || ev.originalEvent.dataTransfer.files;
             if (files.length) {
                 var file = files[0];
-                console.log("File drag-n-drop:");
-                console.log(file.name);
-                console.log(file.type);
-                console.log(file.size);
+                console.debug("File drag-n-drop:");
+                console.debug(file.name);
+                console.debug(file.type);
+                console.debug(file.size);
                 
                 if (file.type == "application/epub+zip" || (/\.epub[3?]$/.test(file.name))) {
                       EpubReader.loadUI({epub: file});

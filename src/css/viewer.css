@@ -1,3 +1,7 @@
+body {
+  font-family: 'Fira Sans', Arial;;
+}
+
 #epub-reader-frame{
   display: inline-block;
   height: 100%;
@@ -45,35 +49,29 @@ html#simpleViewer .icon-library{
 #readium-toc-body{
   display: none;
   overflow: auto;
-  background: #f3f3f3;
-  border-right: solid 2px rgba(0,0,0,.15);
+  font-size: 14px;
+  padding: 25px 45px;
 }
 
-#readium-toc-body button.close{
+#readium-toc-body button.close {
   margin-right: 20px;
   margin-top: 5px;
   opacity: .8;
+  color: inherit;
 }
-
-/*
-#readium-toc-body *[dir=rtl]{
-direction: rtl;
-}
-*/
 
 #readium-toc-body ol{
   list-style-type: none;
   margin-top: 10px;
-  padding-left: 20px;
+  padding-left: 0;
 }
 
-.toc-visible #readium-toc-body{
-  display: inline-block;
-  width: 30%;
+#readium-toc-body a {
+  color: inherit;
 }
 
-.toc-visible #reading-area{
-  left: 30%;
+.toc-visible #readium-toc-body h2 {
+  font-size: 16px;
 }
 
 .navbar
@@ -93,52 +91,195 @@ direction: rtl;
   box-shadow: none;
 }
 
-.navbar .btn {
-  color : #fff;
-  font-size: 16px;
-  width: 48px;
+.navbar .btn,
+.nav .btn {
+  width: 36px;
   height: 36px;
+  margin: 0 3px;
   background: no-repeat center center;
-    background-color: #4570B4;
+  border-radius: 100%;
+  filter: grayscale(1);
+  transition: all .5s;
 }
 
-.navbar
-{
-  background: #4570B4;
-  box-shadow: 0px 1px 5px #333;
+.btn:hover {
+  filter: grayscale(0);
+}
+
+.btn.icon-bookmark {
+  background-image: url(../images/icon--bookmark.svg);
+}
+
+.btn.icon-download {
+  background-image: url(../images/icon--download.svg);
+}
+
+.btn.icon-full-screen {
+  background-image: url(../images/icon--fullscreen.svg);
+}
+
+.btn.icon-home {
+  background-image: url(../images/icon--home.svg);
+}
+
+.btn.icon-menu {
+  background-image: url(../images/icon--menu.svg);
+}
+
+.btn.icon-settings {
+  background-image: url(../images/icon--settings.svg);
+}
+
+.btn.icon-toc {
+  background-image: url(../images/icon--contents.svg);
+}
+
+.navbar {
+  background: #fff;
   border-radius: 0px;
   min-height: 36px;
   margin-bottom: 0px;
+  padding: 15px 20px;
 }
 
-.navbar-right
-{
+.navbar-right {
     overflow: visible;
     height: 0.4em;
     margin-right: 0 !important;
-    
     min-height: 36px;
-    background-color: #4d4d4d;
+}
+
+@media only screen and (max-width: 767px) {
+  #app-navbar {
+    opacity: 1;
+  }
+
+  .navbar-right {
+    float: right;
+  }
+}
+
+.menu--sidebar {
+  z-index: 9999;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  max-width: 400px;
+  min-height: 100vh;
+  background: #3a3637;
+  color: #bcbec0;
+  transform: translate(-100%, 0);
+  transition: all .5s;
+}
+
+@media only screen and (max-width: 767px) {
+  .menu--sidebar {
+    max-width: 100%;
+  }
+}
+
+.menu--sidebar .nav {
+  padding: 15px 20px;
+  background: #231f20;
+}
+
+#app-container.menu--show .menu--sidebar {
+  transform: translate(0, 0);
+}
+
+.menu--sidebar button.close {
+  color: inherit;
+}
+
+.menu--sidebar #settings-dialog h3,
+.menu--sidebar #readium-download h3 {
+  font-size: 16px;
+}
+
+.menu--sidebar #settings-dialog h5,
+.menu--sidebar #readium-download p {
+  font-size: 14px;
+}
+
+.menu--sidebar #readium-download {
+  display: none;
+  margin: 35px 45px 0;
+}
+
+.menu--sidebar #settings-dialog {
+  top: 66px;
+  margin: 0 30px;
+  color: #bcbec0;
+}
+
+.menu--sidebar #settings-dialog h5 {
+  text-transform: none;
+  margin: 35px 0 20px;
+}
+
+.menu--sidebar #settings-dialog button.close {
+  color: #bcbec0;
+}
+
+.menu--sidebar #settings-dialog #theme-radio-group {
+  margin: 0 15px;
+}
+
+.menu--sidebar #settings-dialog #theme-radio-group .theme-option {
+  width: 100%;
+  margin: 0 0 25px;
+  padding: 15px;
+  border: 0;
+  border-radius: 0;
+}
+
+.menu--sidebar #settings-dialog .modal-footer {
+  border: 0;
+}
+
+.menu--sidebar #settings-dialog .modal-footer .btn {
+  border: 0;
+  border-radius: 0;
+}
+
+.menu--sidebar #settings-dialog .modal-footer .btn-primary {
+  background: #ff9300;
+  color: #333;
+}
+
+.menu--sidebar button.close {
+  color: inherit;
+  opacity: 1;
 }
 
 .book-title-header{
   position: absolute;
   top: 0px;
+  left: 0;
   width: 100%;
   text-align: center;
-  color: #999;
+  color: #a4a8ac;
   font-weight: normal;
-  font-size: 1.0em;
-  letter-spacing: 0.5em;
+  font-size: 16px;
   text-transform: uppercase;
-  margin: 15px 0px 0px 0px;
+  margin: 30px 0 0;
   z-index: -1;
-  font-family: serif;
+  font-family: 'Fira Sans', Arial;
+}
+
+.book-title-header span {
+  color: #4570b4;
+}
+
+@media only screen and (max-width: 767px) {
+  .book-title-header {
+    margin: 25px 0 0;
+  }
 }
 
 html[data-theme=night-theme] .book-title-header,
-html[data-theme=night-theme] body,
-html[data-theme=night-theme] #readium-toc-body
+html[data-theme=night-theme] body
 {
     background-color: #333333;
     color: white;
@@ -157,11 +298,6 @@ html[data-theme=night-theme] .modal
 }
 .icon-full-screen, .icon-full-screen:active{
   background-image: url('../images/glyphicons_215_resize_full.png');
-}*/
-
-
-/*.icon-settings, .icon-settings:active{
-  background-image: url('../images/glyphicons_136_cogwheel.png');
 }*/
 
 .navbar .icon-logo, .navbar .icon-logo:active{
@@ -193,22 +329,17 @@ html[data-theme=night-theme] .modal
 
   top: 20%;
   bottom: 20%;
-
   opacity: 0.3;
-  
   z-index: 99 !important;
-  
+  width: 55px;
   border: none !important;
-  
   padding: 0;
   margin: 0;
   padding-top: 0.2em;
   padding-bottom: 0.44em;
-
   font-size: 40px;
-
   background-color: rgba(255,255,255,0.5);
-    color: black;
+  color: black;
 }
 
 html[data-theme=night-theme] .page-switch-overlay-icon {
@@ -225,10 +356,7 @@ vertical-align: middle;
 }
 
 #left-page-btn {
-
   left: 0;
-  border-top-right-radius: 0.3em;
-  border-bottom-right-radius: 0.3em;
 }
 
 /* #left-page-btn:focus, */
@@ -247,10 +375,7 @@ html[data-theme=night-theme] #left-page-btn:hover
 }
 
 #right-page-btn {
-
   right: 0;
-  border-top-left-radius: 0.3em;
-  border-bottom-left-radius: 0.3em;
 }
 
 /* #right-page-btn:focus, */
@@ -274,12 +399,23 @@ html[data-theme=night-theme] #right-page-btn:hover
 #reading-area {
     text-align: center;
     position: absolute;
-    left: 0px;
     right: 0px;
     bottom: 0px;
-    top: 38px;
-
+    top: 70px;
+    width: 100%;
     overflow: hidden;
+    transition: all .5s;
+}
+
+@media only screen and (min-width: 768px) {
+  #app-container.menu--show #reading-area {
+    width: calc(100% - 400px);
+  }
+
+  #app-container.menu--show #reading-area #reflowable-book-frame {
+    left: 20px !important;
+    right: 20px !important;
+  }
 }
 
 /* show outline on reading-area when iframe gets focus */
@@ -454,6 +590,7 @@ html[data-theme=night-theme] #right-page-btn:hover
   background-size: 16px 11px;
   left: 9px;
   top: 5px;
+  outline: 0;
 }
 
 /*.embedded .navbar-left{

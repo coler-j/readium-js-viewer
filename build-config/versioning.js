@@ -22,7 +22,7 @@ fs.readFile(
             var func = eval("("+fileContents+")");
             return func();
         } else {
-            console.log(err);
+            console.debug(err);
         }
     }
 );

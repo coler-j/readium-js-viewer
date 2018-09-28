@@ -132,7 +132,7 @@ CANNON.Cannon.prototype = {
      * Just fire the cannon if needed and then update the balls.
      */
     update: function() {
-        //console.log(" active: " + this.active.length + " magazine: " + this.magazine.length);
+        //console.debug(" active: " + this.active.length + " magazine: " + this.magazine.length);
 
         this.fireCannon();
 
