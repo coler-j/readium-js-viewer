@@ -4,7 +4,7 @@
         <button id="tocButt" tabindex="1" type="button" class="btn icon-toc" title="{{strings.toc}} [{{keyboard.TocShowHideToggle}}]" aria-label="{{strings.toc}} [{{keyboard.TocShowHideToggle}}]" accesskey="{{keyboard.accesskeys.TocShowHideToggle}}"></button>
         <button id="btnBookmark" tabindex="1" type="button" class="btn icon-bookmark" title="{{strings.bookmark}}" aria-label="{{strings.bookmark}}"></button>
         <button id="btnDownload" tabindex="1" type="button" class="btn icon-download" title="{{strings.download}}" aria-label="{{strings.download}}"></button>
-        <button id="settbutt1" tabindex="1" type="button" class="btn icon-settings" data-toggle="modal" data-target="#settings-dialog" title="{{strings.settings}} [{{keyboard.ShowSettingsModal}}]" aria-label="{{strings.settings}} [{{keyboard.ShowSettingsModal}}]" accesskey="{{keyboard.accesskeys.ShowSettingsModal}}"></button>
+        <button id="settbutt1" tabindex="1" type="button" class="btn icon-settings" title="{{strings.settings}} [{{keyboard.ShowSettingsModal}}]" aria-label="{{strings.settings}} [{{keyboard.ShowSettingsModal}}]" accesskey="{{keyboard.accesskeys.ShowSettingsModal}}"></button>
         <button type="button" class="close" id="btnCloseSidebar">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -15,9 +15,6 @@
 
         <!-- DOWNLOAD -->
         <div class="sidebar__menu-item" id="readium-download">
-          <button type="button" class="close" id="closeDownloadCross">
-            <span aria-hidden="true">&times;</span>
-          </button>
 
           <h3>ePub</h3>
           <p>Download this book and read it on any device with a browser anywhere in the world.</p>
@@ -30,7 +27,6 @@
         <!-- SETTINGS -->
         <div tabindex="-1" class="modal fade sidebar__menu-item" id="settings-dialog" role="dialog" aria-label="{{strings.settings}}">
             <div class="modal-body">
-                <button type="button" class="close" id="closeSettingsCross" data-dismiss="modal" title="{{strings.i18n_close}} {{strings.settings}}" aria-label="{{strings.i18n_close}} {{strings.settings}}"><span aria-hidden="true">&times;</span></button>
 
                 <div class="tab-content">
                     <h3>Settings</h3>
@@ -89,14 +85,14 @@
     </div>
 </aside>
 
-<div id="reading-area" role="main">  
+<div id="reading-area" role="main">
   <div id="epub-reader-container">
     <div id="epub-reader-frame">
     </div>
   </div>
-  
+
   <div id="readium-page-btns" role="region" aria-label="{{strings.i18n_page_navigation}}">
   <!-- page left/right buttons inserted here when EPUB is loaded (page progression direction) -->
   </div>
-  
+
 </div>

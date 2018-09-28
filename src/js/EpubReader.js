@@ -238,14 +238,49 @@ BookmarkData){
         }
     };
 
-    var tocShowHideToggle = function(){
-
-        console.debug("PERFORMING tocShowHideToggle ACTION");
-
+    var tocHideToggle = function(){
+        // This launches the loop which controls the header UI appearance.
         unhideUI();
 
+        var $appContainer = $('#app-container');
+
+        var bookmark;
+        if (readium.reader.handleViewportResize && !embedded){
+            bookmark = JSON.parse(readium.reader.bookmarkCurrentPage());
+        }
+
+        $appContainer.removeClass('toc-visible');
+        $('#readium-toc-body').hide();
+
+        // clear tabindex off of any previously focused ToC item
+        var existsFocusable = $('#readium-toc-body a[tabindex="60"]');
+        if (existsFocusable.length > 0){
+          existsFocusable[0].setAttribute("tabindex", "-1");
+        }
+        /* end of clear focusable tab item */
+        $('#tocButt')[0].focus();
+
+        if (readium.reader.handleViewportResize){
+            readium.reader.handleViewportResize(bookmark);
+        }
+    }
+
+    var tocShowHideToggle = function(){
+
+        // This launches the loop which controls the header UI appearance.
+        unhideUI();
+
+        // Hide settings Menu
+        $('#settings-dialog').modal('hide');
+
+        // Hide Downloads
+        $('#menu--sidebar #readium-download').hide();
+
+        // If the main app container currently has the `toc-visible` class
+        // then the action we need to perform is "hide"
         var $appContainer = $('#app-container'),
             hide = $appContainer.hasClass('toc-visible');
+
         var bookmark;
         if (readium.reader.handleViewportResize && !embedded){
             bookmark = JSON.parse(readium.reader.bookmarkCurrentPage());
@@ -253,6 +288,7 @@ BookmarkData){
 
         if (hide){
             $appContainer.removeClass('toc-visible');
+            $('#readium-toc-body').fadeOut();
 
             // clear tabindex off of any previously focused ToC item
             var existsFocusable = $('#readium-toc-body a[tabindex="60"]');
@@ -277,11 +313,6 @@ BookmarkData){
 
         }
 
-        var hideToc = function() {
-            $('.sidebar__menu-item').fadeOut();
-        }
-
-        $('#readium-toc-body button.close').on('click', hideToc);
     };
 
     var showScaleDisplay = function(){
@@ -539,22 +570,6 @@ BookmarkData){
                 return false;
             }
         });
-        $('#readium-toc-body').prepend('<button tabindex="50" type="button" class="close" data-dismiss="modal" aria-label="'+Strings.i18n_close+' '+Strings.toc+'" title="'+Strings.i18n_close+' '+Strings.toc+'"><span aria-hidden="true">&times;</span></button>');
-        $('#readium-toc-body button.close').on('click', function(){
-            tocShowHideToggle();
-            /*
-            TODO Remove this comment if it is not used.
-            var bookmark = JSON.parse(readium.reader.bookmarkCurrentPage());
-            $('#app-container').removeClass('toc-visible');
-            if (embedded){
-                $(document.body).removeClass('hide-ui');
-            }else if (readium.reader.handleViewportResize){
-                readium.reader.handleViewportResize();
-                readium.reader.openSpineItemElementCfi(bookmark.idref, bookmark.contentCFI, readium.reader);
-            }
-            */
-            return false;
-        })
         var KEY_END = 0x23;
         var KEY_HOME = 0x24;
         var KEY_UP = 0x26;
@@ -654,12 +669,20 @@ BookmarkData){
 
     // Toggle Menu
     var showSidebar = function() {
+        var bookmark = JSON.parse(readium.reader.bookmarkCurrentPage());
         $('#app-container').addClass('menu--show');
+        readium.reader.handleViewportResize(bookmark);
     }
 
     var closeSidebar = function() {
         $('#app-container').removeClass('menu--show');
         $('.modal-backdrop').fadeOut();
+        // Hide settings
+        $('#settings-dialog').modal('hide');
+        // Hide downloads
+        $('#menu--sidebar #readium-download').hide();
+        // Hide and close the TOC
+        tocHideToggle();
     }
 
     // Hide Sidebar Menu Items
@@ -704,12 +727,16 @@ BookmarkData){
 
     // Download Files
     var showDownload = function() {
+        tocHideToggle();
+        $('#settings-dialog').modal('hide');
         $('#menu--sidebar #readium-download').fadeIn();
     }
 
     // Show Settings
     var showSettings = function() {
-        $('#menu--sidebar #settings-dialog').fadeIn();
+        tocHideToggle();
+        $('#menu--sidebar #readium-download').hide();
+        $('#settings-dialog').modal('show');
     }
 
     var unhideUI = function(){
@@ -881,15 +908,10 @@ BookmarkData){
         /* Added for new styles */
         $('#btnShowSidebar').on('click', showSidebar);
         $('#btnCloseSidebar').on('click', closeSidebar);
-        //
-        // $('#menu--sidebar .nav .btn').on('click', hideSidebarMenuItem);
-        // $('#menu--sidebar .close').on('click', hideSidebarMenuItem);
-        //
-        // $('#tocButt').on('click', showToc);
         $('.icon-toc').on('click', tocShowHideToggle);
         // $('#btnBookmark').on('click', bookmarkSite);
-        // $('#btnDownload').on('click', showDownload);
-        // $('#settbutt1').on('click', showSettings);
+        $('#settbutt1').on('click', showSettings);
+        $('#btnDownload').on('click', showDownload);
         /* End of added for new styles */
 
         if (screenfull.enabled) {

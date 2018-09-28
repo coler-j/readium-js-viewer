@@ -80,20 +80,20 @@ define(['./ModuleConfig', 'hgn!readium_js_viewer_html_templates/settings-dialog.
             updateSliderLabels($marginSlider, val, val + "px", Strings.i18n_margins);
         }
         );
-        
+
         var $columnMaxWidthSlider = $("#column-max-width-input");
         $columnMaxWidthSlider.on("change",
         function() {
             var val = $columnMaxWidthSlider.val();
-            
+
             var maxVal = Number($columnMaxWidthSlider.attr("max"));
 
             var columnMaxWidth_text = (val >= maxVal) ? Strings.i18n_pageMaxWidth_Disabled : (val + "px");
-            
+
             updateSliderLabels($columnMaxWidthSlider, val, columnMaxWidth_text, Strings.i18n_pageMaxWidth);
         }
         );
-        
+
 
         var $fontSizeSlider = $("#font-size-input");
         $fontSizeSlider.on('change', function(){
@@ -114,7 +114,7 @@ define(['./ModuleConfig', 'hgn!readium_js_viewer_html_templates/settings-dialog.
                 $previewText.css({fontFamily: font});
 			}
 		});
-    
+
 
         $('#tab-butt-main').on('click', function(){
             $("#tab-keyboard").attr('aria-expanded', "false");
@@ -138,8 +138,6 @@ define(['./ModuleConfig', 'hgn!readium_js_viewer_html_templates/settings-dialog.
             $('#tab-butt-main').trigger("click");
             KeyboardSettings.initKeyboardList();
 
-            setTimeout(function(){ $('#closeSettingsCross')[0].focus(); }, 1000); //tab-butt-main
-
             Settings.get('reader', function(readerSettings){
                 readerSettings = readerSettings || defaultSettings;
                 for (prop in defaultSettings)
@@ -154,7 +152,7 @@ define(['./ModuleConfig', 'hgn!readium_js_viewer_html_templates/settings-dialog.
                 updateSliderLabels($fontSizeSlider, readerSettings.fontSize, readerSettings.fontSize + '%', Strings.i18n_font_size);
 
                 var loadedUrls = []; //contains the URL's for fonts. If it exists already, we won't load it again.
-                if($fontSelectionList[0].childElementCount == 1){ 
+                if($fontSelectionList[0].childElementCount == 1){
                     //If this settings dialog has been created before, (If the user loaded the settings dialog for example) the combo box isn't destroyed on save. Therefore, we must only populate it on the first instance.
                     $.each(moduleConfig.fonts, function(index, fontObj){
                         index++;
@@ -166,7 +164,7 @@ define(['./ModuleConfig', 'hgn!readium_js_viewer_html_templates/settings-dialog.
                                 loadedUrls.push(fontObj.url)
                             }
                         }
-                        
+
                         var isSelected = (readerSettings.fontSelection === index ? "selected" : "");
                         var curOption = '<option   '+isSelected+' value="'+index+'" aria-label="'+curName+'" title="'+curName+'">'+curName+'</option>';
                         $fontSelectionList.append(curOption);
@@ -179,17 +177,17 @@ define(['./ModuleConfig', 'hgn!readium_js_viewer_html_templates/settings-dialog.
                     });
                 }
 
-                // reset column gap top default, as page width control is now used (see readerSettings.columnMaxWidth) 
+                // reset column gap top default, as page width control is now used (see readerSettings.columnMaxWidth)
                 readerSettings.columnGap = defaultSettings.columnGap;
                 //
                 $marginSlider.val(readerSettings.columnGap);
                 updateSliderLabels($marginSlider, readerSettings.columnGap, readerSettings.columnGap + "px", Strings.i18n_margins);
 
                 var maxVal = Number($columnMaxWidthSlider.attr("max"));
-                
+
                 var columnMaxWidth = readerSettings.columnMaxWidth;
                 if (columnMaxWidth >= maxVal) columnMaxWidth = maxVal;
-                
+
                 var columnMaxWidth_text = (columnMaxWidth >= maxVal) ? Strings.i18n_pageMaxWidth_Disabled : (columnMaxWidth + "px");
                 $columnMaxWidthSlider.val(columnMaxWidth);
                 updateSliderLabels($columnMaxWidthSlider, columnMaxWidth, columnMaxWidth_text, Strings.i18n_pageMaxWidth);
@@ -248,7 +246,7 @@ define(['./ModuleConfig', 'hgn!readium_js_viewer_html_templates/settings-dialog.
             var maxVal = Number($columnMaxWidthSlider.attr("max"));
             var columnMaxWidth = Number($columnMaxWidthSlider.val());
             if (columnMaxWidth >= maxVal) columnMaxWidth = 99999; // really big pixel distance
-            
+
             var readerSettings = {
                 fontSize: Number($fontSizeSlider.val()),
                 fontSelection: Number($fontSelectionList.val()),
@@ -340,7 +338,7 @@ define(['./ModuleConfig', 'hgn!readium_js_viewer_html_templates/settings-dialog.
 
                     var isNight = json.theme === "night-theme";
                     json.theme = isNight ? "author-theme" : "night-theme";
-                    
+
                     // Note: automatically JSON.stringify's the passed value!
                     Settings.put('reader', json);
 
