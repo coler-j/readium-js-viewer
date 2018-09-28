@@ -24,7 +24,7 @@ function(es, en_US, fr){
     var language = navigator.userLanguage || navigator.language;
 //FORCE HERE (for testing)
 //language="es";
-    console.log("Language: [" + language + "]");
+    console.debug("Language: [" + language + "]");
 
     var allowEnglishFallback = true;
 
@@ -35,7 +35,7 @@ function(es, en_US, fr){
 
     for(var prop in i18nObj_en){
         var okay = prop in i18nObj;
-        if (!okay) console.log("Language [" + language + "], missing string: [" + prop + "]");
+        if (!okay) console.debug("Language [" + language + "], missing string: [" + prop + "]");
 
         i18nObj[prop] = okay ? i18nObj[prop].message : (allowEnglishFallback ? ("*"+i18nObj_en[prop].message) : "");
     }

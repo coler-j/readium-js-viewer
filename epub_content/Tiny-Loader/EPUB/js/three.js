@@ -12131,7 +12131,7 @@
 
 				} else {
 
-					//console.log('Duplicate vertex found. ', i, ' could be using ', verticesMap[key]);
+					//console.debug('Duplicate vertex found. ', i, ' could be using ', verticesMap[key]);
 					changes[ i ] = changes[ verticesMap[ key ] ];
 
 				}
@@ -13682,7 +13682,7 @@
 
 		setFromObject: function ( object ) {
 
-			// console.log( 'THREE.BufferGeometry.setFromObject(). Converting', object, this );
+			// console.debug( 'THREE.BufferGeometry.setFromObject(). Converting', object, this );
 
 			var geometry = object.geometry;
 
@@ -16476,7 +16476,7 @@
 
 			if ( list === undefined ) {
 
-				// console.log( 'THREE.WebGLRenderLists:', hash );
+				// console.debug( 'THREE.WebGLRenderLists:', hash );
 
 				list = new WebGLRenderList();
 				lists[ hash ] = list;
@@ -17000,7 +17000,7 @@
 		}
 
 		// --enable-privileged-webgl-extension
-		// console.log( type, gl.getExtension( 'WEBGL_debug_shaders' ).getTranslatedShaderSource( shader ) );
+		// console.debug( type, gl.getExtension( 'WEBGL_debug_shaders' ).getTranslatedShaderSource( shader ) );
 
 		return shader;
 
@@ -17126,7 +17126,7 @@
 			var info = gl.getActiveAttrib( program, i );
 			var name = info.name;
 
-			// console.log("THREE.WebGLProgram: ACTIVE VERTEX ATTRIBUTE:", name, i );
+			// console.debug("THREE.WebGLProgram: ACTIVE VERTEX ATTRIBUTE:", name, i );
 
 			attributes[ name ] = gl.getAttribLocation( program, name );
 
@@ -17277,7 +17277,7 @@
 
 		var gammaFactorDefine = ( renderer.gammaFactor > 0 ) ? renderer.gammaFactor : 1.0;
 
-		// console.log( 'building new program ' );
+		// console.debug( 'building new program ' );
 
 		//
 
@@ -17512,8 +17512,8 @@
 		var vertexGlsl = prefixVertex + vertexShader;
 		var fragmentGlsl = prefixFragment + fragmentShader;
 
-		// console.log( '*VERTEX*', vertexGlsl );
-		// console.log( '*FRAGMENT*', fragmentGlsl );
+		// console.debug( '*VERTEX*', vertexGlsl );
+		// console.debug( '*FRAGMENT*', fragmentGlsl );
 
 		var glVertexShader = WebGLShader( gl, gl.VERTEX_SHADER, vertexGlsl );
 		var glFragmentShader = WebGLShader( gl, gl.FRAGMENT_SHADER, fragmentGlsl );
@@ -17543,8 +17543,8 @@
 		var runnable = true;
 		var haveDiagnostics = true;
 
-		// console.log( '**VERTEX**', gl.getExtension( 'WEBGL_debug_shaders' ).getTranslatedShaderSource( glVertexShader ) );
-		// console.log( '**FRAGMENT**', gl.getExtension( 'WEBGL_debug_shaders' ).getTranslatedShaderSource( glFragmentShader ) );
+		// console.debug( '**VERTEX**', gl.getExtension( 'WEBGL_debug_shaders' ).getTranslatedShaderSource( glVertexShader ) );
+		// console.debug( '**FRAGMENT**', gl.getExtension( 'WEBGL_debug_shaders' ).getTranslatedShaderSource( glFragmentShader ) );
 
 		if ( gl.getProgramParameter( program, gl.LINK_STATUS ) === false ) {
 
@@ -20304,7 +20304,7 @@
 
 	function WebGLRenderer( parameters ) {
 
-		console.log( 'THREE.WebGLRenderer', REVISION );
+		console.debug( 'THREE.WebGLRenderer', REVISION );
 
 		parameters = parameters || {};
 
@@ -26448,7 +26448,7 @@
 					// angle != 180 deg.
 
 					var other2toAngle		= otherPtX * legToPtY - otherPtY * legToPtX;
-					// console.log( "from2to: " + from2toAngle + ", from2other: " + from2otherAngle + ", other2to: " + other2toAngle );
+					// console.debug( "from2to: " + from2toAngle + ", from2other: " + from2otherAngle + ", other2to: " + other2toAngle );
 
 					if ( from2toAngle > 0 ) {
 
@@ -26465,7 +26465,7 @@
 				} else {
 
 					// angle == 180 deg.
-					// console.log( "from2to: 180 deg., from2other: " + from2otherAngle  );
+					// console.debug( "from2to: 180 deg., from2other: " + from2otherAngle  );
 					return	( from2otherAngle > 0 );
 
 				}
@@ -26492,7 +26492,7 @@
 					var insideAngle = isPointInsideAngle( shape[ inShapeIdx ], shape[ prevShapeIdx ], shape[ nextShapeIdx ], hole[ inHoleIdx ] );
 					if ( ! insideAngle ) {
 
-						// console.log( "Vertex (Shape): " + inShapeIdx + ", Point: " + hole[inHoleIdx].x + "/" + hole[inHoleIdx].y );
+						// console.debug( "Vertex (Shape): " + inShapeIdx + ", Point: " + hole[inHoleIdx].x + "/" + hole[inHoleIdx].y );
 						return	false;
 
 					}
@@ -26509,7 +26509,7 @@
 					insideAngle = isPointInsideAngle( hole[ inHoleIdx ], hole[ prevHoleIdx ], hole[ nextHoleIdx ], shape[ inShapeIdx ] );
 					if ( ! insideAngle ) {
 
-						// console.log( "Vertex (Hole): " + inHoleIdx + ", Point: " + shape[inShapeIdx].x + "/" + shape[inShapeIdx].y );
+						// console.debug( "Vertex (Hole): " + inHoleIdx + ", Point: " + shape[inShapeIdx].x + "/" + shape[inShapeIdx].y );
 						return	false;
 
 					}
@@ -26576,7 +26576,7 @@
 					counter --;
 					if ( counter < 0 ) {
 
-						console.log( "Infinite Loop! Holes left:" + indepHoles.length + ", Probably Hole outside Shape!" );
+						console.debug( "Infinite Loop! Holes left:" + indepHoles.length + ", Probably Hole outside Shape!" );
 						break;
 
 					}
@@ -26653,7 +26653,7 @@
 
 			}
 
-			//console.log( "allpoints",allpoints, allpoints.length );
+			//console.debug( "allpoints",allpoints, allpoints.length );
 
 			// prepare all points map
 
@@ -26675,7 +26675,7 @@
 			var shapeWithoutHoles = removeHoles( contour, holes );
 
 			var triangles = ShapeUtils.triangulate( shapeWithoutHoles, false ); // True returns indices for points of spooled shape
-			//console.log( "triangles",triangles, triangles.length );
+			//console.debug( "triangles",triangles, triangles.length );
 
 			// check all face vertices against all points map
 
@@ -26782,7 +26782,7 @@
 
 		//this.computeVertexNormals();
 
-		//console.log( "took", ( Date.now() - startTime ) );
+		//console.debug( "took", ( Date.now() - startTime ) );
 
 	}
 
@@ -26868,7 +26868,7 @@
 
 			splineTube = options.frames !== undefined ? options.frames : extrudePath.computeFrenetFrames( steps, false );
 
-			// console.log(splineTube, 'splineTube', splineTube.normals.length, 'steps', steps, 'extrudePts', extrudePts.length);
+			// console.debug(splineTube, 'splineTube', splineTube.normals.length, 'steps', steps, 'extrudePts', extrudePts.length);
 
 			binormal = new Vector3();
 			normal = new Vector3();
@@ -27052,14 +27052,14 @@
 
 				if ( direction_eq ) {
 
-					// console.log("Warning: lines are a straight sequence");
+					// console.debug("Warning: lines are a straight sequence");
 					v_trans_x = - v_prev_y;
 					v_trans_y = v_prev_x;
 					shrink_by = Math.sqrt( v_prev_lensq );
 
 				} else {
 
-					// console.log("Warning: lines are a straight spike");
+					// console.debug("Warning: lines are a straight spike");
 					v_trans_x = v_prev_x;
 					v_trans_y = v_prev_y;
 					shrink_by = Math.sqrt( v_prev_lensq / 2 );
@@ -27081,7 +27081,7 @@
 			if ( k === il ) k = 0;
 
 			//  (j)---(i)---(k)
-			// console.log('i,j,k', i, j , k)
+			// console.debug('i,j,k', i, j , k)
 
 			contourMovements[ i ] = getBevelVec( contour[ i ], contour[ j ], contour[ k ] );
 
@@ -27361,7 +27361,7 @@
 				k = i - 1;
 				if ( k < 0 ) k = contour.length - 1;
 
-				//console.log('b', i,j, i-1, k,vertices.length);
+				//console.debug('b', i,j, i-1, k,vertices.length);
 
 				var s = 0,
 					sl = steps + bevelSegments * 2;
@@ -29629,7 +29629,7 @@
 
 			if ( this.enabled === false ) return;
 
-			// console.log( 'THREE.Cache', 'Adding key:', key );
+			// console.debug( 'THREE.Cache', 'Adding key:', key );
 
 			this.files[ key ] = file;
 
@@ -29639,7 +29639,7 @@
 
 			if ( this.enabled === false ) return;
 
-			// console.log( 'THREE.Cache', 'Checking key:', key );
+			// console.debug( 'THREE.Cache', 'Checking key:', key );
 
 			return this.files[ key ];
 
@@ -33322,7 +33322,7 @@
 					hasFaceColor = isBitSet( type, 6 );
 					hasFaceVertexColor = isBitSet( type, 7 );
 
-					// console.log("type", type, "bits", isQuad, hasMaterial, hasFaceVertexUv, hasFaceNormal, hasFaceVertexNormal, hasFaceColor, hasFaceVertexColor);
+					// console.debug("type", type, "bits", isQuad, hasMaterial, hasFaceVertexUv, hasFaceNormal, hasFaceVertexNormal, hasFaceColor, hasFaceVertexColor);
 
 					if ( isQuad ) {
 
@@ -35754,7 +35754,7 @@
 			var holesFirst = ! isClockWise( subPaths[ 0 ].getPoints() );
 			holesFirst = isCCW ? ! holesFirst : holesFirst;
 
-			// console.log("Holes first", holesFirst);
+			// console.debug("Holes first", holesFirst);
 
 			var betterShapeHoles = [];
 			var newShapes = [];
@@ -35782,13 +35782,13 @@
 					if ( holesFirst )	mainIdx ++;
 					newShapeHoles[ mainIdx ] = [];
 
-					//console.log('cw', i);
+					//console.debug('cw', i);
 
 				} else {
 
 					newShapeHoles[ mainIdx ].push( { h: tmpPath, p: tmpPoints[ 0 ] } );
 
-					//console.log('ccw', i);
+					//console.debug('ccw', i);
 
 				}
 
@@ -35846,10 +35846,10 @@
 					}
 
 				}
-				// console.log("ambiguous: ", ambiguous);
+				// console.debug("ambiguous: ", ambiguous);
 				if ( toChange.length > 0 ) {
 
-					// console.log("to change: ", toChange);
+					// console.debug("to change: ", toChange);
 					if ( ! ambiguous )	newShapeHoles = betterShapeHoles;
 
 				}
@@ -35872,7 +35872,7 @@
 
 			}
 
-			//console.log("shape", shapes);
+			//console.debug("shape", shapes);
 
 			return shapes;
 
@@ -42435,7 +42435,7 @@
 
 	Curve.create = function ( construct, getPoint ) {
 
-		console.log( 'THREE.Curve.create() has been deprecated' );
+		console.debug( 'THREE.Curve.create() has been deprecated' );
 
 		construct.prototype = Object.create( Curve.prototype );
 		construct.prototype.constructor = construct;

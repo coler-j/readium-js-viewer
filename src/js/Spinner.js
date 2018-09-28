@@ -1,13 +1,13 @@
 define(['spin'], function(Spinner){
     var opts = {
-      lines: 17, // The number of lines to draw
+      lines: 12, // The number of lines to draw
       length: 0, // The length of each line
-      width: 10, // The line thickness
+      width: 20, // The line thickness
       radius: 48, // The radius of the inner circle
       corners: 1, // Corner roundness (0..1)
       rotate: 0, // The rotation offset
       direction: 1, // 1: clockwise, -1: counterclockwise
-      color: '#000', // #rgb or #rrggbb or array of colors
+      color: '#ff9300', // #rgb or #rrggbb or array of colors
       speed: 1, // Rounds per second
       trail: 66, // Afterglow percentage
       shadow: false, // Whether to render a shadow

@@ -607,11 +607,11 @@ GFX.Scene.prototype = {
 		var		AXIS_WHITE    = 0xEEEEEE;
 		var     curColor;
 
-		//console.log("drawAxis " + axis + " ht: " +  AXIS_HEIGHT + ", " + AXIS_STEP + " color: " + axisColor);
+		//console.debug("drawAxis " + axis + " ht: " +  AXIS_HEIGHT + ", " + AXIS_STEP + " color: " + axisColor);
 	
 		for ( var i=0; i<(AXIS_HEIGHT/AXIS_STEP); i++ )
 		{
-			//console.log("loop " +  i);
+			//console.debug("loop " +  i);
 			
 			var pos = -AXIS_HEIGHT / 2 + i * AXIS_STEP;
 	
@@ -622,7 +622,7 @@ GFX.Scene.prototype = {
 			else
 				curColor = AXIS_WHITE;
 			
-			//console.log(i + " pos: " + pos + " color: " + curColor);
+			//console.debug(i + " pos: " + pos + " color: " + curColor);
 			
 			var geometry = new THREE.CylinderGeometry( AXIS_RADIUS, AXIS_RADIUS, AXIS_STEP, AXIS_SEGMENTS ); 
 			var material = new THREE.MeshLambertMaterial( { color: curColor } ); 

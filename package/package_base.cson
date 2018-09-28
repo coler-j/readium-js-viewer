@@ -49,7 +49,7 @@ engines:
     npm: ">=2"
     yarn: ">=0.23"
 
-description: "Readium web app - online cloud reader, offline Chrome extension/app"
+description: "Readium web app - online cloud reader for Bright Wing Books"
 
 keywords: [
     "readium"
@@ -58,9 +58,9 @@ keywords: [
 ]
 
 author:
-    name: "Readium (Daniel Weck)"
-    email: "daniel.weck@gmail.com"
-    url: "http://github.com/readium"
+    name: "Cole Jancsar"
+    email: "cole@solvecore.com"
+    url: "http://github.com/coler-j"
 
 license: "BSD-3-Clause"
 
@@ -69,15 +69,15 @@ licenses: [
     url: "http://opensource.org/licenses/BSD-3-Clause"
 ]
 
-homepage: "http://github.com/readium/readium-js-viewer"
+homepage: "http://github.com/coler-j/readium-js-viewer"
 
 bugs:
-    url: "http://github.com/readium/readium-js-viewer/issues"
-    email: "daniel.weck@gmail.com"
+    url: "http://github.com/coler-j/readium-js-viewer/issues"
+    email: "cole@solvecore.com"
 
 repository:
     type: "git"
-    url: "git://github.com/readium/readium-js-viewer.git"
+    url: "git://github.com/coler-j/readium-js-viewer.git"
 
 #####################################################################
 files: [
@@ -102,14 +102,12 @@ files: [
 #####################################################################
 dependencies:
 
-    #"parallelshell": 'latest'
     "concurrently": '^3.6.0'
 
     "npm-run-all": '^4.1.3'
 
     "opener": '^1.4.3'
 
-    #"http-server": 'latest'
     "http-server": 'github:danielweck/http-server#master'
     # SEE: https://github.com/indexzero/http-server/issues/154
 
@@ -119,19 +117,9 @@ dependencies:
 # in "npm install --dev readium-js-viewer".
 devDependencies:
 
-# see readium-js:
-# "crypto-js", "zipjs", "requirejs-text"
-
-# see readium-shared-js:
-# "requirejs", "almond", "jquery"
-
-    #"keymaster": 'latest'
     "keymaster": 'github:danielweck/keymaster#master'
 
-    #"jath": 'latest'
     "jath": 'github:danielweck/jath#master'
-    # "libxmljs" node-gyp python < v3 :(
-    #"jquery-xpath": 'latest'
 
     "mathjax-single-file": 'github:danielweck/MathJax-single-file#master'
 
@@ -157,37 +145,25 @@ devDependencies:
 
 # Below dependencies are only used in build tasks (above are runtime deps):
 
-# see readium-shared-js:
-# "cson", "jshint", "glob", "rimraf", "mkdirp", "watch", "live-reload"
-
-    # see readium-build-tools (in readium-shared-js)
-    # versionsMaker.js
     "gift": '^0.10.1'
 
-    # Automatically included with the CLI
-    # "clean-css": 'latest'
     "clean-css-cli": '^4.1.10'
-    
+
     "uglify-js": '^3.4.1'
 
-    #"nodeunit": 'latest'
     "mocha": '^5.2.0'
 
     "wd": '^1.9.0'
 
     "phantomjs-prebuilt": '^2.1.16'
 
-    #"grunt": 'latest'
     "grunt-selenium-webdriver": 'github:levexis/grunt-selenium-webdriver#master'
-    #"selenium-webdriver": 'latest'
 
     "crx": '^3.2.1'
 
-    # https://github.com/domenic/chai-as-promised/issues/184
     "chai": '3.x'
     "chai-as-promised": '^7.1.1'
 
-    # TODO now @octokit/rest
     "github": '12.x'
 
     "hogan.js": '^3.0.2'
@@ -197,5 +173,3 @@ devDependencies:
     "xml2js": '^0.4.19'
 
     "decompress-zip": '^0.3.1'
-
-    #"unzip": 'latest'
