@@ -371,7 +371,7 @@
 
                 if (mesh.position.x > WALL_LIMIT || mesh.position.x < -WALL_LIMIT || mesh.position.y > WALL_LIMIT ||
                     mesh.position.y < -WALL_LIMIT || mesh.position.z > WALL_LIMIT || mesh.position.z < -WALL_LIMIT)  {
-                    console.log("Yikes!  The object has escaped!! ");
+                    console.debug("Yikes!  The object has escaped!! ");
                     //window.prompt("Copy to clipboard: Ctrl+C, Enter", memLog);
                     debugger;
                 }
@@ -398,7 +398,7 @@
                     var globalVertex = localVertex.applyMatrix4( mesh.matrix );
                     var directionVector = globalVertex.sub( mesh.position );
                     var angle = mesh.velocity.angleTo( directionVector);
-                    //console.log(" vertex: " + globalVertex.x + ", " + globalVertex.y + ", " + globalVertex.z +" angle; " + angle);
+                    //console.debug(" vertex: " + globalVertex.x + ", " + globalVertex.y + ", " + globalVertex.z +" angle; " + angle);
 
                     if ( angle <= Math.PI/2) {
 
@@ -417,9 +417,9 @@
 
                 var meshB = collisionResult.object;
 
-                //console.log("Objects Collided");
+                //console.debug("Objects Collided");
                 if (meshA === meshB)
-                    console.log("Appears to be same object");
+                    console.debug("Appears to be same object");
 
                 var collision = new THREE.Vector3();
                 collision.x = ((meshA.position.x * OBJ_SIZE) + (meshB.position.x * OBJ_SIZE)) / (OBJ_SIZE + OBJ_SIZE);

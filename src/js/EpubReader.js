@@ -909,7 +909,7 @@ BookmarkData){
         $('#btnShowSidebar').on('click', showSidebar);
         $('#btnCloseSidebar').on('click', closeSidebar);
         $('.icon-toc').on('click', tocShowHideToggle);
-        // $('#btnBookmark').on('click', bookmarkSite);
+        $('.icon-bookmark').on('click', bookmarkSite);
         $('#settbutt1').on('click', showSettings);
         $('#btnDownload').on('click', showDownload);
         /* End of added for new styles */

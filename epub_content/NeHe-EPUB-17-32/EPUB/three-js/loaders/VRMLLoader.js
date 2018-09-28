@@ -578,7 +578,7 @@ THREE.VRMLLoader.prototype = {
 
 			var parseNode = function ( data, parent ) {
 
-				// console.log( data );
+				// console.debug( data );
 
 				if ( typeof data === 'string' ) {
 

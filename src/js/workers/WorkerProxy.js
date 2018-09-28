@@ -9,7 +9,7 @@ define(['../ModuleConfig', './Messages', 'jquery', '../PackageParser', 'readium_
     }
     var doWork = function(job, callbacks){
         if (worker){
-            console.log('dangling worker');
+            console.debug('dangling worker');
         }
 
         var workerUrl = moduleConfig.workerUrl;

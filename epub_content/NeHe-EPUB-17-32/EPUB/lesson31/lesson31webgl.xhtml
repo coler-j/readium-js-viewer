@@ -339,8 +339,8 @@
                 var helper = new THREE.BoxHelper(object, 0xff0000);
 
                 var bbs = helper.geometry.boundingSphere;
-                console.log(bbs.center.x + " " +  bbs.center.y + " " + bbs.center.z);
-                console.log(bbs.radius);
+                console.debug(bbs.center.x + " " +  bbs.center.y + " " + bbs.center.z);
+                console.debug(bbs.radius);
 
                 return bbs;
             }

@@ -37,7 +37,7 @@ if (HTTPServerRootFolder.indexOf("9090") < 0) {
     EPUB_LIB_JSON = "../epub_content/epub_library.opds";
 }
 
-console.log("Default URL of ebooks library: " + EPUB_LIB_JSON);
+console.debug("Default URL of ebooks library: " + EPUB_LIB_JSON);
 
 var getURLQueryParams = function() {
    var params = {};
