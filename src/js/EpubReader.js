@@ -301,8 +301,6 @@ BookmarkData){
         else{
             $appContainer.addClass('toc-visible');
             $('#menu--sidebar #readium-toc-body').fadeIn();
-
-            setTimeout(function(){ $('#readium-toc-body button.close')[0].focus(); }, 100);
         }
 
         if(embedded){
@@ -919,7 +917,6 @@ BookmarkData){
             $('#buttFullScreenToggle').on('click', toggleFullScreen);
         } else {
             $('#buttFullScreenToggle').css('display', 'none');
-            // $('#buttFullScreenToggle')[0].style.display = 'none';
         }
 
         $('.zoom-wrapper input').on('click', function(){
@@ -935,10 +932,6 @@ BookmarkData){
             if (!visible)
             {
                 tocShowHideToggle();
-            }
-            else
-            {
-                setTimeout(function(){ $('#readium-toc-body button.close')[0].focus(); }, 100);
             }
         });
 
