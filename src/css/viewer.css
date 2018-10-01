@@ -60,10 +60,29 @@ html#simpleViewer .icon-library{
   color: inherit;
 }
 
-#readium-toc-body ol{
-  list-style-type: none;
-  margin-top: 10px;
+#readium-toc-body ol {
+  list-style: disc;
+}
+
+#readium-toc-body > ol {
+  list-style: none;
   padding-left: 0;
+}
+
+#readium-toc-body ol ol {
+  padding: 0 0 0 20px;
+}
+
+#readium-toc-body > ol > li {
+  padding: 25px 0;
+}
+
+#readium-toc-body > ol > li:not(:last-child) {
+  border-bottom: 1px solid #bcbec0;
+}
+
+#readium-toc-body > ol > li li {
+  margin: 5px 0;
 }
 
 #readium-toc-body a {
