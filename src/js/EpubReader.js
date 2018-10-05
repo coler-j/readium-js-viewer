@@ -1158,6 +1158,11 @@ BookmarkData){
 
             window.READIUM = readium;
 
+            // Check feature flags
+            if (!moduleConfig.featureFlags.downloads) {
+                $('.icon-download').css("display", "none");
+            }
+
             ReadiumSDK.on(ReadiumSDK.Events.PLUGINS_LOADED, function () {
                 Globals.logEvent("PLUGINS_LOADED", "ON", "EpubReader.js");
 
