@@ -14,7 +14,6 @@ define([
 'hgn!readium_js_viewer_html_templates/reader-navbar.html',
 'hgn!readium_js_viewer_html_templates/reader-body.html',
 'hgn!readium_js_viewer_html_templates/reader-body-page-btns.html',
-'Analytics',
 'screenfull',
 './Keyboard',
 './EpubReaderMediaOverlays',
@@ -41,7 +40,6 @@ SettingsDialog,
 ReaderNavbar,
 ReaderBody,
 ReaderBodyPageButtons,
-Analytics,
 screenfull,
 Keyboard,
 EpubReaderMediaOverlays,
@@ -1019,7 +1017,6 @@ BookmarkData){
         ebookURL_filepath = Helpers.getEbookUrlFilePath(ebookURL);
 
 
-        Analytics.trackView('/reader');
         embedded = data.embedded;
 
         loadReaderUIPrivate();
