@@ -1,5 +1,5 @@
 body {
-  font-family: 'Fira Sans', Arial;;
+  font-family: 'Roboto', sans-serif;
 }
 
 #epub-reader-frame{
@@ -53,6 +53,12 @@ html#simpleViewer .icon-library{
   padding: 25px 45px;
 }
 
+#readium-toc-body #readium-toc-header {
+  font-size: 14px;
+  text-transform: uppercase;
+  border-bottom: 1px solid #fff;
+}
+
 #readium-toc-body button.close {
   margin-right: 20px;
   margin-top: 5px;
@@ -93,9 +99,8 @@ html#simpleViewer .icon-library{
   font-size: 16px;
 }
 
-.navbar
-{
-    z-index: 888;
+.navbar {
+  z-index: 888;
 }
 
 /* toolbar */
@@ -110,19 +115,14 @@ html#simpleViewer .icon-library{
   box-shadow: none;
 }
 
-.navbar .btn,
-.nav .btn {
+.navbar .btn {
   width: 36px;
   height: 36px;
-  margin: 0 3px;
-  background: no-repeat center center;
-  border-radius: 100%;
-  filter: grayscale(1);
-  transition: all .5s;
+  background-repeat: no-repeat;
 }
 
-.btn:hover {
-  filter: grayscale(0);
+.navbar .btn:not(:last-of-type) {
+  margin: 0 33px;
 }
 
 .btn.icon-bookmark {
@@ -137,20 +137,8 @@ html#simpleViewer .icon-library{
   background-image: url(../images/icon--fullscreen.svg);
 }
 
-.btn.icon-home {
-  background-image: url(../images/icon--home.svg);
-}
-
 .btn.icon-menu {
   background-image: url(../images/icon--menu.svg);
-}
-
-.btn.icon-settings {
-  background-image: url(../images/icon--settings.svg);
-}
-
-.btn.icon-toc {
-  background-image: url(../images/icon--contents.svg);
 }
 
 .navbar {
@@ -184,10 +172,10 @@ html#simpleViewer .icon-library{
   top: 0;
   left: 0;
   width: 100%;
-  max-width: 400px;
+  max-width: 470px;
   min-height: 100vh;
-  background: #3a3637;
-  color: #bcbec0;
+  background: rgba(58, 80, 98, .95);
+  color: #fff;
   transform: translate(-100%, 0);
   transition: all .5s;
 }
@@ -199,16 +187,39 @@ html#simpleViewer .icon-library{
 }
 
 .menu--sidebar .nav {
-  padding: 15px 20px;
-  background: #231f20;
+  padding: 17px 20px;
+  background: #fff;
+  color: #626262;
+}
+
+.menu--sidebar .nav .btn {
+  text-transform: uppercase;
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  margin: 0 8px;
+  transition: color .5s;
+}
+
+.menu--sidebar .nav .btn:hover,
+.menu--sidebar .nav .btn:active,
+.menu--sidebar .nav .btn:focus {
+  color: #049FDA;
+}
+
+.menu--sidebar .nav .btn#home {
+  padding: 5px 8px;
+  color: inherit;
+  border: 1px solid #626262;
 }
 
 #app-container.menu--show .menu--sidebar {
   transform: translate(0, 0);
 }
 
-.menu--sidebar button.close {
-  color: inherit;
+.menu--sidebar #settings-dialog {
+  top: 66px;
+  margin: 0 30px;
 }
 
 .menu--sidebar #settings-dialog h3,
@@ -221,15 +232,73 @@ html#simpleViewer .icon-library{
   font-size: 14px;
 }
 
+.menu--sidebar #settings-dialog h3 {
+  margin: 20px 0 30px;
+  text-transform: uppercase;
+}
+
+.menu--sidebar #settings-dialog .tab-content {
+  margin: 0 0 50px;
+}
+
+.menu--sidebar #settings-dialog .content-row {
+  display: flex;
+  align-items: center;
+  margin: 0 0 25px;
+  padding: 0 0 0 15px;
+}
+
+.menu--sidebar #settings-dialog .tab-pane {
+  padding: 0 0 0 15px;
+}
+
+.menu--sidebar #settings-dialog .tab-pane .row {
+  margin: 0;
+}
+
+.menu--sidebar #settings-dialog .btn {
+  width: 120px;
+  font-size: 12px;
+  text-transform: uppercase;
+  margin: 0 20px 0 0;
+  background: 0;
+  border: 1px solid #fff;
+  border-radius: 0;
+}
+
+.menu--sidebar #settings-dialog .content-row p {
+  display: inline-block;
+  width: 110px;
+  font-size: 12px;
+  margin: 0;
+}
+
+.menu--sidebar #settings-dialog .setting-font-size {
+  display: flex;
+  align-items: center;
+}
+
+.menu--sidebar #settings-dialog .icon-plus-minus {
+  font-size: 45px;
+  line-height: 1;
+}
+
+.menu--sidebar #settings-dialog #font-size-input {
+  filter: brightness(2);
+}
+
 .menu--sidebar #readium-download {
   display: none;
   margin: 35px 45px 0;
 }
 
-.menu--sidebar #settings-dialog {
-  top: 66px;
-  margin: 0 30px;
-  color: #bcbec0;
+.menu--sidebar #settings-dialog #setting-header-color-legend {
+  margin: 20px 0 0;
+  outline: 0;
+}
+
+.menu--sidebar #settings-dialog #setting-header-color-legend:hover {
+  cursor: pointer;
 }
 
 .menu--sidebar #settings-dialog h5 {
@@ -242,7 +311,7 @@ html#simpleViewer .icon-library{
 }
 
 .menu--sidebar #settings-dialog #theme-radio-group {
-  margin: 0 15px;
+  margin: 25px 15px 0;
 }
 
 .menu--sidebar #settings-dialog #theme-radio-group .theme-option {
@@ -253,13 +322,12 @@ html#simpleViewer .icon-library{
   border-radius: 0;
 }
 
-.menu--sidebar #settings-dialog .modal-footer {
-  border: 0;
+.menu--sidebar #settings-dialog #theme-radio-group .theme-option:last-of-type {
+  margin: 0;
 }
 
-.menu--sidebar #settings-dialog .modal-footer .btn {
+.menu--sidebar #settings-dialog .modal-footer {
   border: 0;
-  border-radius: 0;
 }
 
 .menu--sidebar #settings-dialog .modal-footer .btn-primary {
@@ -268,8 +336,11 @@ html#simpleViewer .icon-library{
 }
 
 .menu--sidebar button.close {
-  color: inherit;
   opacity: 1;
+  text-shadow: none;
+  font-weight: 400;
+  margin: 5px 0 0;
+  color: #626262;
 }
 
 .book-title-header{
@@ -284,7 +355,7 @@ html#simpleViewer .icon-library{
   text-transform: uppercase;
   margin: 30px 0 0;
   z-index: -1;
-  font-family: 'Fira Sans', Arial;
+  font-family: 'Roboto', sans-serif;
 }
 
 .book-title-header span {
@@ -323,10 +394,6 @@ html[data-theme=night-theme] .modal
   background-image: url('../images/reca_logo.png');
   width: 130px; 
   background-size: auto 28px !important;
-}
-
-.icon-scale-down{
-  text-align: right;
 }
 
 .clickable{
@@ -428,7 +495,7 @@ html[data-theme=night-theme] #right-page-btn:hover
 
 @media only screen and (min-width: 768px) {
   #app-container.menu--show #reading-area {
-    width: calc(100% - 400px);
+    width: 100%;
   }
 
   #app-container.menu--show #reading-area #reflowable-book-frame {
@@ -459,11 +526,6 @@ html[data-theme=night-theme] #right-page-btn:hover
 }
 
 /* embedded mode styles */
-.embedded .navbar .btn-group > .btn.icon-full-screen, .embedded .navbar .btn-group > .btn.icon-toc{
-  display:inline-block;
-  opacity: 1;
-}
-
 .hide-ui .navbar{
   -webkit-transition: all .2s ease-out;
   opacity:0;
@@ -556,20 +618,11 @@ html[data-theme=night-theme] #right-page-btn:hover
   background-image: url('../images/white-resize-small.png');
 }
 
-/*.embedded .icon-settings, .embedded .icon-settings:active{
-  background-image: url('../images/white-cogwheel.png');
-  background-size: 16px 16px;
-}*/
-
 .embedded .navbar .btn-group > .btn{
   display:none;
 }
 
-.embedded .icon-toc, .embedded .icon-toc:active{
-  background-image: url('../images/white-list.png');
-  background-size: 16px 16px;
-}
-.embedded #readium-toc-body{
+.embedded #readium-toc-body {
   top: -100%;
   -webkit-transition: top .3s ease-out;
   -moz-transition: -moz-transform .3s ease-out;
@@ -581,26 +634,25 @@ html[data-theme=night-theme] #right-page-btn:hover
   width: 100%;
   background-color: rgba(0,0,0,.7);
   color: white;
-  
 }
+
 .embedded .toc-visible #readium-toc-body{
   top: 0%;
   -webkit-transition: top .3s ease-out;
   /*-moz-transition: -moz-transform .3s ease-out, background-color .3s step-end, color .3s step-end, z-index .3s step-end, position .3s step-end;
   -o-transition: -o-transform .3s ease-out, background-color .3s step-end, color .3s step-end, z-index .3s step-end, position .3s step-end;
   transition: transform .3s ease-out, background-color .3s step-end, color .3s step-end, z-index .3s step-end, position .3s step-end;*/
-  
 }
 
 .embedded .toc-visible #reading-area{
   left: 0%;
 }
 
-.embedded #readium-toc-body a{
+.embedded #readium-toc-body a {
   color: white;
 }
 
-.embedded .toc-visible button.close{
+.embedded .toc-visible button.close {
   color: transparent;
   text-shadow: none;
   position: fixed;

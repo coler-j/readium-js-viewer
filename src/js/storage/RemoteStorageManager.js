@@ -72,7 +72,7 @@ define(['remotestorage', 'jquery'], function(rs, $){
     $(window).bind('libraryUIReady', function(){
         // $('#add-epub-dialog .modal-body form').prepend('<div class="form-group"><div id="readium-rs-widget" style="position:relative; height:42px;" class="col-sm-9"></div></div>');
         // $('#epub-upload-div').hide();
-        $('.icon-settings').before('<div id="rs-container" class="btn"></div>')
+        $('#btnSettings').before('<div id="rs-container" class="btn"></div>')
         remoteStorage.access.claim('readium', 'rw');
         remoteStorage.widget.display('rs-container');
         remoteStorage.on('ready', function(){

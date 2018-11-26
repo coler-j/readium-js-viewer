@@ -135,11 +135,14 @@ BookmarkData){
 
     function setBookTitle(title) {
         var $titleEl = $('.book-title-header');
+
         if ($titleEl.length) {
             $titleEl.text(title);
         } else {
-            $('<h2 class="book-title-header"></h2>').insertAfter('#app-navbar .navbar-left').html('<span>RECA |</span> ' + title);
+            $('<h2 class="book-title-header"></h2>').insertAfter('#app-navbar .navbar-left').html(title);
         }
+        
+        $('#readium-toc-header').append('<h2>' + title + '</h2>');
     };
 
     var _debugBookmarkData_goto = undefined;
@@ -202,17 +205,14 @@ BookmarkData){
         );
     };
 
-    var spin = function(on)
-    {
+    var spin = function(on) {
         if (on) {
             if (spinner.willSpin || spinner.isSpinning) return;
 
             spinner.willSpin = true;
 
-            setTimeout(function()
-            {
-                if (spinner.stopRequested)
-                {
+            setTimeout(function() {
+                if (spinner.stopRequested) {
                     spinner.willSpin = false;
                     spinner.stopRequested = false;
                     return;
@@ -220,17 +220,12 @@ BookmarkData){
                 spinner.isSpinning = true;
                 spinner.spin($('#reading-area')[0]);
                 spinner.willSpin = false;
-
             }, 100);
         } else {
-
-            if (spinner.isSpinning)
-            {
+            if (spinner.isSpinning) {
                 spinner.stop();
                 spinner.isSpinning = false;
-            }
-            else if (spinner.willSpin)
-            {
+            } else if (spinner.willSpin) {
                 spinner.stopRequested = true;
             }
         }
@@ -256,7 +251,7 @@ BookmarkData){
           existsFocusable[0].setAttribute("tabindex", "-1");
         }
         /* end of clear focusable tab item */
-        $('#tocButt')[0].focus();
+        $('#btnToc')[0].focus();
 
         if (readium.reader.handleViewportResize){
             readium.reader.handleViewportResize(bookmark);
@@ -294,21 +289,17 @@ BookmarkData){
               existsFocusable[0].setAttribute("tabindex", "-1");
             }
             /* end of clear focusable tab item */
-            setTimeout(function(){ $('#tocButt')[0].focus(); }, 100);
-        }
-        else{
+            setTimeout(function(){ $('#btnToc')[0].focus(); }, 100);
+        } else{
             $appContainer.addClass('toc-visible');
             $('#menu--sidebar #readium-toc-body').fadeIn();
         }
 
         if(embedded){
             hideLoop(null, true);
-        }else if (readium.reader.handleViewportResize){
-
+        } else if (readium.reader.handleViewportResize){
             readium.reader.handleViewportResize(bookmark);
-
         }
-
     };
 
     var showScaleDisplay = function(){
@@ -721,13 +712,6 @@ BookmarkData){
         return false;
     };
 
-    // Download Files
-    var showDownload = function() {
-        tocHideToggle();
-        $('#settings-dialog').modal('hide');
-        $('#menu--sidebar #readium-download').fadeIn();
-    }
-
     // Show Settings
     var showSettings = function() {
         tocHideToggle();
@@ -904,10 +888,9 @@ BookmarkData){
         /* Added for new styles */
         $('#btnShowSidebar').on('click', showSidebar);
         $('#btnCloseSidebar').on('click', closeSidebar);
-        $('.icon-toc').on('click', tocShowHideToggle);
-        $('.icon-bookmark').on('click', bookmarkSite);
-        $('#settbutt1').on('click', showSettings);
-        $('#btnDownload').on('click', showDownload);
+        $('#btnToc').on('click', tocShowHideToggle);
+        $('.btn-bookmark').on('click', bookmarkSite);
+        $('#btnSettings').on('click', showSettings);
         /* End of added for new styles */
 
         if (screenfull.enabled) {
@@ -1000,7 +983,7 @@ BookmarkData){
         $('nav').attr("aria-label", Strings.i18n_toolbar);
         $('nav').append(ReaderNavbar({strings: Strings, dialogs: Dialogs, keyboard: Keyboard}));
         installReaderEventHandlers();
-        document.title = "RECA Booksite";
+        document.title = "Bright Wing Media Booksite";
         $('#zoom-fit-width a').on('click', setFitWidth);
         $('#zoom-fit-screen a').on('click', setFitScreen);
         $('#zoom-custom a').on('click', enableCustom);
@@ -1236,7 +1219,7 @@ BookmarkData){
                 Keyboard.scope('reader');
 
                 unhideUI()
-                setTimeout(function(){ $("#settbutt1").focus(); }, 50);
+                setTimeout(function(){ $("#btnSettings").focus(); }, 50);
 
                 $("#buttSave").removeAttr("accesskey");
                 $("#buttClose").removeAttr("accesskey");
