@@ -2,16 +2,12 @@ body {
   font-family: 'Roboto', sans-serif;
 }
 
-#epub-reader-frame{
+#epub-reader-frame {
   display: inline-block;
   height: 100%;
   position: relative;
-  
   width: 100%;
   overflow: auto;
-
-  border-left: 40px solid transparent;
-  border-right: 40px solid transparent;
 }
 
 #about-dialog div{
@@ -148,6 +144,7 @@ html#simpleViewer .icon-library{
   min-height: 36px;
   margin-bottom: 0px;
   padding: 15px 20px;
+  opacity: .95;
 }
 
 .navbar-right {
@@ -494,7 +491,7 @@ html[data-theme=night-theme] #right-page-btn:hover
     position: absolute;
     right: 0px;
     bottom: 0px;
-    top: 70px;
+    top: 0;
     width: 100%;
     overflow: hidden;
     transition: all .5s;
