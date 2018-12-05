@@ -43,7 +43,6 @@ html#simpleViewer .icon-library{
 }
 
 #readium-toc-body{
-  display: none;
   overflow: auto;
   font-size: 14px;
   padding: 25px 45px;
@@ -91,7 +90,7 @@ html#simpleViewer .icon-library{
   color: inherit;
 }
 
-.toc-visible #readium-toc-body h2 {
+#readium-toc-body h2 {
   font-size: 16px;
 }
 

@@ -658,6 +658,10 @@ BookmarkData){
     var showSidebar = function() {
         var bookmark = JSON.parse(readium.reader.bookmarkCurrentPage());
         $('#app-container').addClass('menu--show');
+
+        // Display TOC by default
+        $('#menu--sidebar #readium-toc-body').fadeIn();
+
         readium.reader.handleViewportResize(bookmark);
     }
 
