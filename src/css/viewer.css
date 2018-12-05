@@ -43,7 +43,7 @@ html#simpleViewer .icon-library{
 }
 
 #readium-toc-body{
-  overflow: auto;
+  overflow: scroll;
   font-size: 14px;
   padding: 25px 45px;
 }
@@ -217,6 +217,7 @@ html#simpleViewer .icon-library{
 .menu--sidebar #settings-dialog {
   top: 66px;
   margin: 0 30px;
+  padding: 0 0 45px;
 }
 
 .menu--sidebar #settings-dialog h3,
@@ -288,6 +289,14 @@ html#simpleViewer .icon-library{
 
 .menu--sidebar #settings-dialog #font-size-input {
   filter: brightness(2);
+}
+
+.menu--sidebar #settings-dialog #font-size-input::-webkit-slider-thumb {
+  width: 13px;
+  height: 13px;
+  border-radius: 100%;
+  cursor: pointer;
+  -webkit-appearance: none;
 }
 
 .menu--sidebar #readium-download {
