@@ -1225,6 +1225,7 @@ BookmarkData){
                 unhideUI()
                 setTimeout(function(){ $("#btnSettings").focus(); }, 50);
 
+                $("#buttSave").on('click', closeSidebar);
                 $("#buttSave").removeAttr("accesskey");
                 $("#buttClose").removeAttr("accesskey");
             });

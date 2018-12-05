@@ -272,22 +272,10 @@
     "message" : "Text and background color"
   },
   "i18n_author_theme" : {
-    "message" : "Default (author styles)"
-  },
-  "i18n_black_and_white" : {
-    "message" : "Black and White"
+    "message" : "Book Styles"
   },
   "i18n_arabian_nights" : {
-    "message" : "Arabian Nights"
-  },
-  "i18n_sands_of_dune" : {
-    "message" : "Sands of Dune"
-  },
-  "i18n_ballard_blues" : {
-    "message" : "Ballard Blues"
-  },
-  "i18n_vancouver_mist" : {
-    "message" : "Vancouver Mist"
+    "message" : "Winter in Canada"
   },
   "i18n_display_format" : {
     "message" : "DISPLAY FORMAT"
