@@ -112,13 +112,13 @@ html#simpleViewer .icon-library{
 }
 
 .navbar .btn {
-  width: 36px;
-  height: 36px;
+  width: 26px;
+  height: 25px;
   background-repeat: no-repeat;
 }
 
 .navbar .btn:not(:last-of-type) {
-  margin: 0 33px;
+  margin: 0 25px;
 }
 
 .btn.icon-bookmark {
@@ -134,6 +134,7 @@ html#simpleViewer .icon-library{
 }
 
 .btn.icon-menu {
+  width: 36px;
   background-image: url(../images/icon--menu.svg);
 }
 
@@ -150,7 +151,7 @@ html#simpleViewer .icon-library{
     overflow: visible;
     height: 0.4em;
     margin-right: 0 !important;
-    min-height: 36px;
+    min-height: 25px;
 }
 
 @media only screen and (max-width: 767px) {
@@ -365,7 +366,7 @@ html#simpleViewer .icon-library{
   font-weight: normal;
   font-size: 16px;
   text-transform: uppercase;
-  margin: 30px 0 0;
+  margin: 20px 0 0;
   z-index: -1;
   font-family: 'Roboto', sans-serif;
 }
@@ -374,9 +375,10 @@ html#simpleViewer .icon-library{
   color: #4570b4;
 }
 
-@media only screen and (max-width: 767px) {
+
+@media only screen and (max-width: 500px) {
   .book-title-header {
-    margin: 25px 0 0;
+    display: none;
   }
 }
 
@@ -804,19 +806,19 @@ ul.nav-tabs li:not(.active) button:hover
     border-bottom-right-radius: 0 !important;
 }
 
-@media (max-width:768px){
-  .navbar .btn-group > .btn.icon-full-screen
-  {
-    display:none;
+@media (max-width: 768px) {
+  .navbar .btn-group > .btn.icon-full-screen {
+    display : none;
   }
-  #epub-reader-frame
-  {
-      border-left: 30px solid transparent;
-      border-right: 30px solid transparent;
+  .navbar .btn-group > .btn.icon-bookmark {
+    margin: 0 0 0 25px;
   }
-  .page-switch-overlay-icon
-  {
-      font-size: 30px;
+  #epub-reader-frame {
+    border-left: 30px solid transparent;
+    border-right: 30px solid transparent;
+  }
+  .page-switch-overlay-icon {
+    font-size: 30px;
   }
 }
 
