@@ -1,5 +1,8 @@
 body {
   font-family: 'Roboto', sans-serif;
+  /* Fix for mobile to hide
+  address bar on scroll */
+  height: 101%;
 }
 
 #epub-reader-frame {
@@ -218,7 +221,7 @@ html#simpleViewer .icon-library{
 .menu--sidebar #settings-dialog {
   top: 66px;
   margin: 0 30px;
-  padding: 0 0 45px;
+  padding: 0 0 65px;
 }
 
 .menu--sidebar #settings-dialog h3,
