@@ -196,6 +196,7 @@ html#simpleViewer .icon-library{
 .menu--sidebar .nav .btn {
   text-transform: uppercase;
   padding: 0;
+  background: 0;
   border: 0;
   border-radius: 0;
   margin: 0 8px;
@@ -212,6 +213,21 @@ html#simpleViewer .icon-library{
   padding: 5px 8px;
   color: inherit;
   border: 1px solid #626262;
+}
+
+@media only screen and (max-width: 450px) {
+  .menu--sidebar .nav {
+    padding: 17px 13px;
+  }
+  .menu--sidebar .nav .btn {
+    margin: 0 5px;
+  }
+}
+
+@media only screen and (max-width: 405px) {
+  .menu--sidebar .nav .btn#btnToc {
+    display: none;
+  }
 }
 
 #app-container.menu--show .menu--sidebar {
