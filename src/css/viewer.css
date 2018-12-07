@@ -538,6 +538,11 @@ html[data-theme=night-theme] #right-page-btn:hover
     transition: all .5s;
 }
 
+#reflowable-book-frame {
+  top: 0;
+  bottom: 0;
+}
+
 @media only screen and (min-width: 768px) {
   #app-container.menu--show #reading-area {
     width: 100%;
