@@ -192,8 +192,23 @@ BookmarkData){
                 $pageBtnsContainer.append(ReaderBodyPageButtons({strings: Strings, dialogs: Dialogs, keyboard: Keyboard,
                     pageProgressionDirectionIsRTL: rtl
                 }));
+
+                // Click for prev / next page
                 $("#left-page-btn").on("click", prevPage);
                 $("#right-page-btn").on("click", nextPage);
+
+                // Swipe for prev / next page
+                var btnPrev = document.getElementById("left-page-btn");
+                var btnNext = document.getElementById("right-page-btn");
+
+                btnPrev.addEventListener('touchstart', function() {
+                    prevPage();
+                });
+
+                btnNext.addEventListener('touchstart', function() {
+                    nextPage();
+                });
+
                 $("#left-page-btn").mouseleave(function() {
                   $(tooltipSelector()).tooltip('destroy');
                 });
@@ -850,13 +865,11 @@ BookmarkData){
     };
 
     var nextPage = function () {
-
         readium.reader.openPageRight();
         return false;
     };
 
     var prevPage = function () {
-
         readium.reader.openPageLeft();
         return false;
     };
@@ -1415,5 +1428,4 @@ BookmarkData){
         tooltipSelector : tooltipSelector,
         ensureUrlIsRelativeToApp : ensureUrlIsRelativeToApp
     };
-
 });
