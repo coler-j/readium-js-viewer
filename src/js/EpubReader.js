@@ -222,27 +222,9 @@ BookmarkData){
 
     var spin = function(on) {
         if (on) {
-            if (spinner.willSpin || spinner.isSpinning) return;
-
-            spinner.willSpin = true;
-
-            setTimeout(function() {
-                if (spinner.stopRequested) {
-                    spinner.willSpin = false;
-                    spinner.stopRequested = false;
-                    return;
-                }
-                spinner.isSpinning = true;
-                spinner.spin($('#reading-area')[0]);
-                spinner.willSpin = false;
-            }, 100);
+            $('#spinner--book').fadeIn();
         } else {
-            if (spinner.isSpinning) {
-                spinner.stop();
-                spinner.isSpinning = false;
-            } else if (spinner.willSpin) {
-                spinner.stopRequested = true;
-            }
+            $('#spinner--book').fadeOut();
         }
     };
 
