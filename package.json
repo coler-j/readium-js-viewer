@@ -59,7 +59,7 @@
     "bootstrap-accessibility-plugin": "github:paypal/bootstrap-accessibility-plugin#master",
     "hammerjs": "^2.0.8",
     "jquery-hammerjs": "^2.0.0",
-    "screenfull": "^3.3.2",
+    "screenfull": "^4.0.0",
     "JSON2": "^0.1.0",
     "hogan": "^1.0.2",
     "requirejs-hogan-plugin": "^0.3.1",

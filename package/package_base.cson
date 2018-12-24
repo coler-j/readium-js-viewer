@@ -131,7 +131,7 @@ devDependencies:
 
     "jquery-hammerjs": '^2.0.0'
 
-    "screenfull": '^3.3.2'
+    "screenfull": '^4.0.0'
 
     "JSON2": '^0.1.0'
 

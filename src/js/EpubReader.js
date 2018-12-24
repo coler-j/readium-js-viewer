@@ -72,10 +72,6 @@ BookmarkData){
     // (bad naming convention, hard to find usages of "el")
     var el = document.documentElement;
 
-    var tooltipSelector = function() {
-        return 'nav *[title], #readium-page-btns *[title]';
-    };
-
     var ensureUrlIsRelativeToApp = function(ebookURL) {
 
         if (!ebookURL) {
@@ -209,12 +205,6 @@ BookmarkData){
                     nextPage();
                 });
 
-                $("#left-page-btn").mouseleave(function() {
-                  $(tooltipSelector()).tooltip('destroy');
-                });
-                $("#right-page-btn").mouseleave(function() {
-                  $(tooltipSelector()).tooltip('destroy');
-                });
             },
             openPageRequest
         );
@@ -755,8 +745,6 @@ BookmarkData){
             return;
         }
 
-        $(tooltipSelector()).tooltip('destroy');
-
         $(document.body).addClass('hide-ui');
     }
 
@@ -1140,6 +1128,7 @@ BookmarkData){
             // Check feature flags
             if (!moduleConfig.featureFlags.downloads) {
                 $('.icon-download').css("display", "none");
+                $('.download-actions').css("display", "none");
             }
 
             ReadiumSDK.on(ReadiumSDK.Events.PLUGINS_LOADED, function () {
@@ -1407,7 +1396,6 @@ BookmarkData){
     return {
         loadUI : applyKeyboardSettingsAndLoadUi,
         unloadUI : unloadReaderUI,
-        tooltipSelector : tooltipSelector,
         ensureUrlIsRelativeToApp : ensureUrlIsRelativeToApp
     };
 });
