@@ -256,6 +256,10 @@ BookmarkData){
         // Hide Downloads
         $('#menu--sidebar #readium-download').hide();
 
+        // Add active class to Toc nav item
+        $('#menu--sidebar .btn').removeClass('active');
+        $('#menu--sidebar #btnToc').addClass('active');
+
         // If the main app container currently has the `toc-visible` class
         // then the action we need to perform is "hide"
         var $appContainer = $('#app-container'),
@@ -648,6 +652,7 @@ BookmarkData){
 
         // Display TOC by default
         $('#menu--sidebar #readium-toc-body').fadeIn();
+        $('#menu--sidebar #btnToc').addClass('active');
 
         readium.reader.handleViewportResize(bookmark);
     }
@@ -707,7 +712,10 @@ BookmarkData){
     var showSettings = function() {
         tocHideToggle();
         $('#menu--sidebar #readium-download').hide();
+        $('#menu--sidebar .btn').removeClass('active');
+
         $('#settings-dialog').modal('show');
+        $('#menu--sidebar #btnSettings').addClass('active');
     }
 
     var unhideUI = function(){

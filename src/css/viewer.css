@@ -45,7 +45,7 @@ html#simpleViewer .icon-library{
   color: red;
 }
 
-#readium-toc-body{
+#readium-toc-body {
   overflow: scroll;
   font-size: 14px;
   padding: 25px 45px;
@@ -70,6 +70,7 @@ html#simpleViewer .icon-library{
 
 #readium-toc-body > ol {
   list-style: none;
+  margin: 0 0 65px;
   padding-left: 0;
 }
 
@@ -114,14 +115,23 @@ html#simpleViewer .icon-library{
   box-shadow: none;
 }
 
+html[data-theme=night-theme] .navbar .btn-group > .btn {
+  filter: brightness(6);
+}
+
 .navbar .btn {
   width: 26px;
   height: 25px;
   background-repeat: no-repeat;
+  transition: all .3s;
 }
 
 .navbar .btn:not(:last-of-type) {
   margin: 0 25px;
+}
+
+.navbar .btn:hover {
+  filter: contrast(10);
 }
 
 .btn.icon-bookmark {
@@ -203,9 +213,7 @@ html#simpleViewer .icon-library{
   transition: color .5s;
 }
 
-.menu--sidebar .nav .btn:hover,
-.menu--sidebar .nav .btn:active,
-.menu--sidebar .nav .btn:focus {
+.menu--sidebar .nav .btn:hover {
   color: #049FDA;
 }
 
@@ -213,6 +221,11 @@ html#simpleViewer .icon-library{
   padding: 5px 8px;
   color: inherit;
   border: 1px solid #626262;
+}
+
+.menu--sidebar .nav .btn.active {
+  color: #049FDA;
+  box-shadow: none;
 }
 
 @media only screen and (max-width: 450px) {
@@ -236,8 +249,7 @@ html#simpleViewer .icon-library{
 
 .menu--sidebar #settings-dialog {
   top: 66px;
-  margin: 0 30px;
-  padding: 0 0 65px;
+  padding: 0 30px 65px !important;
 }
 
 .menu--sidebar #settings-dialog h3,
@@ -402,15 +414,12 @@ html#simpleViewer .icon-library{
 }
 
 html[data-theme=night-theme] .book-title-header,
-html[data-theme=night-theme] body
-{
-    background-color: #333333;
-    color: white;
+html[data-theme=night-theme] body {
+  color: white;
 }
 
-html[data-theme=night-theme] .modal
-{
-    color: black;
+html[data-theme=night-theme] .modal:not(#settings-dialog) {
+  color: black;
 }
 
 /*.icon-show-hide, .icon-show-hide:active{
@@ -438,8 +447,6 @@ html[data-theme=night-theme] .modal
   display:none;
 }
 
-
-
 .page-switch-overlay-icon {
   overflow: hidden;
   display: block;
@@ -456,10 +463,10 @@ html[data-theme=night-theme] .modal
   padding-top: 0.2em;
   padding-bottom: 0.44em;
   font-size: 40px;
-  background-color: rgba(255,255,255,0.5);
+  background: 0;
   color: black;
+  transition: all .3s;
 }
-
 
 /* Increase arrow area for easier swiping */
 @media only screen and (max-width: 500px) {
@@ -475,9 +482,8 @@ html[data-theme=night-theme] .modal
   }
 }
 
-html[data-theme=night-theme] .page-switch-overlay-icon {
-  background-color: rgba(0,0,0,0.4);
-    color: white;
+html[data-theme=night-theme] .page-switch-overlay-icon > span {
+  color: #fff;
 }
 
 .page-switch-overlay-icon > span {
@@ -490,41 +496,22 @@ html[data-theme=night-theme] .page-switch-overlay-icon {
   left: 0;
 }
 
-/* #left-page-btn:focus, */
-#left-page-btn:hover
-{
+#left-page-btn:hover {
   opacity: 1.0;
-  color: white;
-  background-color: rgba(0,0,0,0.2);
-}
-
-/* html[data-theme=night-theme] #left-page-btn:focus, */
-html[data-theme=night-theme] #left-page-btn:hover
-{
-  color: black;
-  background-color: rgba(255,255,255,0.2);
+  color: #049FDA;
 }
 
 #right-page-btn {
   right: 0;
 }
 
-/* #right-page-btn:focus, */
-#right-page-btn:hover
-{
+#right-page-btn:hover {
   opacity: 1.0;
-  color: white;
-  background-color: rgba(0,0,0,0.2);
-}
-/* html[data-theme=night-theme] #right-page-btn:focus, */
-html[data-theme=night-theme] #right-page-btn:hover
-{
-  color: black;
-  background-color: rgba(255,255,255,0.2);
+  color: #049FDA;
 }
 
 #app-container {
-    overflow: hidden;
+  overflow: hidden;
 }
 
 #reading-area {
