@@ -1130,6 +1130,15 @@ BookmarkData){
                 $('.icon-download').css("display", "none");
                 $('.download-actions').css("display", "none");
             }
+            if (!moduleConfig.featureFlags.annotations) {
+                $('.annotation-action').css("display", "none");
+            }
+            if (!moduleConfig.featureFlags.tts) {
+                $('.tts-action').css("display", "none");
+            }
+            if (!moduleConfig.featureFlags.tts && !moduleConfig.featureFlags.annotations) {
+                $('.reader-actions').css("display", "none");
+            }
 
             ReadiumSDK.on(ReadiumSDK.Events.PLUGINS_LOADED, function () {
                 Globals.logEvent("PLUGINS_LOADED", "ON", "EpubReader.js");
@@ -1150,24 +1159,18 @@ BookmarkData){
                     });
                 }
 
-                if (readium.reader.plugins.example) {
-                    readium.reader.plugins.example.on("exampleEvent", function(message) {
-                        alert(message);
-                    });
-                }
-
                 if (readium.reader.plugins.hypothesis) {
                     // Respond to requests for UI controls to make space for the Hypothesis sidebar
                     readium.reader.plugins.hypothesis.on("offsetPageButton", function (offset) {
                         if (offset == 0) {
                             $('#right-page-btn').css('right', offset);
                         } else {
-                            $('#right-page-btn').css('right', offset - $('#right-page-btn').width()); // 40px
+//                            $('#reading-area').css('right', offset - $('#right-page-btn').width()); // epub-reader-container
+                            $('#right-page-btn').css('right', '40px'); // 40px
                         }
                     });
                     readium.reader.plugins.hypothesis.on("offsetNavBar", function (offset) {
                         $('#app-navbar').css('margin-right', offset);
-                        $('#reading-area').css('right', offset); // epub-reader-container
                     });
                 }
             });

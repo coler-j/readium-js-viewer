@@ -26,6 +26,6 @@ define(['module'], function(module) {
             'fonts': config.fonts || [],
 
             'useSimpleLoader': config.useSimpleLoader || false,
-            'featureFlags': config.featureFlags || {'downloads': true}
+            'featureFlags': config.featureFlags || {'downloads': false, 'annotations': false, 'tts': false}
         };
 });
