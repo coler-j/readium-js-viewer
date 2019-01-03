@@ -153,24 +153,12 @@
 }
 
 .night-theme {
-  background-color: #141414;
+  background-color: #606060;
   color: white;
 }
 .default-theme {
   background-color: white;
   color: black;
-}
-.parchment-theme {
-  background-color: #f7f1cf;
-  color: #774c27;
-}
-.ballard-theme {
-  background-color: #576b96;
-  color: #DDD;
-}
-.vancouver-theme {
-  background-color: #DDD;
-  color: #576b96;
 }
 
 .preview-text{

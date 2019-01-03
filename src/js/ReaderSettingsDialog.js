@@ -46,6 +46,7 @@ define(['./ModuleConfig', 'hgn!readium_js_viewer_html_templates/settings-dialog.
 
             var bookStyles = getBookStyles(readerSettings.theme);
             reader.setBookStyles(bookStyles);
+            $('body').css(bookStyles[0].declarations);
             $('#app-navbar').css(bookStyles[0].declarations);
             $('#reading-area').css(bookStyles[0].declarations);
         }
@@ -193,7 +194,7 @@ define(['./ModuleConfig', 'hgn!readium_js_viewer_html_templates/settings-dialog.
             $('#settings-dialog').modal('hide');
         });
 
-        $('#settings-dialog .btn-primary').on('click', save);
+        $('#settings-dialog #buttSave').on('click', save);
     }
 
     return {

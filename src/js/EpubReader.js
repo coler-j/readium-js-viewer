@@ -72,10 +72,6 @@ BookmarkData){
     // (bad naming convention, hard to find usages of "el")
     var el = document.documentElement;
 
-    var tooltipSelector = function() {
-        return 'nav *[title], #readium-page-btns *[title]';
-    };
-
     var ensureUrlIsRelativeToApp = function(ebookURL) {
 
         if (!ebookURL) {
@@ -135,11 +131,14 @@ BookmarkData){
 
     function setBookTitle(title) {
         var $titleEl = $('.book-title-header');
+
         if ($titleEl.length) {
             $titleEl.text(title);
         } else {
-            $('<h2 class="book-title-header"></h2>').insertAfter('#app-navbar .navbar-left').html('<span>RECA |</span> ' + title);
+            $('<h2 class="book-title-header"></h2>').insertAfter('#app-navbar .navbar-left').html(title);
         }
+        
+        $('#readium-toc-header').append('<h2>' + title + '</h2>');
     };
 
     var _debugBookmarkData_goto = undefined;
@@ -189,50 +188,33 @@ BookmarkData){
                 $pageBtnsContainer.append(ReaderBodyPageButtons({strings: Strings, dialogs: Dialogs, keyboard: Keyboard,
                     pageProgressionDirectionIsRTL: rtl
                 }));
+
+                // Click for prev / next page
                 $("#left-page-btn").on("click", prevPage);
                 $("#right-page-btn").on("click", nextPage);
-                $("#left-page-btn").mouseleave(function() {
-                  $(tooltipSelector()).tooltip('destroy');
+
+                // Swipe for prev / next page
+                var btnPrev = document.getElementById("left-page-btn");
+                var btnNext = document.getElementById("right-page-btn");
+
+                btnPrev.addEventListener('touchstart', function() {
+                    prevPage();
                 });
-                $("#right-page-btn").mouseleave(function() {
-                  $(tooltipSelector()).tooltip('destroy');
+
+                btnNext.addEventListener('touchstart', function() {
+                    nextPage();
                 });
+
             },
             openPageRequest
         );
     };
 
-    var spin = function(on)
-    {
+    var spin = function(on) {
         if (on) {
-            if (spinner.willSpin || spinner.isSpinning) return;
-
-            spinner.willSpin = true;
-
-            setTimeout(function()
-            {
-                if (spinner.stopRequested)
-                {
-                    spinner.willSpin = false;
-                    spinner.stopRequested = false;
-                    return;
-                }
-                spinner.isSpinning = true;
-                spinner.spin($('#reading-area')[0]);
-                spinner.willSpin = false;
-
-            }, 100);
+            $('#spinner--book').fadeIn();
         } else {
-
-            if (spinner.isSpinning)
-            {
-                spinner.stop();
-                spinner.isSpinning = false;
-            }
-            else if (spinner.willSpin)
-            {
-                spinner.stopRequested = true;
-            }
+            $('#spinner--book').fadeOut();
         }
     };
 
@@ -256,7 +238,7 @@ BookmarkData){
           existsFocusable[0].setAttribute("tabindex", "-1");
         }
         /* end of clear focusable tab item */
-        $('#tocButt')[0].focus();
+        $('#btnToc')[0].focus();
 
         if (readium.reader.handleViewportResize){
             readium.reader.handleViewportResize(bookmark);
@@ -273,6 +255,10 @@ BookmarkData){
 
         // Hide Downloads
         $('#menu--sidebar #readium-download').hide();
+
+        // Add active class to Toc nav item
+        $('#menu--sidebar .btn').removeClass('active');
+        $('#menu--sidebar #btnToc').addClass('active');
 
         // If the main app container currently has the `toc-visible` class
         // then the action we need to perform is "hide"
@@ -294,21 +280,17 @@ BookmarkData){
               existsFocusable[0].setAttribute("tabindex", "-1");
             }
             /* end of clear focusable tab item */
-            setTimeout(function(){ $('#tocButt')[0].focus(); }, 100);
-        }
-        else{
+            setTimeout(function(){ $('#btnToc')[0].focus(); }, 100);
+        } else{
             $appContainer.addClass('toc-visible');
             $('#menu--sidebar #readium-toc-body').fadeIn();
         }
 
         if(embedded){
             hideLoop(null, true);
-        }else if (readium.reader.handleViewportResize){
-
+        } else if (readium.reader.handleViewportResize){
             readium.reader.handleViewportResize(bookmark);
-
         }
-
     };
 
     var showScaleDisplay = function(){
@@ -667,6 +649,11 @@ BookmarkData){
     var showSidebar = function() {
         var bookmark = JSON.parse(readium.reader.bookmarkCurrentPage());
         $('#app-container').addClass('menu--show');
+
+        // Display TOC by default
+        $('#menu--sidebar #readium-toc-body').fadeIn();
+        $('#menu--sidebar #btnToc').addClass('active');
+
         readium.reader.handleViewportResize(bookmark);
     }
 
@@ -721,18 +708,14 @@ BookmarkData){
         return false;
     };
 
-    // Download Files
-    var showDownload = function() {
-        tocHideToggle();
-        $('#settings-dialog').modal('hide');
-        $('#menu--sidebar #readium-download').fadeIn();
-    }
-
     // Show Settings
     var showSettings = function() {
         tocHideToggle();
         $('#menu--sidebar #readium-download').hide();
+        $('#menu--sidebar .btn').removeClass('active');
+
         $('#settings-dialog').modal('show');
+        $('#menu--sidebar #btnSettings').addClass('active');
     }
 
     var unhideUI = function(){
@@ -769,8 +752,6 @@ BookmarkData){
             hideLoop();
             return;
         }
-
-        $(tooltipSelector()).tooltip('destroy');
 
         $(document.body).addClass('hide-ui');
     }
@@ -862,13 +843,11 @@ BookmarkData){
     };
 
     var nextPage = function () {
-
         readium.reader.openPageRight();
         return false;
     };
 
     var prevPage = function () {
-
         readium.reader.openPageLeft();
         return false;
     };
@@ -904,10 +883,9 @@ BookmarkData){
         /* Added for new styles */
         $('#btnShowSidebar').on('click', showSidebar);
         $('#btnCloseSidebar').on('click', closeSidebar);
-        $('.icon-toc').on('click', tocShowHideToggle);
-        $('.icon-bookmark').on('click', bookmarkSite);
-        $('#settbutt1').on('click', showSettings);
-        $('#btnDownload').on('click', showDownload);
+        $('#btnToc').on('click', tocShowHideToggle);
+        $('.btn-bookmark').on('click', bookmarkSite);
+        $('#btnSettings').on('click', showSettings);
         /* End of added for new styles */
 
         if (screenfull.enabled) {
@@ -1000,7 +978,7 @@ BookmarkData){
         $('nav').attr("aria-label", Strings.i18n_toolbar);
         $('nav').append(ReaderNavbar({strings: Strings, dialogs: Dialogs, keyboard: Keyboard}));
         installReaderEventHandlers();
-        document.title = "RECA Booksite";
+        document.title = "Bright Wing Media Booksite";
         $('#zoom-fit-width a').on('click', setFitWidth);
         $('#zoom-fit-screen a').on('click', setFitScreen);
         $('#zoom-custom a').on('click', enableCustom);
@@ -1158,6 +1136,16 @@ BookmarkData){
             // Check feature flags
             if (!moduleConfig.featureFlags.downloads) {
                 $('.icon-download').css("display", "none");
+                $('.download-actions').css("display", "none");
+            }
+            if (!moduleConfig.featureFlags.annotations) {
+                $('.annotation-action').css("display", "none");
+            }
+            if (!moduleConfig.featureFlags.tts) {
+                $('.tts-action').css("display", "none");
+            }
+            if (!moduleConfig.featureFlags.tts && !moduleConfig.featureFlags.annotations) {
+                $('.reader-actions').css("display", "none");
             }
 
             ReadiumSDK.on(ReadiumSDK.Events.PLUGINS_LOADED, function () {
@@ -1179,24 +1167,18 @@ BookmarkData){
                     });
                 }
 
-                if (readium.reader.plugins.example) {
-                    readium.reader.plugins.example.on("exampleEvent", function(message) {
-                        alert(message);
-                    });
-                }
-
                 if (readium.reader.plugins.hypothesis) {
                     // Respond to requests for UI controls to make space for the Hypothesis sidebar
                     readium.reader.plugins.hypothesis.on("offsetPageButton", function (offset) {
                         if (offset == 0) {
                             $('#right-page-btn').css('right', offset);
                         } else {
-                            $('#right-page-btn').css('right', offset - $('#right-page-btn').width()); // 40px
+//                            $('#reading-area').css('right', offset - $('#right-page-btn').width()); // epub-reader-container
+                            $('#right-page-btn').css('right', '40px'); // 40px
                         }
                     });
                     readium.reader.plugins.hypothesis.on("offsetNavBar", function (offset) {
                         $('#app-navbar').css('margin-right', offset);
-                        $('#reading-area').css('right', offset); // epub-reader-container
                     });
                 }
             });
@@ -1236,8 +1218,9 @@ BookmarkData){
                 Keyboard.scope('reader');
 
                 unhideUI()
-                setTimeout(function(){ $("#settbutt1").focus(); }, 50);
+                setTimeout(function(){ $("#btnSettings").focus(); }, 50);
 
+                $("#buttSave").on('click', closeSidebar);
                 $("#buttSave").removeAttr("accesskey");
                 $("#buttClose").removeAttr("accesskey");
             });
@@ -1424,8 +1407,6 @@ BookmarkData){
     return {
         loadUI : applyKeyboardSettingsAndLoadUi,
         unloadUI : unloadReaderUI,
-        tooltipSelector : tooltipSelector,
         ensureUrlIsRelativeToApp : ensureUrlIsRelativeToApp
     };
-
 });
