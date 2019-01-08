@@ -94,6 +94,10 @@ html#simpleViewer .icon-library{
   color: inherit;
 }
 
+#readium-toc-body h1 {
+  font-size: 20px;
+}
+
 #readium-toc-body h2 {
   font-size: 16px;
 }
@@ -238,8 +242,14 @@ html[data-theme=night-theme] .navbar .btn-group > .btn {
 }
 
 @media only screen and (max-width: 405px) {
-  .menu--sidebar .nav .btn#btnToc {
-    display: none;
+  .menu--sidebar .nav .btn {
+    width: 32%;
+    margin: 0;
+  }
+  .menu--sidebar .nav .btn#home {
+    display: block;
+    width: 80px;
+    margin: 0 5px 15px;
   }
 }
 
@@ -249,7 +259,13 @@ html[data-theme=night-theme] .navbar .btn-group > .btn {
 
 .menu--sidebar #settings-dialog {
   top: 66px;
-  padding: 0 30px 65px !important;
+  padding: 10px 30px 65px !important;
+}
+
+@media only screen and (max-width: 405px) {
+  .menu--sidebar #settings-dialog {
+    padding: 45px 30px 65px !important;
+  }
 }
 
 .menu--sidebar #settings-dialog h3,
@@ -297,7 +313,8 @@ html[data-theme=night-theme] .navbar .btn-group > .btn {
   transition: all .3s;
 }
 
-.menu--sidebar #settings-dialog .btn:hover {
+.menu--sidebar #settings-dialog .btn:hover,
+.menu--sidebar #settings-dialog .btn:focus {
   background: #fff;
   color: #333;
 }
@@ -380,6 +397,9 @@ html[data-theme=night-theme] .navbar .btn-group > .btn {
 }
 
 .menu--sidebar button.close {
+  position: absolute;
+  top: 6px;
+  right: 18px;
   opacity: 1;
   text-shadow: none;
   font-weight: 400;

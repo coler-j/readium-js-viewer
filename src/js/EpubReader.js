@@ -883,6 +883,7 @@ BookmarkData){
         /* Added for new styles */
         $('#btnShowSidebar').on('click', showSidebar);
         $('#btnCloseSidebar').on('click', closeSidebar);
+        $('#buttSave').on('click', closeSidebar);
         $('#btnToc').on('click', tocShowHideToggle);
         $('.btn-bookmark').on('click', bookmarkSite);
         $('#btnSettings').on('click', showSettings);
@@ -1214,13 +1215,11 @@ BookmarkData){
             SettingsDialog.initDialog(readium.reader);
 
             $('#settings-dialog').on('hidden.bs.modal', function () {
-
                 Keyboard.scope('reader');
 
                 unhideUI()
                 setTimeout(function(){ $("#btnSettings").focus(); }, 50);
 
-                $("#buttSave").on('click', closeSidebar);
                 $("#buttSave").removeAttr("accesskey");
                 $("#buttClose").removeAttr("accesskey");
             });
