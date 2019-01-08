@@ -268,13 +268,11 @@ html[data-theme=night-theme] .navbar .btn-group > .btn {
   }
 }
 
-.menu--sidebar #settings-dialog h3,
-.menu--sidebar #readium-download h3 {
+.menu--sidebar #settings-dialog h3 {
   font-size: 16px;
 }
 
-.menu--sidebar #settings-dialog h5,
-.menu--sidebar #readium-download p {
+.menu--sidebar #settings-dialog h5 {
   font-size: 14px;
 }
 
@@ -346,11 +344,6 @@ html[data-theme=night-theme] .navbar .btn-group > .btn {
   border-radius: 100%;
   cursor: pointer;
   -webkit-appearance: none;
-}
-
-.menu--sidebar #readium-download {
-  display: none;
-  margin: 35px 45px 0;
 }
 
 .menu--sidebar #settings-dialog #setting-header-color-legend {

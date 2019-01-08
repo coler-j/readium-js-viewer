@@ -253,9 +253,6 @@ BookmarkData){
         // Hide settings Menu
         $('#settings-dialog').modal('hide');
 
-        // Hide Downloads
-        $('#menu--sidebar #readium-download').hide();
-
         // Add active class to Toc nav item
         $('#menu--sidebar .btn').removeClass('active');
         $('#menu--sidebar #btnToc').addClass('active');
@@ -662,8 +659,6 @@ BookmarkData){
         $('.modal-backdrop').fadeOut();
         // Hide settings
         $('#settings-dialog').modal('hide');
-        // Hide downloads
-        $('#menu--sidebar #readium-download').hide();
         // Hide and close the TOC
         tocHideToggle();
     }
@@ -711,7 +706,6 @@ BookmarkData){
     // Show Settings
     var showSettings = function() {
         tocHideToggle();
-        $('#menu--sidebar #readium-download').hide();
         $('#menu--sidebar .btn').removeClass('active');
 
         $('#settings-dialog').modal('show');
