@@ -11,19 +11,13 @@
 //  used to endorse or promote products derived from this software without specific
 //  prior written permission.
 
-define(['text!readium_js_viewer_i18n/_locales/es/messages.json',
-        'text!readium_js_viewer_i18n/_locales/en_US/messages.json',
-        'text!readium_js_viewer_i18n/_locales/fr/messages.json'],
-function(es, en_US, fr){
+define(['text!readium_js_viewer_i18n/_locales/en_US/messages.json'],
+function(en_US){
     var Strings = {};
 
-    Strings['es'] = es;
     Strings['en_US'] = en_US;
-    Strings['fr'] = fr;
 
     var language = navigator.userLanguage || navigator.language;
-//FORCE HERE (for testing)
-//language="es";
     console.debug("Language: [" + language + "]");
 
     var allowEnglishFallback = true;

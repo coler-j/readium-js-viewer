@@ -967,12 +967,12 @@ BookmarkData){
         $('.modal-backdrop').remove();
         var $appContainer = $('#app-container');
         $appContainer.empty();
-        $appContainer.append(ReaderBody({strings: Strings, dialogs: Dialogs, keyboard: Keyboard}));
+        $appContainer.append(ReaderBody({strings: Strings, dialogs: Dialogs, keyboard: Keyboard, readerHomeTitle: moduleConfig.readerHomeTitle}));
         $('nav').empty();
         $('nav').attr("aria-label", Strings.i18n_toolbar);
         $('nav').append(ReaderNavbar({strings: Strings, dialogs: Dialogs, keyboard: Keyboard}));
         installReaderEventHandlers();
-        document.title = "Bright Wing Media Booksite";
+        document.title = moduleConfig.readerPageTitle;
         $('#zoom-fit-width a').on('click', setFitWidth);
         $('#zoom-fit-screen a').on('click', setFitScreen);
         $('#zoom-custom a').on('click', enableCustom);
