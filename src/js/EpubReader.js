@@ -505,16 +505,6 @@ BookmarkData){
                 {
                     iframe = lastIframe;
                 }
-
-
-/* Remove because is removing focus from the toc
-                if (iframe)
-                {
-                    //var doc = ( iframe.contentWindow || iframe.contentDocument ).document;
-                    var toFocus = iframe; //doc.body
-                    setTimeout(function(){ toFocus.focus(); }, 50);
-                }
-*/
             }
             catch (e)
             {
@@ -807,39 +797,43 @@ BookmarkData){
         // characters '/', '!', '@', and ':' are allowed in the query component of a URI as per RFC 3986 section 3.4
         return encodeURI(completeCFI);
     };
+    
+    var savePlaceReplaceState = function(bookmarkString){
+      // Note: automatically JSON.stringify's the passed value!
+      // ... and bookmarkCurrentPage() is already JSON.toString'ed, so that's twice!
+      Settings.put(ebookURL_filepath, bookmarkString, $.noop);
+
+      if (window.history && window.history.replaceState) {
+
+          var urlParams = Helpers.getURLQueryParams();
+          var ebookURL = urlParams['epub'];
+          if (!ebookURL) return;
+
+          ebookURL = ensureUrlIsRelativeToApp(ebookURL);
+          var bookmark = JSON.parse(bookmarkString) || {};
+          var epubs = urlParams['epubs'];
+
+          var gotoParam = generateQueryParamCFI(bookmark);
+
+          var url = Helpers.buildUrlQueryParameters(undefined, {
+              epub: ebookURL,
+              epubs: (epubs ? epubs : " "),
+              embedded: " ",
+              goto: {value: gotoParam ? gotoParam : " ", verbatim: true}
+          });
+
+          history.replaceState(
+              {epub: ebookURL, epubs: (epubs ? epubs : undefined)},
+              "Readium Viewer",
+              url
+          );
+      }
+    }
 
     var savePlace = function(){
 
         var bookmarkString = readium.reader.bookmarkCurrentPage();
-        // Note: automatically JSON.stringify's the passed value!
-        // ... and bookmarkCurrentPage() is already JSON.toString'ed, so that's twice!
-        Settings.put(ebookURL_filepath, bookmarkString, $.noop);
-
-        if (window.history && window.history.replaceState) {
-
-            var urlParams = Helpers.getURLQueryParams();
-            var ebookURL = urlParams['epub'];
-            if (!ebookURL) return;
-
-            ebookURL = ensureUrlIsRelativeToApp(ebookURL);
-            var bookmark = JSON.parse(bookmarkString) || {};
-            var epubs = urlParams['epubs'];
-
-            var gotoParam = generateQueryParamCFI(bookmark);
-
-            var url = Helpers.buildUrlQueryParameters(undefined, {
-                epub: ebookURL,
-                epubs: (epubs ? epubs : " "),
-                embedded: " ",
-                goto: {value: gotoParam ? gotoParam : " ", verbatim: true}
-            });
-
-            history.replaceState(
-                {epub: ebookURL, epubs: (epubs ? epubs : undefined)},
-                "Readium Viewer",
-                url
-            );
-        }
+        savePlaceReplaceState(bookmarkString);
     };
 
     var nextPage = function () {
@@ -1173,7 +1167,6 @@ BookmarkData){
                         if (offset == 0) {
                             $('#right-page-btn').css('right', offset);
                         } else {
-//                            $('#reading-area').css('right', offset - $('#right-page-btn').width()); // epub-reader-container
                             $('#right-page-btn').css('right', '40px'); // 40px
                         }
                     });
@@ -1248,6 +1241,22 @@ BookmarkData){
                 });
             }
 
+            // On screen resize to mobile (from reflowable text, switch to scroll-doc scroll setting.
+            readium.reader.on(ReadiumSDK.Events.RFL_VIEW_RESIZED_IS_MOBILE, function (resizeLastRequestData) {
+                
+                var bookmarkString = JSON.stringify({
+                  "idref": resizeLastRequestData.lastPageRequest_spineItem_idref,
+                  "contentCFI": resizeLastRequestData._lastPageRequest_element_cfi
+                });
+                
+                // Ovveride state replacement with cfi for pre-resize bookmark.
+                savePlaceReplaceState(bookmarkString);
+                
+                // Change scroll setting to scroll-doc
+                readerSettings.scroll =  "scroll-doc";
+                
+                SettingsDialog.updateReader(readium.reader, readerSettings);
+            });
 
             var toggleNightTheme = function(){
 
