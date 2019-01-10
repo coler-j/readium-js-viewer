@@ -253,9 +253,6 @@ BookmarkData){
         // Hide settings Menu
         $('#settings-dialog').modal('hide');
 
-        // Hide Downloads
-        $('#menu--sidebar #readium-download').hide();
-
         // Add active class to Toc nav item
         $('#menu--sidebar .btn').removeClass('active');
         $('#menu--sidebar #btnToc').addClass('active');
@@ -652,8 +649,6 @@ BookmarkData){
         $('.modal-backdrop').fadeOut();
         // Hide settings
         $('#settings-dialog').modal('hide');
-        // Hide downloads
-        $('#menu--sidebar #readium-download').hide();
         // Hide and close the TOC
         tocHideToggle();
     }
@@ -701,7 +696,6 @@ BookmarkData){
     // Show Settings
     var showSettings = function() {
         tocHideToggle();
-        $('#menu--sidebar #readium-download').hide();
         $('#menu--sidebar .btn').removeClass('active');
 
         $('#settings-dialog').modal('show');
@@ -877,6 +871,7 @@ BookmarkData){
         /* Added for new styles */
         $('#btnShowSidebar').on('click', showSidebar);
         $('#btnCloseSidebar').on('click', closeSidebar);
+        $('#buttSave').on('click', closeSidebar);
         $('#btnToc').on('click', tocShowHideToggle);
         $('.btn-bookmark').on('click', bookmarkSite);
         $('#btnSettings').on('click', showSettings);
@@ -1207,13 +1202,11 @@ BookmarkData){
             SettingsDialog.initDialog(readium.reader);
 
             $('#settings-dialog').on('hidden.bs.modal', function () {
-
                 Keyboard.scope('reader');
 
                 unhideUI()
                 setTimeout(function(){ $("#btnSettings").focus(); }, 50);
 
-                $("#buttSave").on('click', closeSidebar);
                 $("#buttSave").removeAttr("accesskey");
                 $("#buttClose").removeAttr("accesskey");
             });
