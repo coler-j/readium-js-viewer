@@ -143,9 +143,10 @@ BookmarkData){
 
     var _debugBookmarkData_goto = undefined;
     var debugBookmarkData = function(cfi) {
-
-        if (!readium) return;
-        readium.reader.debugBookmarkData(cfi);
+        if (ReadiumSDK.DEBUG_MODE){
+          if (!readium) return;
+          readium.reader.debugBookmarkData(cfi);
+        }
     };
 
     // This function will retrieve a package document and load an EPUB
@@ -1298,9 +1299,9 @@ BookmarkData){
                 spin(true);
             });
 
-            EpubReaderMediaOverlays.init(readium);
+            // EpubReaderMediaOverlays.init(readium);
 
-            EpubReaderBackgroundAudioTrack.init(readium);
+            // EpubReaderBackgroundAudioTrack.init(readium);
 
             //epubReadingSystem
 

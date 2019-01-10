@@ -7,7 +7,7 @@ dist
 .divshot-cache
 node_modules
 .surgeignore
-epub_content/x
+epub_content/*
 build.txt
 npm-debug.log
 http.log
