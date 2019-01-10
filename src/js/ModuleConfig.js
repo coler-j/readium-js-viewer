@@ -29,5 +29,6 @@ define(['module'], function(module) {
             'featureFlags': config.featureFlags || {'downloads': false, 'annotations': false, 'tts': false},
             'readerPageTitle': config.readerPageTitle || 'Bright Wing Media Booksite',
             'readerHomeTitle': config.readerHomeTitle || 'Home',
+            'scrollModeOnMobile': config.scrollModeOnMobile || false,
         };
 });

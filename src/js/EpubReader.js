@@ -1040,7 +1040,8 @@ BookmarkData){
                 el: "#epub-reader-frame",
                 annotationCSSUrl: moduleConfig.annotationCSSUrl,
                 mathJaxUrl : moduleConfig.mathJaxUrl,
-                fonts : moduleConfig.fonts
+                fonts : moduleConfig.fonts,
+                scrollModeOnMobile: moduleConfig.scrollModeOnMobile
             };
 
             var readiumOptions = {
@@ -1237,36 +1238,40 @@ BookmarkData){
 
             // On screen resize to mobile (from reflowable text, switch to scroll-doc scroll setting.
             readium.reader.on(ReadiumSDK.Events.RFL_VIEW_RESIZED_IS_MOBILE, function (resizeLastRequestData) {
-                
-                var bookmarkString = JSON.stringify({
-                  "idref": resizeLastRequestData.lastPageRequest_spineItem_idref,
-                  "contentCFI": resizeLastRequestData._lastPageRequest_element_cfi
-                });
-                
-                // Ovveride state replacement with cfi for pre-resize bookmark.
-                savePlaceReplaceState(bookmarkString);
-                
-                // Change scroll setting to scroll-doc
-                readerSettings.scroll =  "scroll-doc";
-                
-                SettingsDialog.updateReader(readium.reader, readerSettings);
+              
+                if (moduleConfig.scrollModeOnMobile){
+                  var bookmarkString = JSON.stringify({
+                    "idref": resizeLastRequestData.lastPageRequest_spineItem_idref,
+                    "contentCFI": resizeLastRequestData._lastPageRequest_element_cfi
+                  });
+                  
+                  // Ovveride state replacement with cfi for pre-resize bookmark.
+                  savePlaceReplaceState(bookmarkString);
+                  
+                  // Change scroll setting to scroll-doc
+                  readerSettings.scroll =  "scroll-doc";
+                  
+                  SettingsDialog.updateReader(readium.reader, readerSettings);  
+                }
             });
             
             // On screen resize to mobile (from reflowable text, switch to scroll-doc scroll setting.
             readium.reader.on(ReadiumSDK.Events.SCL_VIEW_RESIZED_TO_DESKTOP, function (resizeLastRequestData) {
                 
-                var bookmarkString = JSON.stringify({
-                  "idref": resizeLastRequestData.lastPageRequest_spineItem_idref,
-                  "contentCFI": resizeLastRequestData._lastPageRequest_element_cfi
-                });
-                
-                // Ovveride state replacement with cfi for pre-resize bookmark.
-                savePlaceReplaceState(bookmarkString);
-                
-                // Change scroll setting to scroll-doc
-                readerSettings.scroll =  "auto";
-                
-                SettingsDialog.updateReader(readium.reader, readerSettings);
+                if (moduleConfig.scrollModeOnMobile){
+                  var bookmarkString = JSON.stringify({
+                    "idref": resizeLastRequestData.lastPageRequest_spineItem_idref,
+                    "contentCFI": resizeLastRequestData._lastPageRequest_element_cfi
+                  });
+                  
+                  // Ovveride state replacement with cfi for pre-resize bookmark.
+                  savePlaceReplaceState(bookmarkString);
+                  
+                  // Change scroll setting to scroll-doc
+                  readerSettings.scroll =  "auto";
+                  
+                  SettingsDialog.updateReader(readium.reader, readerSettings);
+                }
             });
 
             var toggleNightTheme = function(){
