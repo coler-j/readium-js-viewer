@@ -30,5 +30,6 @@ define(['module'], function(module) {
             'readerPageTitle': config.readerPageTitle || 'Bright Wing Media Booksite',
             'readerHomeTitle': config.readerHomeTitle || 'Home',
             'scrollModeOnMobile': config.scrollModeOnMobile || false,
+            'bookmarkSrcUrl': config.bookmarkSrcUrl || 'http://brightwing.dev-booksites.ca:8000/alex-colville-art-canada-institute/bookmarks/'
         };
 });

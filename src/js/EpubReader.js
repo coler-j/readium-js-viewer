@@ -16,8 +16,6 @@ define([
 'hgn!readium_js_viewer_html_templates/reader-body-page-btns.html',
 'screenfull',
 './Keyboard',
-'./EpubReaderMediaOverlays',
-'./EpubReaderBackgroundAudioTrack',
 './gestures',
 './versioning/ReadiumVersioning',
 'readium_js/Readium',
@@ -42,8 +40,6 @@ ReaderBody,
 ReaderBodyPageButtons,
 screenfull,
 Keyboard,
-EpubReaderMediaOverlays,
-EpubReaderBackgroundAudioTrack,
 GesturesHandler,
 Versioning,
 Readium,
@@ -1321,9 +1317,23 @@ BookmarkData){
                 spin(true);
             });
 
-            // EpubReaderMediaOverlays.init(readium);
-
-            // EpubReaderBackgroundAudioTrack.init(readium);
+            // Load existing user bookmarkSite
+            // $.ajax({
+            //     // encoding: "UTF-8",
+            //     // mimeType: "text/plain; charset=UTF-8",
+            //     // beforeSend: function( xhr ) {
+            //     //     xhr.overrideMimeType("text/plain; charset=UTF-8");
+            //     // },
+            //     url: moduleConfig.bookmarkSrcUrl,
+            //     dataType: 'json', //https://api.jquery.com/jQuery.ajax/
+            //     async: true,
+            //     success: function (result) {
+            //         console.error(JSON.stringify(result))
+            //     },
+            //     error: function (xhr, status, errorThrown) {
+            //         console.error(errorThrown)
+            //     }
+            // });
 
             //epubReadingSystem
 
