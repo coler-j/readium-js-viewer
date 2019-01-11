@@ -110,6 +110,12 @@
   "replace" : {
     "message": "Replace"
   },
+  "bookmarks" : {
+    "message": "Bookmarks"
+  },
+  "i18n_create_bookmark" : {
+    "message": "Save bookmark"
+  },
   "gethelp" : {
     "message" : "If you encounter any problems, have questions, or would like to say hello, visit <a href=\"http://idpf.org/forums/readium\">our forum</a>"
   },

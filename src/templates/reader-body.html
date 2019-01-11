@@ -2,7 +2,7 @@
     <div class="nav">
         <a href="/" id="home" tabindex="1" type="button" class="btn" title="" aria-label="Home" data-original-title="Home">{{readerHomeTitle}}</a>
         <button id="btnToc" tabindex="1" type="button" class="btn" title="{{strings.toc}} [{{keyboard.TocShowHideToggle}}]" aria-label="{{strings.toc}} [{{keyboard.TocShowHideToggle}}]" accesskey="{{keyboard.accesskeys.TocShowHideToggle}}">Contents</button>
-        <button id="btnBookmark" tabindex="1" type="button" class="btn btn-bookmark" title="{{strings.bookmark}}" aria-label="{{strings.bookmark}}">Bookmarks</button>
+        <button id="btnBookmark" tabindex="1" type="button" class="btn" title="{{strings.bookmark}}" aria-label="{{strings.bookmark}}">Bookmarks</button>
         <button id="btnSettings" tabindex="1" type="button" class="btn" title="{{strings.settings}} [{{keyboard.ShowSettingsModal}}]" aria-label="{{strings.settings}} [{{keyboard.ShowSettingsModal}}]" accesskey="{{keyboard.accesskeys.ShowSettingsModal}}">Features</button>
         <button type="button" class="close" id="btnCloseSidebar">
           <span aria-hidden="true">&times;</span>
@@ -13,6 +13,30 @@
         <div  class="sidebar__menu-item" id="readium-toc-body" aria-label="{{strings.toc}}" role="navigation">
             <header id="readium-toc-header"></header>
         </div>
+        
+        <!-- Bookmarks -->
+        <div tabindex="-1" class="modal fade sidebar__menu-item" id="bookmarks-dialog" role="dialog" aria-label="{{strings.bookmarks}}">
+            <div class="modal-body">
+                <div class="tab-content bookmark-list">
+                    <h3>Bookmarks</h3>
+                    <div class="content-row">
+                        <ul>
+                          <li><a href="">A link to some content...</a></li>
+                          <li><a href="">A link to some content...</a></li>
+                          <li><a href="">A link to some content...</a></li>
+                          <li><a href="">A link to some content...</a></li>
+                          <li><a href="">A link to some content...</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                  <button id="buttCreateBookmark"  type="button" class="btn btn-bookmark" data-dismiss="modal" title="{{strings.i18n_create_bookmark}}" aria-label="{{strings.i18n_create_bookmark}}">{{strings.i18n_create_bookmark}}</button>
+                </div>
+                
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- END Bookmarks -->
 
         <!-- SETTINGS -->
         <div tabindex="-1" class="modal fade sidebar__menu-item" id="settings-dialog" role="dialog" aria-label="{{strings.settings}}">

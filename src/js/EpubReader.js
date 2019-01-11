@@ -253,6 +253,7 @@ BookmarkData){
 
         // Hide settings Menu
         $('#settings-dialog').modal('hide');
+        $('#bookmarks-dialog').modal('hide');
 
         // Add active class to Toc nav item
         $('#menu--sidebar .btn').removeClass('active');
@@ -650,6 +651,7 @@ BookmarkData){
         $('.modal-backdrop').fadeOut();
         // Hide settings
         $('#settings-dialog').modal('hide');
+        $('#bookmarks-dialog').modal('hide');
         // Hide and close the TOC
         tocHideToggle();
     }
@@ -700,7 +702,21 @@ BookmarkData){
         $('#menu--sidebar .btn').removeClass('active');
 
         $('#settings-dialog').modal('show');
+        $('#bookmarks-dialog').modal('hide');
         $('#menu--sidebar #btnSettings').addClass('active');
+    }
+    
+    // Show Bookmarks Menu (on #btnBookmark click)
+    var showHideBookmarksMenu = function() {
+      
+        // This launches the loop which controls the header UI appearance.
+      
+        tocHideToggle();
+        $('#settings-dialog').modal('hide');
+        $('#bookmarks-dialog').modal('show');
+        
+        $('#menu--sidebar .btn').removeClass('active');
+        $('#menu--sidebar #btnBookmark').addClass('active');
     }
 
     var unhideUI = function(){
@@ -874,6 +890,7 @@ BookmarkData){
         $('#btnCloseSidebar').on('click', closeSidebar);
         $('#buttSave').on('click', closeSidebar);
         $('#btnToc').on('click', tocShowHideToggle);
+        $('#btnBookmark').on('click', showHideBookmarksMenu);
         $('.btn-bookmark').on('click', bookmarkSite);
         $('#btnSettings').on('click', showSettings);
         /* End of added for new styles */
@@ -1384,6 +1401,7 @@ BookmarkData){
         Dialogs.closeModal();
         Dialogs.reset();
         $('#settings-dialog').modal('hide');
+        $('#bookmarks-dialog').modal('hide');
         $('.modal-backdrop').remove();
         $('#app-navbar').off('mousemove');
 
@@ -1393,6 +1411,8 @@ BookmarkData){
 
         $('#settings-dialog').off('hidden.bs.modal');
         $('#settings-dialog').off('shown.bs.modal');
+        $('#bookmarks-dialog').off('hidden.bs.modal');
+        $('#bookmarks-dialog').off('shown.bs.modal');
 
 
         // visibility check fails because iframe is unloaded

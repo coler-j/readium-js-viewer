@@ -257,50 +257,50 @@ html[data-theme=night-theme] .navbar .btn-group > .btn {
   transform: translate(0, 0);
 }
 
-.menu--sidebar #settings-dialog {
+.menu--sidebar #settings-dialog, .menu--sidebar #bookmarks-dialog  {
   top: 66px;
   padding: 10px 30px 65px !important;
 }
 
 @media only screen and (max-width: 405px) {
-  .menu--sidebar #settings-dialog {
+  .menu--sidebar #settings-dialog, .menu--sidebar #bookmarks-dialog {
     padding: 45px 30px 65px !important;
   }
 }
 
-.menu--sidebar #settings-dialog h3 {
+.menu--sidebar #settings-dialog h3, , .menu--sidebar #bookmarks-dialog h3 {
   font-size: 16px;
 }
 
-.menu--sidebar #settings-dialog h5 {
+.menu--sidebar #settings-dialog h5, .menu--sidebar #bookmarks-dialog h5  {
   font-size: 14px;
 }
 
-.menu--sidebar #settings-dialog h3 {
+.menu--sidebar #settings-dialog h3, .menu--sidebar #bookmarks-dialog h3 {
   margin: 20px 0 30px;
   text-transform: uppercase;
 }
 
-.menu--sidebar #settings-dialog .tab-content {
+.menu--sidebar #settings-dialog .tab-content, .menu--sidebar #bookmarks-dialog .tab-content {
   margin: 0 0 50px;
 }
 
-.menu--sidebar #settings-dialog .content-row {
+.menu--sidebar #settings-dialog .content-row, .menu--sidebar #bookmarks-dialog .content-row {
   display: flex;
   align-items: center;
   margin: 0 0 25px;
   padding: 0 0 0 15px;
 }
 
-.menu--sidebar #settings-dialog .tab-pane {
+.menu--sidebar #settings-dialog .tab-pane, .menu--sidebar #bookmarks-dialog .tab-pane {
   padding: 0 0 0 15px;
 }
 
-.menu--sidebar #settings-dialog .tab-pane .row {
+.menu--sidebar #settings-dialog .tab-pane .row, .menu--sidebar #bookmarks-dialog .tab-pane .row {
   margin: 0;
 }
 
-.menu--sidebar #settings-dialog .btn {
+.menu--sidebar #settings-dialog .btn, .menu--sidebar #bookmarks-dialog .btn {
   width: 120px;
   font-size: 12px;
   text-transform: uppercase;
@@ -311,13 +311,23 @@ html[data-theme=night-theme] .navbar .btn-group > .btn {
   transition: all .3s;
 }
 
+.menu--sidebar #bookmarks-dialog .btn {
+  width: 160px;
+}
+
 .menu--sidebar #settings-dialog .btn:hover,
-.menu--sidebar #settings-dialog .btn:focus {
+.menu--sidebar #settings-dialog .btn:focus,
+.menu--sidebar #bookmarks-dialog .btn:hover,
+.menu--sidebar #bookmarks-dialog .btn:focus {
   background: #fff;
   color: #333;
 }
 
-.menu--sidebar #settings-dialog .content-row p {
+.menu--sidebar #bookmarks-dialog .tab-content .content-row ul li a {
+  color: white;
+}
+
+.menu--sidebar #settings-dialog .content-row p, .menu--sidebar #bookmarks-dialog .content-row p {
   display: inline-block;
   width: 110px;
   font-size: 12px;
@@ -355,12 +365,12 @@ html[data-theme=night-theme] .navbar .btn-group > .btn {
   cursor: pointer;
 }
 
-.menu--sidebar #settings-dialog h5 {
+.menu--sidebar #settings-dialog h5, .menu--sidebar #bookmarks-dialog h5 {
   text-transform: none;
   margin: 35px 0 20px;
 }
 
-.menu--sidebar #settings-dialog button.close {
+.menu--sidebar #settings-dialog button.close, .menu--sidebar #bookmarks-dialog button.close {
   color: #bcbec0;
 }
 
@@ -380,11 +390,11 @@ html[data-theme=night-theme] .navbar .btn-group > .btn {
   margin: 0;
 }
 
-.menu--sidebar #settings-dialog .modal-footer {
+.menu--sidebar #settings-dialog .modal-footer, .menu--sidebar #bookmarks-dialog .modal-footer {
   border: 0;
 }
 
-.menu--sidebar #settings-dialog .modal-footer .btn-primary {
+.menu--sidebar #settings-dialog .modal-footer .btn-primary, .menu--sidebar #bookmarks-dialog .modal-footer .btn-primary {
   background: #ff9300;
   color: #333;
 }
