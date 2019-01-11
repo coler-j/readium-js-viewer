@@ -649,6 +649,7 @@ BookmarkData){
         $('#settings-dialog').modal('hide');
         $('#bookmarks-dialog').modal('hide');
         // Hide and close the TOC
+        $('#menu--sidebar .btn').removeClass('active');
         tocHideToggle();
     }
 
@@ -665,31 +666,54 @@ BookmarkData){
     // Bookmark Site
     var bookmarkSite = function(){
         var bookmarkURL = window.location.href;
-        var bookmarkTitle = document.title;
+        var bookmarkTitle = prompt("Please enter a bookmark title")
 
-        if ('addToHomescreen' in window && addToHomescreen.isCompatible) {
-            // Mobile browsers
-            addToHomescreen({ autostart: false, startDelay: 0 }).show(true);
-        } else if (window.sidebar && window.sidebar.addPanel) {
-            // Firefox <=22
-            window.sidebar.addPanel(bookmarkTitle, bookmarkURL, '');
-        } else if ((window.sidebar && /Firefox/i.test(navigator.userAgent)) || (window.opera && window.print)) {
-            // Firefox 23+ and Opera <=14
-            $(this).attr({
-                href: bookmarkURL,
-                title: bookmarkTitle,
-                rel: 'sidebar'
-            }).off(e);
-            return true;
-        } else if (window.external && ('AddFavorite' in window.external)) {
-            // IE Favorites
-            window.external.AddFavorite(bookmarkURL, bookmarkTitle);
-        } else {
-            // Other browsers (mainly WebKit & Blink - Safari, Chrome, Opera 15+)
-            alert('Press ' + (/Mac/i.test(navigator.platform) ? 'Cmd' : 'Ctrl') + '+D to bookmark this page.');
+        switch(bookmarkTitle) {
+          case null:
+            // Prompt cancelled
+            // If menus are open, then close thenm.
+            closeSidebar();
+            return;
+          case "":
+            bookmarkTitle = 'Untitled bookmark'
         }
-
-        return false;
+        
+        // If menus are open, then close thenm.
+        closeSidebar();
+        $('#menu--sidebar .btn').removeClass('active');
+        
+        // Get current bookmarkString text:
+        var bookmarkString = readium.reader.bookmarkCurrentPage();
+        
+        $.ajax({
+            beforeSend: function( xhr ) {
+                xhr.setRequestHeader("X-CSRFToken", moduleConfig.csrfToken);
+            },
+            url: moduleConfig.bookmarkSrcUrl,
+            dataType: 'json',
+            data: {
+              title: bookmarkTitle,
+              bookmark_url: bookmarkString
+            },
+            method: 'POST',
+            async: true,
+            success: function (result) {
+                var bookmark_link = $('<a>', {
+                  href: bookmarkString,
+                  class: 'bookmark-link',
+                  text: bookmarkTitle
+                });
+                var new_bookmark = $('<li>', {
+                  html: bookmark_link
+                });
+                $("#bookmark-list").append(new_bookmark);
+            },
+            error: function (xhr, status, errorThrown) {
+              console.error(errorThrown)
+          }
+        });
+              
+        return true;
     };
 
     // Show Settings
@@ -890,7 +914,17 @@ BookmarkData){
         $('.btn-bookmark').on('click', bookmarkSite);
         $('#btnSettings').on('click', showSettings);
         /* End of added for new styles */
+        
+        $('#bookmark-list').on('click', 'li a.bookmark-link', function(event) {
+            event.preventDefault();
+            event.stopPropagation();
 
+            var bookmark = JSON.parse($(this).attr("href"));
+
+            closeSidebar();
+            readium.reader.openSpineItemElementCfi(bookmark.idref, bookmark.contentCFI)
+        });
+        
         if (screenfull.enabled) {
             Keyboard.on(Keyboard.FullScreenToggle, 'reader', toggleFullScreen);
             $('#buttFullScreenToggle').on('click', toggleFullScreen);
@@ -1018,6 +1052,37 @@ BookmarkData){
         {
             initReadium(); //async
         }, 0);
+    };
+    
+    var loadBookmarks = function () {
+      // Load existing user bookmarkSite
+      $.ajax({
+          url: moduleConfig.bookmarkSrcUrl,
+          dataType: 'json',
+          async: true,
+          success: function (result) {
+            
+              if (result.length > 0){
+                // Populate the bookmark list
+                $.each(result, function (i, item) {
+                  var bookmark_link = $('<a>', {
+                    href: item.bookmark_url,
+                    class: 'bookmark-link',
+                    text: item.title
+                  });
+                  var new_bookmark = $('<li>', {
+                    html: bookmark_link
+                  });
+                  $("#bookmark-list").append(new_bookmark);
+                });
+              }
+          },
+          error: function (xhr, status, errorThrown) {
+              // Do nothing.
+              console.error(errorThrown)
+          }
+      });
+        
     };
 
     var initReadium = function(){
@@ -1318,25 +1383,9 @@ BookmarkData){
             });
 
             // Load existing user bookmarkSite
-            // $.ajax({
-            //     // encoding: "UTF-8",
-            //     // mimeType: "text/plain; charset=UTF-8",
-            //     // beforeSend: function( xhr ) {
-            //     //     xhr.overrideMimeType("text/plain; charset=UTF-8");
-            //     // },
-            //     url: moduleConfig.bookmarkSrcUrl,
-            //     dataType: 'json', //https://api.jquery.com/jQuery.ajax/
-            //     async: true,
-            //     success: function (result) {
-            //         console.error(JSON.stringify(result))
-            //     },
-            //     error: function (xhr, status, errorThrown) {
-            //         console.error(errorThrown)
-            //     }
-            // });
+            loadBookmarks()
 
             //epubReadingSystem
-
             Versioning.getVersioningInfo(function(version){
 
                 console.debug(JSON.stringify({imagePathPrefix: moduleConfig.imagePathPrefix, strings: Strings, dateTimeString: version.dateTimeString, viewerJs: version.readiumJsViewer, readiumJs: version.readiumJs, sharedJs: version.readiumSharedJs, cfiJs: version.readiumCfiJs}));
