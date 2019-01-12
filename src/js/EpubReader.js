@@ -600,13 +600,6 @@ BookmarkData){
     }
 
     if (screenfull.enabled) {
-        if (isChromeExtensionPackagedApp) {
-            screenfull.onchange = function(e) {
-                if (chrome.app.window.current().isFullscreen()) {
-                    chrome.app.window.current().restore();
-                }
-            };
-        }
 
         screenfull.onchange(function(e){
             var titleText;
