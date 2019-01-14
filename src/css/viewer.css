@@ -494,14 +494,7 @@ html[data-theme=night-theme] .modal:not(#settings-dialog) {
 /* Increase arrow area for easier swiping */
 @media only screen and (max-width: 500px) {
   .page-switch-overlay-icon {
-    width: 130px;
-    opacity: 0 !important;
-  }
-}
-
-@media only screen and (max-width: 385px) {
-  .page-switch-overlay-icon {
-    width: 100px;
+    display: none !important;
   }
 }
 

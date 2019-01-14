@@ -14,10 +14,7 @@
 define(['readium_shared_js/globals', 'jquery','jquery_hammer','hammerjs'], function(Globals, $,jqueryHammer,Hammer) {
 
     var gesturesHandler = function(reader, viewport){
-        
-this.initialize= function(){};
-return; // TODO upgrade to Hammer API v2
-
+      
         var onSwipeLeft = function(){
             reader.openPageRight();
         };
@@ -29,29 +26,35 @@ return; // TODO upgrade to Hammer API v2
         var isGestureHandled = function() {
             var viewType = reader.getCurrentViewType();
 
-            return viewType === ReadiumSDK.Views.ReaderView.VIEW_TYPE_FIXED || viewType == ReadiumSDK.Views.ReaderView.VIEW_TYPE_COLUMNIZED;
+            return viewType === reader.VIEW_TYPE_FIXED || viewType == reader.VIEW_TYPE_COLUMNIZED;
         };
 
-        this.initialize= function(){
+        this.initialize = function(){
 
             reader.on(ReadiumSDK.Events.CONTENT_DOCUMENT_LOADED, function(iframe, spineItem) {
                 Globals.logEvent("CONTENT_DOCUMENT_LOADED", "ON", "gestures.js [ " + spineItem.href + " ]");
                 
-                //set hammer's document root
-                Hammer.DOCUMENT = iframe.contents();
-                //hammer's internal touch events need to be redefined? (doesn't work without)
-                Hammer.event.onTouch(Hammer.DOCUMENT, Hammer.EVENT_MOVE, Hammer.detection.detect);
-                Hammer.event.onTouch(Hammer.DOCUMENT, Hammer.EVENT_END, Hammer.detection.detect);
-
-                //set up the hammer gesture events
-                //swiping handlers
+                var iframe_document_selector = iframe[0].contentWindow.document.body
+                
+                Hammer.DOCUMENT = iframe[0].contentWindow.document.body;
                 var swipingOptions = {prevent_mouseevents: true};
-                Hammer(Hammer.DOCUMENT,swipingOptions).on("swipeleft", function() {
+                
+                $(iframe_document_selector).hammer(swipingOptions).on("swipeleft", function() {
                     onSwipeLeft();
                 });
-                Hammer(Hammer.DOCUMENT,swipingOptions).on("swiperight", function() {
+                $(iframe_document_selector).hammer(swipingOptions).on("swiperight", function() {
                     onSwipeRight();
                 });
+                
+                // var hammertime = new Hammer.Manager(Hammer.DOCUMENT, {
+                //   touchAction: 'auto',
+                //   inputClass: Hammer.SUPPORT_POINTER_EVENTS ? Hammer.PointerEventInput : Hammer.TouchInput,
+                //   recognizers: [
+                //     [Hammer.Swipe, {
+                //       direction: Hammer.DIRECTION_HORIZONTAL
+                //     }]
+                //   ]
+                // });
 
                 //remove stupid ipad safari elastic scrolling
                 //TODO: test this with reader ScrollView and FixedView
@@ -60,7 +63,8 @@ return; // TODO upgrade to Hammer API v2
                     function(e) {
                         //hack: check if we are not dealing with a scrollview
                         if(isGestureHandled()){
-                            e.preventDefault();
+                          console.debug('in isGestureHandled function with true')
+                          e.preventDefault();
                         }
                     }
                 );
@@ -72,6 +76,7 @@ return; // TODO upgrade to Hammer API v2
                 'touchmove',
                 function(e) {
                     if(isGestureHandled()) {
+                        console.debug('in isGestureHandled function with true')
                         e.preventDefault();
                     }
                 }
