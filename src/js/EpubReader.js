@@ -1100,7 +1100,8 @@ BookmarkData){
                 annotationCSSUrl: moduleConfig.annotationCSSUrl,
                 mathJaxUrl : moduleConfig.mathJaxUrl,
                 fonts : moduleConfig.fonts,
-                scrollModeOnMobile: moduleConfig.scrollModeOnMobile
+                scrollModeOnMobile: moduleConfig.scrollModeOnMobile,
+                swipeChangesChapter: moduleConfig.swipeChangesChapter
             };
 
             var readiumOptions = {
