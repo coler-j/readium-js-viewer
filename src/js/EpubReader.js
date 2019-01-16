@@ -190,18 +190,6 @@ BookmarkData){
                 $("#left-page-btn").on("click", prevPage);
                 $("#right-page-btn").on("click", nextPage);
 
-                // Swipe for prev / next page
-                var btnPrev = document.getElementById("left-page-btn");
-                var btnNext = document.getElementById("right-page-btn");
-
-                btnPrev.addEventListener('touchstart', function() {
-                    prevPage();
-                });
-
-                btnNext.addEventListener('touchstart', function() {
-                    nextPage();
-                });
-
             },
             openPageRequest
         );
@@ -1112,7 +1100,8 @@ BookmarkData){
                 annotationCSSUrl: moduleConfig.annotationCSSUrl,
                 mathJaxUrl : moduleConfig.mathJaxUrl,
                 fonts : moduleConfig.fonts,
-                scrollModeOnMobile: moduleConfig.scrollModeOnMobile
+                scrollModeOnMobile: moduleConfig.scrollModeOnMobile,
+                swipeChangesChapter: moduleConfig.swipeChangesChapter
             };
 
             var readiumOptions = {
