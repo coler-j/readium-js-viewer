@@ -29,8 +29,8 @@ define(['module'], function(module) {
             'featureFlags': config.featureFlags || {'downloads': false, 'annotations': false, 'tts': false},
             'readerPageTitle': config.readerPageTitle || 'Bright Wing Media Booksite',
             'readerHomeTitle': config.readerHomeTitle || 'Home',
-            'scrollModeOnMobile': config.scrollModeOnMobile || true,
-            'swipeChangesChapter': config.swipeChangesChapter || true,
+            'scrollModeOnMobile': config.scrollModeOnMobile || false,
+            'swipeChangesChapter': config.swipeChangesChapter || false,
             'bookmarkSrcUrl': config.bookmarkSrcUrl || 'http://brightwing.dev-booksites.ca:8000/alex-colville-art-canada-institute/bookmarks/',
             'csrfToken': config.csrfToken || ""
         };
