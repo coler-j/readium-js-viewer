@@ -512,8 +512,10 @@ BookmarkData){
             }
         });
 
-        $('#readium-toc-body').on('click', 'a', function(e)
-        {
+        $('#readium-toc-body').on('click', 'a', function(e) {
+            // Close sidebar when user clicks on TOC link
+            closeSidebar();
+
             try {
                 spin(true);
 
@@ -528,10 +530,9 @@ BookmarkData){
                     $('.toc-visible').removeClass('toc-visible');
                     unhideUI();
                 }
+
             } catch (err) {
-
                 console.error(err);
-
             } finally {
                 //e.preventDefault();
                 //e.stopPropagation();
