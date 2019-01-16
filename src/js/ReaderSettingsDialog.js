@@ -52,8 +52,9 @@ define(['./ModuleConfig', 'hgn!readium_js_viewer_html_templates/settings-dialog.
         }
     }
 
-    var updateSliderLabels = function($slider, val, txt, label)
-    {
+    var updateSliderLabels = function($slider, val, txt, label) {
+        $slider.val(val);
+
         $slider.attr("aria-valuenow", val+"");
         $slider.attr("aria-value-now", val+"");
 
@@ -80,6 +81,38 @@ define(['./ModuleConfig', 'hgn!readium_js_viewer_html_templates/settings-dialog.
             $previewText.css({fontSize: (fontSize/100) + 'em'});
 
             updateSliderLabels($fontSizeSlider, fontSize, fontSize + '%', Strings.i18n_font_size);
+        });
+
+        var updateFontSize = function(value) {
+            var fontSize = $fontSizeSlider.val();
+
+            if (fontSize >= 60 && fontSize <= 170) {
+                fontSize = Number(fontSize) + (value * 10);
+            }
+
+            if (fontSize === 60) {
+                $('#font-size-input--minus').addClass('icon--disabled');
+            } else {
+                $('#font-size-input--minus').removeClass('icon--disabled');
+            }
+
+            if (fontSize === 170) {
+                $('#font-size-input--plus').addClass('icon--disabled');
+            } else {
+                $('#font-size-input--plus').removeClass('icon--disabled');
+            }
+
+            $previewText.css({fontSize: (fontSize/100) + 'em'});
+
+            updateSliderLabels($fontSizeSlider, fontSize, fontSize + '%', Strings.i18n_font_size);
+        }
+
+        $('#font-size-input--minus').on('click', function(){
+            updateFontSize(-1);
+        });
+
+        $('#font-size-input--plus').on('click', function(){
+            updateFontSize(1);
         });
 
         $('#settings-dialog').on('hide.bs.modal', function(){ // IMPORTANT: not "hidden.bs.modal"!! (because .off() in
@@ -121,7 +154,6 @@ define(['./ModuleConfig', 'hgn!readium_js_viewer_html_templates/settings-dialog.
         });
 
         var save = function(){
-
             var readerSettings = {
                 fontSize: Number($fontSizeSlider.val()),
                 fontSelection: defaultSettings.fontSelection,

@@ -344,6 +344,15 @@ html[data-theme=night-theme] .navbar .btn-group > .btn {
   line-height: 1;
 }
 
+.menu--sidebar #settings-dialog .icon-plus-minus:hover {
+  cursor: pointer;
+}
+
+.menu--sidebar #settings-dialog .icon-plus-minus.icon--disabled {
+  opacity: .35;
+  pointer-events: none;
+}
+
 .menu--sidebar #settings-dialog #font-size-input {
   filter: brightness(2);
 }
