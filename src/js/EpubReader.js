@@ -243,13 +243,16 @@ BookmarkData){
     }
 
     var tocShowHideToggle = function(){
-
         // This launches the loop which controls the header UI appearance.
         unhideUI();
 
-        // Hide settings Menu
+        // Fade in Toc Body
+        $('#readium-toc-body').addClass('in');
+
+        // Only show Toc modal
         $('#settings-dialog').modal('hide');
         $('#bookmarks-dialog').modal('hide');
+        $('#readium-toc-body').modal('show');
 
         // Add active class to Toc nav item
         $('#menu--sidebar .btn').removeClass('active');
@@ -348,7 +351,7 @@ BookmarkData){
                 // Also note that "script" elements are discarded automatically by jQuery.
                 $('iframe', $toc).remove();
 
-                $('#readium-toc-body').append($toc);
+                $('#readium-toc-body .modal-body').append($toc);
 
                 if (isRTL)
                 {
@@ -629,18 +632,19 @@ BookmarkData){
         $('#app-container').addClass('menu--show');
 
         // Display TOC by default
-        $('#menu--sidebar #readium-toc-body').fadeIn();
-        $('#menu--sidebar #btnToc').addClass('active');
+        tocShowHideToggle();
 
         readium.reader.handleViewportResize(bookmark);
     }
 
     var closeSidebar = function() {
         $('#app-container').removeClass('menu--show');
-        $('.modal-backdrop').fadeOut();
-        // Hide settings
+
+        // Hide Backdrops
+        $('#readium-toc-body').modal('hide');
         $('#settings-dialog').modal('hide');
         $('#bookmarks-dialog').modal('hide');
+
         // Hide and close the TOC
         $('#menu--sidebar .btn').removeClass('active');
         tocHideToggle();
@@ -649,11 +653,6 @@ BookmarkData){
     // Hide Sidebar Menu Items
     var hideSidebarMenuItem = function() {
         $('.sidebar__menu-item').fadeOut();
-    }
-
-    // Show TOC
-    var showToc = function() {
-        $('#menu--sidebar #readium-toc-body').fadeIn();
     }
 
     // Bookmark Site
@@ -712,19 +711,24 @@ BookmarkData){
     // Show Settings
     var showSettings = function() {
         tocHideToggle();
-        $('#menu--sidebar .btn').removeClass('active');
 
-        $('#settings-dialog').modal('show');
+        // Only show Settings modal
+        $('#readium-toc-body').modal('hide');
         $('#bookmarks-dialog').modal('hide');
+        $('#settings-dialog').modal('show');
+
+        $('#menu--sidebar .btn').removeClass('active');
         $('#menu--sidebar #btnSettings').addClass('active');
     }
     
     // Show Bookmarks Menu (on #btnBookmark click)
     var showHideBookmarksMenu = function() {
-      
         // This launches the loop which controls the header UI appearance.
       
         tocHideToggle();
+
+        // Only show Bookmark modal
+        $('#readium-toc-body').modal('hide');
         $('#settings-dialog').modal('hide');
         $('#bookmarks-dialog').modal('show');
         

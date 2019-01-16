@@ -10,8 +10,12 @@
     </div>
     <div>
         <!-- TOC -->
-        <div  class="sidebar__menu-item" id="readium-toc-body" aria-label="{{strings.toc}}" role="navigation">
-            <header id="readium-toc-header"></header>
+        <div tabindex="-1" class="modal fade sidebar__menu-item" id="readium-toc-body" role="navigation" aria-label="{{strings.toc}}">
+            <div class="modal-body">
+                <div class="tab-content">
+                    <header id="readium-toc-header"></header>
+                </div>
+            </div>
         </div>
         
         <!-- Bookmarks -->
@@ -27,7 +31,6 @@
                 <div class="modal-footer">
                   <button id="buttCreateBookmark"  type="button" class="btn btn-bookmark" data-dismiss="modal" title="{{strings.i18n_create_bookmark}}" aria-label="{{strings.i18n_create_bookmark}}">{{strings.i18n_create_bookmark}}</button>
                 </div>
-                
             </div>
             <!-- /.modal-content -->
         </div>
