@@ -30,6 +30,17 @@ define(['readium_shared_js/globals', 'jquery','jquery_hammer','hammerjs'], funct
         };
 
         this.initialize = function(){
+          
+            var swipingOptions = {
+              prevent_mouseevents: true,
+              inputClass: Hammer.SUPPORT_POINTER_EVENTS ? Hammer.PointerEventInput : Hammer.TouchInput,
+              recognizers: [
+                [Hammer.Pan, { enable: false }],
+                [Hammer.Swipe, {
+                  direction: Hammer.DIRECTION_HORIZONTAL
+                }]
+              ]
+            };
 
             reader.on(ReadiumSDK.Events.CONTENT_DOCUMENT_LOADED, function(iframe, spineItem) {
                 Globals.logEvent("CONTENT_DOCUMENT_LOADED", "ON", "gestures.js [ " + spineItem.href + " ]");
@@ -37,7 +48,16 @@ define(['readium_shared_js/globals', 'jquery','jquery_hammer','hammerjs'], funct
                 var iframe_document_selector = iframe[0].contentWindow.document.body
                 
                 Hammer.DOCUMENT = iframe[0].contentWindow.document.body;
-                var swipingOptions = {prevent_mouseevents: true};
+                var swipingOptions = {
+                  prevent_mouseevents: true,
+                  inputClass: Hammer.SUPPORT_POINTER_EVENTS ? Hammer.PointerEventInput : Hammer.TouchInput,
+                  recognizers: [
+                    [Hammer.Pan, { enable: false }],
+                    [Hammer.Swipe, {
+                      direction: Hammer.DIRECTION_HORIZONTAL
+                    }]
+                  ]
+                };
                 
                 $(iframe_document_selector).hammer(swipingOptions).on("swipeleft", function() {
                     onSwipeLeft();
@@ -46,16 +66,6 @@ define(['readium_shared_js/globals', 'jquery','jquery_hammer','hammerjs'], funct
                     onSwipeRight();
                 });
                 
-                // var hammertime = new Hammer.Manager(Hammer.DOCUMENT, {
-                //   touchAction: 'auto',
-                //   inputClass: Hammer.SUPPORT_POINTER_EVENTS ? Hammer.PointerEventInput : Hammer.TouchInput,
-                //   recognizers: [
-                //     [Hammer.Swipe, {
-                //       direction: Hammer.DIRECTION_HORIZONTAL
-                //     }]
-                //   ]
-                // });
-
                 //remove stupid ipad safari elastic scrolling
                 //TODO: test this with reader ScrollView and FixedView
                 $(Hammer.DOCUMENT).on(
@@ -83,10 +93,10 @@ define(['readium_shared_js/globals', 'jquery','jquery_hammer','hammerjs'], funct
             );
 
             //handlers on viewport
-            $(viewport).hammer().on("swipeleft", function() {
+            $(viewport).hammer(swipingOptions).on("swipeleft", function() {
                 onSwipeLeft();
             });
-            $(viewport).hammer().on("swiperight", function() {
+            $(viewport).hammer(swipingOptions).on("swiperight", function() {
                 onSwipeRight();
             });
         };
