@@ -247,7 +247,7 @@ html[data-theme=night-theme] .navbar .btn-group > .btn {
   }
   .menu--sidebar .nav .btn#home {
     display: block;
-    width: 80px;
+    width: 150px;
     margin: 0 5px 15px;
   }
 }
@@ -260,6 +260,7 @@ html[data-theme=night-theme] .navbar .btn-group > .btn {
 .menu--sidebar #settings-dialog,
 .menu--sidebar #bookmarks-dialog  {
   top: 66px;
+  overflow-y: scroll;
 }
 
 .menu--sidebar #readium-toc-body .modal-body,
