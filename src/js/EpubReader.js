@@ -258,6 +258,8 @@ BookmarkData){
         $('#menu--sidebar .btn').removeClass('active');
         $('#menu--sidebar #btnToc').addClass('active');
 
+        closeSidebarOnOutsideClick();
+
         // If the main app container currently has the `toc-visible` class
         // then the action we need to perform is "hide"
         var $appContainer = $('#app-container'),
@@ -655,6 +657,13 @@ BookmarkData){
         $('.sidebar__menu-item').fadeOut();
     }
 
+    // Close sidebar when user clicks on content area outside of sidebar
+    var closeSidebarOnOutsideClick = function() {
+        $('.modal-backdrop').on('click', function() {
+            closeSidebar();
+        });
+    }
+
     // Bookmark Site
     var bookmarkSite = function(){
         var bookmarkURL = window.location.href;
@@ -719,6 +728,8 @@ BookmarkData){
 
         $('#menu--sidebar .btn').removeClass('active');
         $('#menu--sidebar #btnSettings').addClass('active');
+
+        closeSidebarOnOutsideClick();
     }
     
     // Show Bookmarks Menu (on #btnBookmark click)
@@ -734,6 +745,8 @@ BookmarkData){
         
         $('#menu--sidebar .btn').removeClass('active');
         $('#menu--sidebar #btnBookmark').addClass('active');
+
+        closeSidebarOnOutsideClick();
     }
 
     var unhideUI = function(){
@@ -911,7 +924,7 @@ BookmarkData){
         $('.btn-bookmark').on('click', bookmarkSite);
         $('#btnSettings').on('click', showSettings);
         /* End of added for new styles */
-        
+
         $('#bookmark-list').on('click', 'li a.bookmark-link', function(event) {
             event.preventDefault();
             event.stopPropagation();
