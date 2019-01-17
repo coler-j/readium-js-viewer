@@ -190,18 +190,6 @@ BookmarkData){
                 $("#left-page-btn").on("click", prevPage);
                 $("#right-page-btn").on("click", nextPage);
 
-                // Swipe for prev / next page
-                var btnPrev = document.getElementById("left-page-btn");
-                var btnNext = document.getElementById("right-page-btn");
-
-                btnPrev.addEventListener('touchstart', function() {
-                    prevPage();
-                });
-
-                btnNext.addEventListener('touchstart', function() {
-                    nextPage();
-                });
-
             },
             openPageRequest
         );
@@ -717,7 +705,7 @@ BookmarkData){
               
         return true;
     };
-
+    
     // Show Settings
     var showSettings = function() {
         tocHideToggle();
@@ -731,6 +719,18 @@ BookmarkData){
         $('#menu--sidebar #btnSettings').addClass('active');
 
         closeSidebarOnOutsideClick();
+    }
+
+    // Download Epub
+    var epubFileDownload = function() {
+        closeSidebar();
+        window.location.href = moduleConfig.downloadURL + "?file_type=epub";
+    }
+    
+    // Download Mobi
+    var mobiFileDownload = function() {
+        closeSidebar();
+        window.location.href = moduleConfig.downloadURL + "?file_type=mobi";
     }
     
     // Show Bookmarks Menu (on #btnBookmark click)
@@ -924,6 +924,8 @@ BookmarkData){
         $('#btnBookmark').on('click', showHideBookmarksMenu);
         $('.btn-bookmark').on('click', bookmarkSite);
         $('#btnSettings').on('click', showSettings);
+        $('#mobiDownloadBtn').on('click', mobiFileDownload);
+        $('#epubDownloadBtn').on('click', epubFileDownload);
         /* End of added for new styles */
 
         $('#bookmark-list').on('click', 'li a.bookmark-link', function(event) {
@@ -1021,7 +1023,8 @@ BookmarkData){
         $('.modal-backdrop').remove();
         var $appContainer = $('#app-container');
         $appContainer.empty();
-        $appContainer.append(ReaderBody({strings: Strings, dialogs: Dialogs, keyboard: Keyboard, readerHomeTitle: moduleConfig.readerHomeTitle}));
+        $appContainer.append(ReaderBody({strings: Strings, dialogs: Dialogs, 
+          keyboard: Keyboard, readerHomeTitle: moduleConfig.readerHomeTitle}));
         $('nav').empty();
         $('nav').attr("aria-label", Strings.i18n_toolbar);
         $('nav').append(ReaderNavbar({strings: Strings, dialogs: Dialogs, keyboard: Keyboard}));
@@ -1130,7 +1133,8 @@ BookmarkData){
                 annotationCSSUrl: moduleConfig.annotationCSSUrl,
                 mathJaxUrl : moduleConfig.mathJaxUrl,
                 fonts : moduleConfig.fonts,
-                scrollModeOnMobile: moduleConfig.scrollModeOnMobile
+                scrollModeOnMobile: moduleConfig.scrollModeOnMobile,
+                swipeChangesChapter: moduleConfig.swipeChangesChapter
             };
 
             var readiumOptions = {
