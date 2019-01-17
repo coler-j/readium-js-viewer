@@ -48,16 +48,6 @@ define(['readium_shared_js/globals', 'jquery','jquery_hammer','hammerjs'], funct
                 var iframe_document_selector = iframe[0].contentWindow.document.body
                 
                 Hammer.DOCUMENT = iframe[0].contentWindow.document.body;
-                var swipingOptions = {
-                  prevent_mouseevents: true,
-                  inputClass: Hammer.SUPPORT_POINTER_EVENTS ? Hammer.PointerEventInput : Hammer.TouchInput,
-                  recognizers: [
-                    [Hammer.Pan, { enable: false }],
-                    [Hammer.Swipe, {
-                      direction: Hammer.DIRECTION_HORIZONTAL
-                    }]
-                  ]
-                };
                 
                 $(iframe_document_selector).hammer(swipingOptions).on("swipeleft", function() {
                     onSwipeLeft();

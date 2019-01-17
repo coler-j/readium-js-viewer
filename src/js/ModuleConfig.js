@@ -26,12 +26,13 @@ define(['module'], function(module) {
             'fonts': config.fonts || [],
 
             'useSimpleLoader': config.useSimpleLoader || false,
-            'featureFlags': config.featureFlags || {'downloads': false, 'annotations': false, 'tts': false},
+            'featureFlags': config.featureFlags || {'downloads': true, 'annotations': false, 'tts': false},
             'readerPageTitle': config.readerPageTitle || 'Bright Wing Media Booksite',
             'readerHomeTitle': config.readerHomeTitle || 'Home',
             'scrollModeOnMobile': config.scrollModeOnMobile || false,
-            'swipeChangesChapter': config.swipeChangesChapter || false,
-            'bookmarkSrcUrl': config.bookmarkSrcUrl || 'http://brightwing.dev-booksites.ca:8000/alex-colville-art-canada-institute/bookmarks/',
+            'swipeChangesChapter': config.swipeChangesChapter || true,
+            'bookmarkSrcUrl': config.bookmarkSrcUrl || '',
+            'downloadURL': config.downloadURL || '',
             'csrfToken': config.csrfToken || ""
         };
 });
