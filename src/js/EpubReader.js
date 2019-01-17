@@ -696,7 +696,7 @@ BookmarkData){
               
         return true;
     };
-
+    
     // Show Settings
     var showSettings = function() {
         tocHideToggle();
@@ -705,6 +705,18 @@ BookmarkData){
         $('#settings-dialog').modal('show');
         $('#bookmarks-dialog').modal('hide');
         $('#menu--sidebar #btnSettings').addClass('active');
+    }
+
+    // Download Epub
+    var epubFileDownload = function() {
+        closeSidebar();
+        window.location.href = moduleConfig.downloadURL + "?file_type=epub";
+    }
+    
+    // Download Mobi
+    var mobiFileDownload = function() {
+        closeSidebar();
+        window.location.href = moduleConfig.downloadURL + "?file_type=mobi";
     }
     
     // Show Bookmarks Menu (on #btnBookmark click)
@@ -894,6 +906,8 @@ BookmarkData){
         $('#btnBookmark').on('click', showHideBookmarksMenu);
         $('.btn-bookmark').on('click', bookmarkSite);
         $('#btnSettings').on('click', showSettings);
+        $('#mobiDownloadBtn').on('click', mobiFileDownload);
+        $('#epubDownloadBtn').on('click', epubFileDownload);
         /* End of added for new styles */
         
         $('#bookmark-list').on('click', 'li a.bookmark-link', function(event) {
@@ -991,7 +1005,8 @@ BookmarkData){
         $('.modal-backdrop').remove();
         var $appContainer = $('#app-container');
         $appContainer.empty();
-        $appContainer.append(ReaderBody({strings: Strings, dialogs: Dialogs, keyboard: Keyboard, readerHomeTitle: moduleConfig.readerHomeTitle}));
+        $appContainer.append(ReaderBody({strings: Strings, dialogs: Dialogs, 
+          keyboard: Keyboard, readerHomeTitle: moduleConfig.readerHomeTitle}));
         $('nav').empty();
         $('nav').attr("aria-label", Strings.i18n_toolbar);
         $('nav').append(ReaderNavbar({strings: Strings, dialogs: Dialogs, keyboard: Keyboard}));
