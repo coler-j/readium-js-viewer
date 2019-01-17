@@ -48,7 +48,6 @@ html#simpleViewer .icon-library{
 #readium-toc-body {
   overflow: scroll;
   font-size: 14px;
-  padding: 25px 45px;
 }
 
 #readium-toc-body #readium-toc-header {
@@ -68,25 +67,25 @@ html#simpleViewer .icon-library{
   list-style: disc;
 }
 
-#readium-toc-body > ol {
+#readium-toc-body ol ol {
+  padding: 0 0 0 20px;
+}
+
+#readium-toc-body .modal-body > ol {
   list-style: none;
   margin: 0 0 65px;
   padding-left: 0;
 }
 
-#readium-toc-body ol ol {
-  padding: 0 0 0 20px;
-}
-
-#readium-toc-body > ol > li {
+#readium-toc-body .modal-body > ol > li {
   padding: 25px 0;
 }
 
-#readium-toc-body > ol > li:not(:last-child) {
+#readium-toc-body .modal-body > ol > li:not(:last-child) {
   border-bottom: 1px solid #bcbec0;
 }
 
-#readium-toc-body > ol > li li {
+#readium-toc-body .modal-body > ol > li li {
   margin: 5px 0;
 }
 
@@ -248,7 +247,7 @@ html[data-theme=night-theme] .navbar .btn-group > .btn {
   }
   .menu--sidebar .nav .btn#home {
     display: block;
-    width: 80px;
+    width: 150px;
     margin: 0 5px 15px;
   }
 }
@@ -257,14 +256,25 @@ html[data-theme=night-theme] .navbar .btn-group > .btn {
   transform: translate(0, 0);
 }
 
-.menu--sidebar #settings-dialog, .menu--sidebar #bookmarks-dialog  {
+.menu--sidebar #readium-toc-body,
+.menu--sidebar #settings-dialog,
+.menu--sidebar #bookmarks-dialog  {
   top: 66px;
-  padding: 10px 30px 65px !important;
+  overflow-y: scroll;
+}
+
+.menu--sidebar #readium-toc-body .modal-body,
+.menu--sidebar #settings-dialog .modal-body,
+.menu--sidebar #bookmarks-dialog .modal-body {
+  min-height: 100%;
+  padding: 25px 45px 65px;
 }
 
 @media only screen and (max-width: 405px) {
-  .menu--sidebar #settings-dialog, .menu--sidebar #bookmarks-dialog {
-    padding: 45px 30px 65px !important;
+  .menu--sidebar #readium-toc-body,
+  .menu--sidebar #settings-dialog,
+  .menu--sidebar #bookmarks-dialog {
+    top: 102px;
   }
 }
 
@@ -342,6 +352,15 @@ html[data-theme=night-theme] .navbar .btn-group > .btn {
 .menu--sidebar #settings-dialog .icon-plus-minus {
   font-size: 45px;
   line-height: 1;
+}
+
+.menu--sidebar #settings-dialog .icon-plus-minus:hover {
+  cursor: pointer;
+}
+
+.menu--sidebar #settings-dialog .icon-plus-minus.icon--disabled {
+  opacity: .35;
+  pointer-events: none;
 }
 
 .menu--sidebar #settings-dialog #font-size-input {
@@ -544,17 +563,6 @@ html[data-theme=night-theme] .page-switch-overlay-icon > span {
 #reflowable-book-frame {
   top: 0;
   bottom: 0;
-}
-
-@media only screen and (min-width: 768px) {
-  #app-container.menu--show #reading-area {
-    width: 100%;
-  }
-
-  #app-container.menu--show #reading-area #reflowable-book-frame {
-    left: 20px !important;
-    right: 20px !important;
-  }
 }
 
 /* show outline on reading-area when iframe gets focus */

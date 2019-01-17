@@ -231,17 +231,22 @@ BookmarkData){
     }
 
     var tocShowHideToggle = function(){
-
         // This launches the loop which controls the header UI appearance.
         unhideUI();
 
-        // Hide settings Menu
+        // Fade in Toc Body
+        $('#readium-toc-body').addClass('in');
+
+        // Only show Toc modal
         $('#settings-dialog').modal('hide');
         $('#bookmarks-dialog').modal('hide');
+        $('#readium-toc-body').modal('show');
 
         // Add active class to Toc nav item
         $('#menu--sidebar .btn').removeClass('active');
         $('#menu--sidebar #btnToc').addClass('active');
+
+        closeSidebarOnOutsideClick();
 
         // If the main app container currently has the `toc-visible` class
         // then the action we need to perform is "hide"
@@ -336,7 +341,7 @@ BookmarkData){
                 // Also note that "script" elements are discarded automatically by jQuery.
                 $('iframe', $toc).remove();
 
-                $('#readium-toc-body').append($toc);
+                $('#readium-toc-body .modal-body').append($toc);
 
                 if (isRTL)
                 {
@@ -495,8 +500,10 @@ BookmarkData){
             }
         });
 
-        $('#readium-toc-body').on('click', 'a', function(e)
-        {
+        $('#readium-toc-body').on('click', 'a', function(e) {
+            // Close sidebar when user clicks on TOC link
+            closeSidebar();
+
             try {
                 spin(true);
 
@@ -511,10 +518,9 @@ BookmarkData){
                     $('.toc-visible').removeClass('toc-visible');
                     unhideUI();
                 }
+
             } catch (err) {
-
                 console.error(err);
-
             } finally {
                 //e.preventDefault();
                 //e.stopPropagation();
@@ -617,18 +623,19 @@ BookmarkData){
         $('#app-container').addClass('menu--show');
 
         // Display TOC by default
-        $('#menu--sidebar #readium-toc-body').fadeIn();
-        $('#menu--sidebar #btnToc').addClass('active');
+        tocShowHideToggle();
 
         readium.reader.handleViewportResize(bookmark);
     }
 
     var closeSidebar = function() {
         $('#app-container').removeClass('menu--show');
-        $('.modal-backdrop').fadeOut();
-        // Hide settings
+
+        // Hide Backdrops
+        $('#readium-toc-body').modal('hide');
         $('#settings-dialog').modal('hide');
         $('#bookmarks-dialog').modal('hide');
+
         // Hide and close the TOC
         $('#menu--sidebar .btn').removeClass('active');
         tocHideToggle();
@@ -639,9 +646,11 @@ BookmarkData){
         $('.sidebar__menu-item').fadeOut();
     }
 
-    // Show TOC
-    var showToc = function() {
-        $('#menu--sidebar #readium-toc-body').fadeIn();
+    // Close sidebar when user clicks on content area outside of sidebar
+    var closeSidebarOnOutsideClick = function() {
+        $('.modal-backdrop').on('click', function() {
+            closeSidebar();
+        });
     }
 
     // Bookmark Site
@@ -700,11 +709,16 @@ BookmarkData){
     // Show Settings
     var showSettings = function() {
         tocHideToggle();
-        $('#menu--sidebar .btn').removeClass('active');
 
-        $('#settings-dialog').modal('show');
+        // Only show Settings modal
+        $('#readium-toc-body').modal('hide');
         $('#bookmarks-dialog').modal('hide');
+        $('#settings-dialog').modal('show');
+
+        $('#menu--sidebar .btn').removeClass('active');
         $('#menu--sidebar #btnSettings').addClass('active');
+
+        closeSidebarOnOutsideClick();
     }
 
     // Download Epub
@@ -721,15 +735,19 @@ BookmarkData){
     
     // Show Bookmarks Menu (on #btnBookmark click)
     var showHideBookmarksMenu = function() {
-      
         // This launches the loop which controls the header UI appearance.
       
         tocHideToggle();
+
+        // Only show Bookmark modal
+        $('#readium-toc-body').modal('hide');
         $('#settings-dialog').modal('hide');
         $('#bookmarks-dialog').modal('show');
         
         $('#menu--sidebar .btn').removeClass('active');
         $('#menu--sidebar #btnBookmark').addClass('active');
+
+        closeSidebarOnOutsideClick();
     }
 
     var unhideUI = function(){
@@ -909,7 +927,7 @@ BookmarkData){
         $('#mobiDownloadBtn').on('click', mobiFileDownload);
         $('#epubDownloadBtn').on('click', epubFileDownload);
         /* End of added for new styles */
-        
+
         $('#bookmark-list').on('click', 'li a.bookmark-link', function(event) {
             event.preventDefault();
             event.stopPropagation();
