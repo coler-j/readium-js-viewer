@@ -26,7 +26,7 @@ define(['module'], function(module) {
             'fonts': config.fonts || [],
 
             'useSimpleLoader': config.useSimpleLoader || false,
-            'featureFlags': config.featureFlags || {'downloads': true, 'annotations': false, 'tts': false},
+            'featureFlags': config.featureFlags || {'downloads': false, 'annotations': false, 'tts': false},
             'readerPageTitle': config.readerPageTitle || 'Bright Wing Media Booksite',
             'readerHomeTitle': config.readerHomeTitle || 'Home',
             'scrollModeOnMobile': config.scrollModeOnMobile || false,
