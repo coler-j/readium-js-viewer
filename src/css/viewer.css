@@ -853,7 +853,7 @@ ul.nav-tabs li:not(.active) button:hover
     border-bottom-right-radius: 0 !important;
 }
 
-@media (max-width: 768px) {
+@media (max-width: 767px) {
   .navbar .btn-group > .btn.icon-full-screen {
     display : none;
   }
@@ -861,8 +861,15 @@ ul.nav-tabs li:not(.active) button:hover
     margin: 0 0 0 25px;
   }
   #epub-reader-frame {
-    border-left: 30px solid transparent;
-    border-right: 30px solid transparent;
+    border: 0;
+  }
+  #reflowable-book-frame {
+    left: 0 !important;
+    right: 0 !important;
+  }
+  #epub-reader-frame iframe {
+    width: calc(100% - 60px) !important;
+    max-width: 530px;
   }
   .page-switch-overlay-icon {
     font-size: 30px;
