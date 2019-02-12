@@ -1,8 +1,5 @@
 body {
   font-family: 'Roboto', sans-serif;
-  /* Fix for mobile to hide
-  address bar on scroll */
-  height: 101%;
 }
 
 #epub-reader-frame {
@@ -977,5 +974,61 @@ ul.nav-tabs li:not(.active) button:hover
   100% {
     transform: perspective(200px) rotateY(-180deg);
     background: #fff;
+  }
+}
+
+/* Fix scroll and fullscreen on mobile */
+@media only screen and (max-width: 500px) {
+  html,
+  body,
+  #app-container {
+    height: auto !important;
+  }
+
+  html {
+    overflow: auto;
+    min-height: 100%;
+  }
+
+  body {
+    position: relative;
+  }
+
+  #readium-toc-body {
+    min-height: 100%;
+  }
+
+  #reading-area {
+    position: relative;
+    bottom: auto;
+  }
+
+  .spinner--book {
+    position: fixed;
+    left: calc(50% - 55px);
+  }
+
+  #epub-reader-container {
+    position: relative;
+    bottom: auto;
+  }
+
+  #epub-reader-frame {
+    height: auto;
+  }
+
+  #reflowable-book-frame {
+    position: relative !important;
+    bottom: auto;
+  }
+
+  #scrolled-content-frame {
+    bottom: auto !important;
+    height: auto !important;
+    overflow: hidden !important;
+  }
+
+ iframe {
+    width: calc(100% - 60px) !important;
   }
 }
