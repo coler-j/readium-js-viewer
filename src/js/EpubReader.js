@@ -1093,7 +1093,7 @@ BookmarkData){
           },
           error: function (xhr, status, errorThrown) {
               // Do nothing.
-              console.error(errorThrown)
+              console.debug(errorThrown)
           }
       });
         
